@@ -48,28 +48,6 @@ Core workflow:
 3. `agent-browser click @e1` / `fill @e2 "text"` - Interact using refs
 4. Re-snapshot after page changes
 
-### Update agent-browser skill
-
-When user asks to "update agent-browser skill":
-
-1. Check if `.claude/skills/agent-browser` exists in current repo
-2. If exists: update the repo's local version
-3. If not exists: update the global version at `~/.claude/skills/agent-browser`
-
-Run:
-```bash
-mkdir -p .claude/skills/agent-browser
-curl -o .claude/skills/agent-browser/SKILL.md \
-  https://raw.githubusercontent.com/vercel-labs/agent-browser/main/skills/agent-browser/SKILL.md
-```
-
-Or if updating global:
-```bash
-mkdir -p ~/.claude/skills/agent-browser
-curl -o ~/.claude/skills/agent-browser/SKILL.md \
-  https://raw.githubusercontent.com/vercel-labs/agent-browser/main/skills/agent-browser/SKILL.md
-```
-
 ## Execution Philosophy: Strategic Planning & Self-Review
 
 ### Always follow this workflow:
