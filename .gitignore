@@ -1,0 +1,27 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor directories and files
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-workspace
+
+# Sensitive files
+.env
+secrets/
+*.pem
+*.key
+
+# Local overrides
+*.local
+*.local.*
