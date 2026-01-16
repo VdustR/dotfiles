@@ -14,6 +14,10 @@
 - When cloning repositories without a specified path, use: `~/repo/<github:user|org>/<github:repo>`
   - Example: `git clone https://github.com/vercel/next.js` → `~/repo/vercel/next.js`
 
+## CLAUDE.md Maintenance
+
+- When requested to modify the global CLAUDE.md (`~/.claude/CLAUDE.md`), always ask whether to also update `~/repo/VdustR/dotfiles/.claude/CLAUDE.md` and create a commit + PR
+
 ## Task Boundary Discipline
 
 - Only execute explicitly requested actions—do not perform follow-up operations unless asked
