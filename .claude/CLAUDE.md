@@ -33,8 +33,8 @@
 
 ## Skill Usage
 
-- When receiving instructions, always check if there is a suitable skill available before proceeding
-- Review the available skills list and invoke the appropriate skill if one matches the task
+- Before proceeding with instructions, always check for a suitable skill.
+- If a matching skill is found, invoke it.
 
 ## Clarification
 
