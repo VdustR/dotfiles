@@ -13,6 +13,10 @@
 
 - When cloning repositories without a specified path, use: `~/repo/<github:user|org>/<github:repo>`
   - Example: `git clone https://github.com/vercel/next.js` → `~/repo/vercel/next.js`
+- When executing PR creation commands:
+  - Verify current branch is not `main` or `master`; if so, create a new branch first
+  - After PR is created, switch back to `main` branch and delete the local feature branch
+  - If changes are needed during review, use `gh pr checkout <number>` to restore the branch
 
 ## CLAUDE.md Maintenance
 
@@ -50,17 +54,6 @@
   - Confirm deprecation status
   - Use Context7 or web search to get latest documentation
 - Never assume - always validate with current sources
-
-## Browser Automation
-
-Use `agent-browser` for web automation. Run `agent-browser --help` for all commands.
-
-Core workflow:
-
-1. `agent-browser open <url>` - Navigate to page
-2. `agent-browser snapshot -i` - Get interactive elements with refs (@e1, @e2)
-3. `agent-browser click @e1` / `fill @e2 "text"` - Interact using refs
-4. Re-snapshot after page changes
 
 ## Execution Philosophy: Strategic Planning & Self-Review
 
