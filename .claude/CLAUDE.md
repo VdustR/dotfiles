@@ -31,6 +31,16 @@
   - Any read-only or easily reversible operation
 - Use judgment: assess severity and reversibility before acting autonomously
 
+## Skill Usage
+
+- Before proceeding with instructions, always check for a suitable skill.
+- If a matching skill is found, invoke it.
+
+## Clarification
+
+- If a request is unclear, ambiguous, or too vague, ask for clarification before proceeding.
+- To get the needed information, ask the user specific, targeted questions.
+
 ## Verification & Research
 
 - Always verify information before providing solutions
