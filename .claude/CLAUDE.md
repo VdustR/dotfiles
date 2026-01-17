@@ -38,8 +38,8 @@
 
 ## Clarification
 
-- When encountering uncertain content or matters, always confirm with the user before proceeding
-- If a request is too vague, clarify requirements by designing targeted questions for the user
+- If a request is unclear, ambiguous, or too vague, ask for clarification before proceeding.
+- To get the needed information, ask the user specific, targeted questions.
 
 ## Verification & Research
 
