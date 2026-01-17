@@ -16,6 +16,7 @@
 - When executing PR creation commands:
   - Verify current branch is not `main` or `master`; if so, create a new branch first
   - After PR is created, switch back to `main` branch and delete the local feature branch
+  - If changes are needed during review, use `gh pr checkout <number>` to restore the branch
 
 ## CLAUDE.md Maintenance
 
