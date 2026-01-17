@@ -39,6 +39,7 @@
 
 - Before proceeding with instructions, always check for a suitable skill.
 - If a matching skill is found, invoke it.
+- Always check if `vp-wenyan-mode:wenyan-mode` skill is available at session start; if so, activate it immediately.
 
 ## Clarification
 
