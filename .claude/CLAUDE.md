@@ -14,8 +14,9 @@
 - When cloning repositories without a specified path, use: `~/repo/<github:user|org>/<github:repo>`
   - Example: `git clone https://github.com/vercel/next.js` → `~/repo/vercel/next.js`
 - After cloning a repository, always ask whether to open the project with VSCode
-  - If `*.code-workspace` file exists in the project root, prefer opening the workspace (`code <name>.code-workspace`)
-  - Otherwise, open the folder (`code <path>`)
+  - If a single `.code-workspace` file exists in the project root, open it (`code <name>.code-workspace`).
+  - If multiple `*.code-workspace` files exist, ask which one to open.
+  - If no `*.code-workspace` file exists, open the folder (`code <path>`).
 - When executing PR creation commands:
   - Verify current branch is not `main` or `master`; if so, create a new branch first
   - After PR is created, switch back to `main` branch and delete the local feature branch
