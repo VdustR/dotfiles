@@ -19,7 +19,7 @@
   - If no `*.code-workspace` file exists, open the folder (`code <path>`).
 - When executing PR creation commands:
   - Verify current branch is not `main` or `master`; if so, create a new branch first
-  - After PR is created, checkout the current commit hash (to leave the branch) and delete the local feature branch
+  - After PR is created, enter a detached HEAD state (e.g., `git checkout --detach HEAD`) and then delete the local feature branch
   - If changes are needed during review, use `gh pr checkout <number>` to restore the branch
 
 ## CLAUDE.md Maintenance
