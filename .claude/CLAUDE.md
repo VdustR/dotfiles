@@ -53,10 +53,7 @@
 ## Tool Installation
 
 - When a required tool is not installed, DO NOT immediately fallback to other tools or methods
-- First, ask the user whether to:
-  - Install the missing tool
-  - Use an alternative tool/method
-- Provide comparison information and recommendations:
+- First, ask the user whether to install the missing tool or use an alternative. To help them decide, provide comparison information and a recommendation, including:
   - Pros and cons of each option
   - Installation complexity and dependencies
   - Functionality differences between alternatives
