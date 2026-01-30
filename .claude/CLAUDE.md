@@ -49,6 +49,16 @@
 - If a request is unclear, ambiguous, or too vague, ask for clarification before proceeding.
 - To get the needed information, ask the user specific, targeted questions.
 
+## Tool Installation
+
+- When a required tool is not installed, DO NOT immediately fallback to other tools or methods
+- First, ask the user whether to install the missing tool or use an alternative. To help them decide, provide comparison information and a recommendation, including:
+  - Pros and cons of each option
+  - Installation complexity and dependencies
+  - Functionality differences between alternatives
+  - Use Context7 or web search if needed for up-to-date information
+- Only proceed after user confirms the chosen approach
+
 ## Verification & Research
 
 - Always verify information before providing solutions
