@@ -25,6 +25,8 @@
 ## CLAUDE.md Maintenance
 
 - When requested to modify the global CLAUDE.md (`~/.claude/CLAUDE.md`), always ask whether to also update `~/repo/VdustR/dotfiles/.claude/CLAUDE.md` and create a commit + PR
+- When corrected by the user, proactively suggest: "Would you like me to update CLAUDE.md so I don't make this mistake again?"
+- Keep CLAUDE.md concise: for each line, ask "Would removing this cause mistakes?" If not, it should be cut
 
 ## Task Boundary Discipline
 
@@ -38,6 +40,12 @@
   - Searching, reading files, exploring codebase (non-destructive research)
   - Any read-only or easily reversible operation
 - Use judgment: assess severity and reversibility before acting autonomously
+
+## Web Content Fetching
+
+- When WebFetch fails due to JavaScript-required pages (e.g., X/Twitter, dynamic SPAs), automatically use agent-browser skill to access the content
+- Signs of JavaScript-required failure: "JavaScript is not available", empty content, login wall without actual content
+- For X/Twitter threads, prefer twitter-thread.com/t/<tweet_id> as an alternative before resorting to browser automation
 
 ## Skill Usage
 
@@ -91,15 +99,21 @@
 4. **Execute**
    - Implement according to plan
 
-5. **Self-Review**
+5. **Self-Review & Verification**
    - Critically evaluate the result
    - Check against Dos & Don'ts
    - Assess completion quality
+   - Use available verification methods (tests, linting, type checking) to validate work
+   - Verification significantly improves output quality—always seek ways to verify
 
 6. **Iterate if Needed**
    - If self-review satisfaction < 87%, repeat execution with improvements
    - Maximum 3 iterations
    - If plan is very clear and straightforward, proceed without user confirmation
+
+7. **Re-plan When Stuck**
+   - When implementation goes sideways, suggest switching to plan mode and re-planning
+   - Don't keep pushing on a failing approach—step back and reconsider
 
 ### When to skip user confirmation:
 
