@@ -77,6 +77,13 @@
   - Use Context7 or web search to get latest documentation
 - Never assume - always validate with current sources
 
+## Bug Fixing Strategy
+
+- When a bug is reported, don't start by trying to fix it immediately
+- First, write a test that reproduces the bug
+- Then fix the bug and prove the fix with a passing test
+- When applicable, use subagents to try different fix approaches in parallel
+
 ## Execution Philosophy: Strategic Planning & Self-Review
 
 ### Always follow this workflow:
