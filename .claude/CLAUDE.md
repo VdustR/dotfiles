@@ -7,7 +7,6 @@
   - All code (variables, functions, comments)
   - Documentation (README, API docs, technical specs)
   - Commit messages
-  - Code comments when necessary
 
 ## Git Operations
 
@@ -99,9 +98,7 @@
    - Consider edge cases and constraints
 
 3. **Summarize**
-   - Brief summary of the approach
-   - Expected outcomes
-   - Key considerations
+   - Brief summary of approach and expected outcome
 
 4. **Execute**
    - Implement according to plan
@@ -114,9 +111,8 @@
    - Verification significantly improves output quality—always seek ways to verify
 
 6. **Iterate if Needed**
-   - If self-review satisfaction < 87%, repeat execution with improvements
+   - If result has issues or doesn't fully meet requirements, repeat with improvements
    - Maximum 3 iterations
-   - If plan is very clear and straightforward, proceed without user confirmation
 
 7. **Re-plan When Stuck**
    - When implementation goes sideways, suggest switching to plan mode and re-planning
