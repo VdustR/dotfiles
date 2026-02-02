@@ -1,27 +1,71 @@
-# OS generated files
+# ╔═══════════════════════════════════════════════════════════════════════╗
+# ║                    github/gitignore templates                         ║
+# ║           https://github.com/github/gitignore                         ║
+# ╠═══════════════════════════════════════════════════════════════════════╣
+# ║ START - Do not edit this section manually                             ║
+# ╚═══════════════════════════════════════════════════════════════════════╝
+
+# --------------------------------------------
+# Source: Global/macOS.gitignore
+# --------------------------------------------
+
+# General
 .DS_Store
-.DS_Store?
+__MACOSX/
+.AppleDouble
+.LSOverride
+Icon
+
+# Thumbnails
 ._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
 .Spotlight-V100
+.TemporaryItems
 .Trashes
-Thumbs.db
-ehthumbs.db
-Desktop.ini
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
 
-# Editor directories and files
-*.swp
-*.swo
-*~
-.idea/
-.vscode/
-*.sublime-workspace
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
-# Sensitive files
+# --------------------------------------------
+# Source: Global/VisualStudioCode.gitignore
+# --------------------------------------------
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+!*.code-workspace
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+# ╔═══════════════════════════════════════════════════════════════════════╗
+# ║ END - github/gitignore templates                                      ║
+# ╚═══════════════════════════════════════════════════════════════════════╝
+
+# ============================================
+# Local files (project-specific ignores)
+# ============================================
+
 .env
 secrets/
 *.pem
 *.key
 
-# Local overrides
+# ============================================
+# Overrides (highest priority - last wins)
+# ============================================
+
 *.local
 *.local.*
