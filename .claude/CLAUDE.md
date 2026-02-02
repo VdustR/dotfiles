@@ -81,7 +81,7 @@
 
 - When a bug is reported, don't start by trying to fix it immediately
 - First, write a test that reproduces the bug
-- Then fix the bug and prove the fix with a passing test
+- Then fix the bug and prove the fix with a passing test, ensuring all existing tests also pass
 - When applicable, use subagents to try different fix approaches in parallel
 
 ## Execution Philosophy: Strategic Planning & Self-Review
