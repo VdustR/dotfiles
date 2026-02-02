@@ -43,9 +43,9 @@
 
 ## Web Content Fetching
 
-- When WebFetch fails due to JavaScript-required pages (e.g., X/Twitter, dynamic SPAs), automatically use agent-browser skill to access the content
-- Signs of JavaScript-required failure: "JavaScript is not available", empty content, login wall without actual content
-- For X/Twitter threads, prefer twitter-thread.com/t/<tweet_id> as an alternative before resorting to browser automation
+- For X/Twitter threads, prefer fetching content via twitter-thread.com/t/<tweet_id> before other methods
+- For other websites, use WebFetch. If it fails on a JavaScript-required page, use the agent-browser skill
+- Signs of a JavaScript-required page include: "JavaScript is not available", empty content, or a login wall without content
 
 ## Skill Usage
 
