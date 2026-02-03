@@ -1,6 +1,6 @@
 #!/bin/bash
-# Claude Code Status Line - Starship Style
-# Modules:  Model │  Cost │  Context │  Changes │  Duration │  Git │  Language
+# Claude Code Status Line - Starship Style (Emoji Edition)
+# Modules: 🧠 Model │ 💰 Cost │ 📊 Context │ Changes │ ⏱️ Duration │ 🌿 Git │ 📦🐍🦀🐹🦕 Language
 
 input=$(cat)
 
@@ -109,7 +109,7 @@ if [ -n "$CURRENT_DIR" ] && git -C "$CURRENT_DIR" rev-parse --git-dir > /dev/nul
         fi
 
         [ -n "$GIT_STATUS" ] && GIT_STATUS=" ${GIT_STATUS}"
-        GIT_MODULE=" ${DIM}│${RESET} ${MAGENTA} ${BRANCH}${GIT_STATUS}${RESET}"
+        GIT_MODULE=" ${DIM}│${RESET} ${MAGENTA}🌿 ${BRANCH}${GIT_STATUS}${RESET}"
     fi
 fi
 
@@ -121,19 +121,19 @@ if [ -n "$CURRENT_DIR" ]; then
     # Node.js
     if [ -f "$CURRENT_DIR/package.json" ]; then
         NODE_VER=$(node -v 2>/dev/null | sed 's/v//')
-        [ -n "$NODE_VER" ] && LANG_MODULE=" ${DIM}│${RESET} ${BLUE} ${NODE_VER}${RESET}"
+        [ -n "$NODE_VER" ] && LANG_MODULE=" ${DIM}│${RESET} ${BLUE}📦 ${NODE_VER}${RESET}"
     # Python
     elif [ -f "$CURRENT_DIR/pyproject.toml" ] || [ -f "$CURRENT_DIR/requirements.txt" ] || [ -f "$CURRENT_DIR/setup.py" ]; then
         PY_VER=$(python3 --version 2>/dev/null | sed 's/Python //')
-        [ -n "$PY_VER" ] && LANG_MODULE=" ${DIM}│${RESET} ${PYTHON_YELLOW} ${PY_VER}${RESET}"
+        [ -n "$PY_VER" ] && LANG_MODULE=" ${DIM}│${RESET} ${PYTHON_YELLOW}🐍 ${PY_VER}${RESET}"
     # Rust
     elif [ -f "$CURRENT_DIR/Cargo.toml" ]; then
         RUST_VER=$(rustc --version 2>/dev/null | awk '{print $2}')
-        [ -n "$RUST_VER" ] && LANG_MODULE=" ${DIM}│${RESET} ${RUST_ORANGE} ${RUST_VER}${RESET}"
+        [ -n "$RUST_VER" ] && LANG_MODULE=" ${DIM}│${RESET} ${RUST_ORANGE}🦀 ${RUST_VER}${RESET}"
     # Go
     elif [ -f "$CURRENT_DIR/go.mod" ]; then
         GO_VER=$(go version 2>/dev/null | awk '{print $3}' | sed 's/go//')
-        [ -n "$GO_VER" ] && LANG_MODULE=" ${DIM}│${RESET} ${GO_CYAN} ${GO_VER}${RESET}"
+        [ -n "$GO_VER" ] && LANG_MODULE=" ${DIM}│${RESET} ${GO_CYAN}🐹 ${GO_VER}${RESET}"
     # Deno
     elif [ -f "$CURRENT_DIR/deno.json" ] || [ -f "$CURRENT_DIR/deno.jsonc" ]; then
         DENO_VER=$(deno --version 2>/dev/null | head -1 | awk '{print $2}')
@@ -144,7 +144,7 @@ fi
 # ═══════════════════════════════════════════════════════════════
 # Output
 # ═══════════════════════════════════════════════════════════════
-printf "%s %s%s %s│%s %s \$%.4f%s %s│%s %s %.0f%%%s%s %s│%s %s %s%s%s%s" \
+printf "%s🧠 %s%s %s│%s %s💰 \$%.4f%s %s│%s %s📊 %.0f%%%s%s %s│%s %s⏱️ %s%s%s%s" \
     "$ORANGE" "$MODEL" "$RESET" \
     "$DIM" "$RESET" \
     "$GREEN" "$COST" "$RESET" \
