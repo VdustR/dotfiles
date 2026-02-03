@@ -39,7 +39,8 @@ RESET=$'\033[0m'
 # Helper: Format duration (ms → human readable)
 # ═══════════════════════════════════════════════════════════════
 format_duration() {
-    local ms=$1 sec=$((ms / 1000))
+    local ms=$1
+    local sec=$((ms / 1000))
     if [ $sec -lt 60 ]; then
         echo "${sec}s"
     elif [ $sec -lt 3600 ]; then
