@@ -41,7 +41,7 @@ When updating documentation or configuration files (CLAUDE.md, README.md, docs/*
 - **Strategy**: Always recommend full reorganization
 - **Sync**: When modifying global, ask to update `~/repo/VdustR/dotfiles/.claude/CLAUDE.md` + create PR
 - **Conciseness**: For each line, ask "Would removing this cause mistakes?" If not, cut it
-- **Proactive updates**: When corrected, suggest updating CLAUDE.md to prevent recurrence
+- **Proactive updates**: When corrected, suggest updating the appropriate CLAUDE.md (global or repo, per **Scope**) to prevent recurrence
 
 ## Task Boundary Discipline
 
