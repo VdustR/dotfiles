@@ -21,11 +21,27 @@
   - After PR is created, enter a detached HEAD state (e.g., `git checkout --detach HEAD`) and then delete the local feature branch
   - If changes are needed during review, use `gh pr checkout <number>` to restore the branch
 
-## CLAUDE.md Maintenance
+## Docs Update Workflow
 
-- When requested to modify the global CLAUDE.md (`~/.claude/CLAUDE.md`), always ask whether to also update `~/repo/VdustR/dotfiles/.claude/CLAUDE.md` and create a commit + PR
-- When corrected by the user, proactively suggest: "Would you like me to update CLAUDE.md so I don't make this mistake again?"
-- Keep CLAUDE.md concise: for each line, ask "Would removing this cause mistakes?" If not, it should be cut
+When updating documentation or configuration files (CLAUDE.md, README.md, docs/**, configs, etc.):
+
+1. **Identify target**: Determine which file and location best fits the information
+2. **Research**: Verify against best practices when applicable
+3. **Offer strategy** with a recommendation:
+   - **Quick insert**: Add content to the appropriate section
+   - **Full reorganization**: Restructure and optimize the entire file
+4. **Confirm** with user before proceeding
+5. **Execute**, then self-review the entire file for consistency
+6. **Present diff** for user approval
+
+### CLAUDE.md Specifics
+
+- **Triggers**: User says "remember this", or corrections suggesting a recurring pattern
+- **Scope**: Global (`~/.claude/CLAUDE.md`) for cross-project preferences; Repo for project-specific rules
+- **Strategy**: Always recommend full reorganization
+- **Sync**: When modifying global, ask to update `~/repo/VdustR/dotfiles/.claude/CLAUDE.md` + create PR
+- **Conciseness**: For each line, ask "Would removing this cause mistakes?" If not, cut it
+- **Proactive updates**: When corrected, suggest updating the appropriate CLAUDE.md (global or repo, per **Scope**) to prevent recurrence
 
 ## Task Boundary Discipline
 
