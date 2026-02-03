@@ -53,13 +53,8 @@ format_duration() {
 # ═══════════════════════════════════════════════════════════════
 # Module: Context (dynamic color based on usage)
 # ═══════════════════════════════════════════════════════════════
-if [ "$(echo "$PERCENT > 80" | bc -l)" = "1" ]; then
-    CTX_COLOR=$RED
-elif [ "$(echo "$PERCENT > 50" | bc -l)" = "1" ]; then
-    CTX_COLOR=$YELLOW
-else
-    CTX_COLOR=$GREEN
-fi
+CTX_COLOR=$(awk -v p="$PERCENT" -v r="$RED" -v y="$YELLOW" -v g="$GREEN" \
+    'BEGIN { if (p > 80) print r; else if (p > 50) print y; else print g }')
 
 # ═══════════════════════════════════════════════════════════════
 # Module: Code changes (hidden if no changes)
