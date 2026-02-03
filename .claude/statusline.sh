@@ -104,9 +104,9 @@ if [ -n "$CURRENT_DIR" ] && git -C "$CURRENT_DIR" rev-parse --git-dir > /dev/nul
         # Rebase/merge state
         GIT_DIR=$(git -C "$CURRENT_DIR" rev-parse --git-dir 2>/dev/null)
         if [ -d "$GIT_DIR/rebase-merge" ] || [ -d "$GIT_DIR/rebase-apply" ]; then
-            GIT_STATUS+=""
+            GIT_STATUS+="|REBASING"
         elif [ -f "$GIT_DIR/MERGE_HEAD" ]; then
-            GIT_STATUS+=""
+            GIT_STATUS+="|MERGING"
         fi
 
         [ -n "$GIT_STATUS" ] && GIT_STATUS=" ${GIT_STATUS}"
