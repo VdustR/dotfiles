@@ -39,9 +39,18 @@ When updating documentation or configuration files (CLAUDE.md, README.md, docs/*
 - **Triggers**: User says "remember this", or corrections suggesting a recurring pattern
 - **Scope**: Global (`~/.claude/CLAUDE.md`) for cross-project preferences; Repo for project-specific rules
 - **Strategy**: Always recommend full reorganization
-- **Sync**: When modifying global, ask to update `~/repo/VdustR/dotfiles/.claude/CLAUDE.md` + create PR
 - **Conciseness**: For each line, ask "Would removing this cause mistakes?" If not, cut it
 - **Proactive updates**: When corrected, suggest updating the appropriate CLAUDE.md (global or repo, per **Scope**) to prevent recurrence
+
+### Dotfiles Sync
+
+When any dotfiles-managed file is modified, ask to sync with `~/repo/VdustR/dotfiles` + create PR:
+
+| User file | Repo file |
+|-----------|-----------|
+| `~/.gitignore` | `.gitignore` |
+| `~/.claude/CLAUDE.md` | `.claude/CLAUDE.md` |
+| `~/.zsh_aliases` | `.zsh_aliases` |
 
 ## Task Boundary Discipline
 
