@@ -1,5 +1,7 @@
 # dotfiles
 
+> There's no place like ~/ 🏠
+
 Personal configuration files.
 
 ## Quick Start with Claude Code
