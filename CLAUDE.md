@@ -26,8 +26,11 @@ This is a dotfiles repository. When asked to apply or install these dotfiles, fo
 3. **Zsh aliases**: Copy and source in `.zshrc`
    ```bash
    cp .zsh_aliases ~/.zsh_aliases
-   # Add to ~/.zshrc if not already present:
-   # [ -f ~/.zsh_aliases ] && source ~/.zsh_aliases
+   # Add sourcing line to ~/.zshrc if not already present
+   LINE_TO_ADD='[ -f ~/.zsh_aliases ] && source ~/.zsh_aliases'
+   if ! grep -qF -- "$LINE_TO_ADD" ~/.zshrc 2>/dev/null; then
+     printf "\n# Source custom Zsh aliases\n%s\n" "$LINE_TO_ADD" >> ~/.zshrc
+   fi
    ```
 
 ## Zsh Aliases Maintenance
