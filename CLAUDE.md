@@ -8,7 +8,6 @@ This is a dotfiles repository. When asked to apply or install these dotfiles, fo
 |--------|--------|-------------|
 | `.gitignore` | `~/.gitignore` | Global gitignore (macOS, VSCode) |
 | `.claude/CLAUDE.md` | `~/.claude/CLAUDE.md` | Claude Code global instructions |
-| `.claude/statusline.sh` | `~/.claude/statusline.sh` | Status line script (model, cost, context, git branch) |
 
 ## Installation Steps
 
@@ -22,31 +21,6 @@ This is a dotfiles repository. When asked to apply or install these dotfiles, fo
    ```bash
    cp .claude/CLAUDE.md ~/.claude/CLAUDE.md
    ```
-
-3. **statusline.sh**: Copy and make executable
-   ```bash
-   cp .claude/statusline.sh ~/.claude/statusline.sh
-   chmod +x ~/.claude/statusline.sh
-   ```
-
-4. **Status line config**: Merge into `~/.claude/settings.json`
-   ```json
-   {
-     "statusLine": {
-       "type": "command",
-       "command": "~/.claude/statusline.sh",
-       "padding": 0
-     }
-   }
-   ```
-   If settings.json already exists, merge the `statusLine` key without overwriting other settings.
-
-## Prerequisites
-
-- `jq` is required for statusline.sh
-  ```bash
-  brew install jq  # macOS
-  ```
 
 ## Notes
 

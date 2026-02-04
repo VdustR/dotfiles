@@ -21,13 +21,10 @@ Then ask:
 |------|-------------|
 | `.gitignore` | Global gitignore (macOS, VSCode, local files) |
 | `.claude/CLAUDE.md` | Claude Code global instructions and preferences |
-| `.claude/statusline.sh` | Status line script (model, cost, context, git branch) |
 
 ## Manual Installation
 
 See [CLAUDE.md](CLAUDE.md) for detailed installation steps.
-
-**Prerequisites:** [jq](https://jqlang.github.io/jq/) (`brew install jq` on macOS)
 
 ## License
 
