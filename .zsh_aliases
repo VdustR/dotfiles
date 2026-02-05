@@ -5,6 +5,7 @@
 # Use --package only when package name differs from executable
 
 alias agent-browser="npx -y agent-browser"
+alias asana="npx -y --package=asana-cli asana"
 alias analyze-trace="npx -y --package=@typescript/analyze-trace analyze-trace"
 alias ccline="npx -y --package=@cometix/ccline ccline"
 alias codex="npx -y --package=@openai/codex codex"
