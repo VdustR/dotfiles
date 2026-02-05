@@ -3,48 +3,55 @@
 ## Language & Communication
 
 - Use Traditional Chinese (正體中文) for all communication, explanations, and discussions
-- Use American English for:
-  - All code (variables, functions, comments)
-  - Documentation (README, API docs, technical specs)
-  - Commit messages
+- Use American English for all code, documentation, and commit messages
+
+## Context-First Approach
+
+Before generating user-facing content (docs, descriptions), understand the project first:
+
+- **Read existing files** to understand style, naming conventions, and context
+- **Check commit history** for voice/priorities; grep for branding patterns if relevant
+- **Never assume** - don't default to generic content without verifying
+
+## Technical Documentation
+
+When documenting code behavior (especially async patterns):
+
+- **Focus on execution timing** - explicitly state when code runs (immediately vs deferred)
+- **Show expected console output** with execution order
+- **Contrast similar APIs** - document behavioral differences side by side
 
 ## Git Operations
 
-- When cloning repositories without a specified path, use: `~/repo/<github:user|org>/<github:repo>`
-  - Example: `git clone https://github.com/vercel/next.js` → `~/repo/vercel/next.js`
-- After cloning a repository, always ask whether to open the project with VSCode
-  - If a single `.code-workspace` file exists in the project root, open it (`code <name>.code-workspace`).
-  - If multiple `*.code-workspace` files exist, ask which one to open.
-  - If no `*.code-workspace` file exists, open the folder (`code <path>`).
-- When executing PR creation commands:
-  - Verify current branch is not `main` or `master`; if so, create a new branch first
-  - After PR is created, enter a detached HEAD state (e.g., `git checkout --detach HEAD`) and then delete the local feature branch
-  - If changes are needed during review, use `gh pr checkout <number>` to restore the branch
+- Clone without path: `~/repo/<user|org>/<repo>`
+- After clone, ask to open with VSCode:
+  - Single `.code-workspace`: open it
+  - Multiple `.code-workspace`: ask which one
+  - None: open folder
+- PR workflow:
+  - Verify not on `main`/`master`; create branch if needed
+  - After PR created: `git checkout --detach HEAD` then delete local branch
+  - For review changes: `gh pr checkout <number>`
 
 ## Docs Update Workflow
 
-When updating documentation or configuration files (CLAUDE.md, README.md, docs/**, configs, etc.):
-
-1. **Identify target**: Determine which file and location best fits the information
-2. **Research**: Verify against best practices when applicable
-3. **Offer strategy** with a recommendation:
-   - **Quick insert**: Add content to the appropriate section
-   - **Full reorganization**: Restructure and optimize the entire file
-4. **Confirm** with user before proceeding
-5. **Execute**, then self-review the entire file for consistency
-6. **Present diff** for user approval
+1. **Identify** target file and location
+2. **Research** best practices if applicable
+3. **Offer strategy**: Quick insert vs Full reorganization (recommend reorganization for CLAUDE.md)
+4. **Confirm** with user
+5. **Execute** and self-review
+6. **Present diff**
 
 ### CLAUDE.md Specifics
 
-- **Triggers**: User says "remember this", or corrections suggesting a recurring pattern
-- **Scope**: Global (`~/.claude/CLAUDE.md`) for cross-project preferences; Repo for project-specific rules
-- **Strategy**: Always recommend full reorganization
-- **Conciseness**: For each line, ask "Would removing this cause mistakes?" If not, cut it
-- **Proactive updates**: When corrected, suggest updating the appropriate CLAUDE.md (global or repo, per **Scope**) to prevent recurrence
+- **Triggers**: "remember this" or corrections suggesting recurring patterns
+- **Scope**: Global for cross-project; Repo for project-specific
+- **Conciseness**: Ask "Would removing this cause mistakes?" If not, cut it
+- **Proactive**: When corrected, suggest updating CLAUDE.md to prevent recurrence
 
 ### Dotfiles Sync
 
-When any dotfiles-managed file is modified, ask to sync with `~/repo/VdustR/dotfiles` + create PR:
+When modifying these files, ask to sync with `~/repo/VdustR/dotfiles` + create PR:
 
 | User file | Repo file |
 |-----------|-----------|
@@ -54,112 +61,70 @@ When any dotfiles-managed file is modified, ask to sync with `~/repo/VdustR/dotf
 
 ## Task Boundary Discipline
 
-- Only execute explicitly requested actions—do not perform follow-up operations unless asked
-- Examples of actions requiring explicit instruction:
-  - If asked to "create a changeset", only create the changeset file—do not commit or push
-  - If asked to "edit a file", only edit—do not stage, commit, or deploy
-  - Git operations (commit, push, merge, rebase) always require explicit instruction
-- Exceptions—safe to perform without asking:
-  - Running tests, type checks, linting (reversible, read-only verification)
-  - Searching, reading files, exploring codebase (non-destructive research)
-  - Any read-only or easily reversible operation
-- Use judgment: assess severity and reversibility before acting autonomously
-
-## Web Content Fetching
-
-- For X/Twitter threads, prefer fetching content via twitter-thread.com/t/<tweet_id> before other methods
-- For other websites, use WebFetch. If it fails on a JavaScript-required page, use the agent-browser skill
-- Signs of a JavaScript-required page include: "JavaScript is not available", empty content, or a login wall without content
-
-## Skill Usage
-
-- Before proceeding with instructions, always check for a suitable skill.
-- If a matching skill is found, invoke it.
-
-## Clarification
-
-- If a request is unclear, ambiguous, or too vague, ask for clarification before proceeding.
-- To get the needed information, ask the user specific, targeted questions.
-
-## Tool Installation
-
-- When a required tool is not installed, DO NOT immediately fallback to other tools or methods
-- First, ask the user whether to install the missing tool or use an alternative. To help them decide, provide comparison information and a recommendation, including:
-  - Pros and cons of each option
-  - Installation complexity and dependencies
-  - Functionality differences between alternatives
-  - Use Context7 or web search if needed for up-to-date information
-- Only proceed after user confirms the chosen approach
+- Only execute explicitly requested actions
+- **Requires explicit instruction**: git operations, commits, pushes, deploys
+- **Safe without asking**: tests, linting, type checks, reading files, exploring codebase
 
 ## Verification & Research
 
-- Always verify information before providing solutions
-- For tools, libraries, frameworks:
-  - Check current version compatibility
-  - Verify API signatures and available features
-  - Confirm deprecation status
-  - Use Context7 or web search to get latest documentation
-- Never assume - always validate with current sources
+- Always verify before providing solutions
+- Check version compatibility, API signatures, deprecation status
+- Use Context7 or web search for latest documentation
 
 ## Bug Fixing Strategy
 
-- When a bug is reported, don't start by trying to fix it immediately
-- First, write a test that reproduces the bug
-- Then fix the bug and prove the fix with a passing test, ensuring all existing tests also pass
-- When applicable, use subagents to try different fix approaches in parallel
+1. Write a test that reproduces the bug
+2. Fix the bug and prove with passing test
+3. Ensure all existing tests pass
+4. Use subagents for parallel fix approaches when applicable
 
-## Execution Philosophy: Strategic Planning & Self-Review
+## Execution Philosophy
 
-### Always follow this workflow:
+### Workflow
 
-1. **Strategic Planning First**
-   - Analyze the task thoroughly
-   - Break down into clear steps
-   - Identify potential pitfalls
+1. **Plan**: Analyze task, break into steps, identify pitfalls
+2. **Dos & Don'ts**: Explicitly list what to do and not do
+3. **Execute**: Implement according to plan
+4. **Verify**: Self-review, run tests/linting, check against plan
+5. **Iterate**: Max 3 iterations; re-plan if stuck
 
-2. **List Dos & Don'ts**
-   - Explicitly state what TO DO
-   - Explicitly state what NOT TO DO
-   - Consider edge cases and constraints
+### Confirmation Rules
 
-3. **Summarize**
-   - Brief summary of approach and expected outcome
+- **Skip confirmation**: Unambiguous strategy, low risk, clear path
+- **Ask confirmation**: Multiple approaches, high impact, unclear requirements, security implications
 
-4. **Execute**
-   - Implement according to plan
+## PR Validation
 
-5. **Self-Review & Verification**
-   - Critically evaluate the result
-   - Check against Dos & Don'ts
-   - Assess completion quality
-   - Use available verification methods (tests, linting, type checking) to validate work
-   - Verification significantly improves output quality—always seek ways to verify
+Before creating a PR:
 
-6. **Iterate if Needed**
-   - If result has issues or doesn't fully meet requirements, repeat with improvements
-   - Maximum 3 iterations
+1. Run full CI pipeline locally (lint, typecheck, tests)
+2. If checks fail, fix autonomously and re-run
+3. Only create PR after all checks pass
 
-7. **Re-plan When Stuck**
-   - When implementation goes sideways, suggest switching to plan mode and re-planning
-   - Don't keep pushing on a failing approach—step back and reconsider
+## Web Content Fetching
 
-### When to skip user confirmation:
+- X/Twitter: Use `twitter-thread.com/t/<tweet_id>` first
+- Other sites: Use WebFetch; if JS-required (empty content, login wall), use agent-browser skill
 
-- Strategy is unambiguous and well-defined
-- Risk is low
-- Implementation path is clear
-- No critical decisions needed
+## Skill Usage
 
-### When to ask for confirmation:
+- Always check for a suitable skill before proceeding
+- If found, invoke it
 
-- Multiple valid approaches exist
-- High-impact changes
-- Unclear requirements
-- Security or data implications
+## Clarification
+
+- If request is unclear or ambiguous, ask specific, targeted questions before proceeding
+
+## Tool Installation
+
+- Don't immediately fallback when tool is missing
+- Ask user: install missing tool or use alternative?
+- Provide comparison (pros/cons, complexity, functionality)
+- Proceed only after user confirms
 
 ## Security
 
 - Never hardcode sensitive information
 - Validate external inputs
-- Use environment variables for configuration
-- Follow OWASP security guidelines
+- Use environment variables
+- Follow OWASP guidelines
