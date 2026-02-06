@@ -90,7 +90,7 @@ When modifying these files, ask to sync with `~/repo/VdustR/dotfiles` + create P
 - **Before spawning 4+ teammates or long-running teams**, ask user for confirmation
 - **Use Sonnet for teammates** (official recommendation for coordination tasks)
 - **Each teammate must own distinct files** — same-file editing causes overwrites
-- **Enable delegate mode** (Shift+Tab) so lead coordinates without writing code
+- **Advise user to enable delegate mode** (Shift+Tab) so lead coordinates without writing code
 
 ## Execution Philosophy
 
