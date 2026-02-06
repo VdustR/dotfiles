@@ -81,16 +81,17 @@ When modifying these files, ask to sync with `~/repo/VdustR/dotfiles` + create P
 ## Parallelization Strategy
 
 - **Default to subagents** for parallel work — lower cost, sufficient for most tasks
+- **Only parallelize independent tasks** — if task B depends on task A's output, run them sequentially; when uncertain, ask the user
 - **Use Agent Teams only when** teammates need to communicate with each other:
   - Competing hypothesis debugging (agents challenge each other's theories)
   - Multi-angle code review with cross-referencing (security + performance + testing)
   - Cross-layer development where frontend/backend/tests need coordination
-- **Agent Teams cost significantly more tokens** than standard sessions — always consider if subagents suffice
+- **Agent Teams cost significantly more tokens** — always consider if subagents suffice
 - **Team size: 2-3 teammates max** unless user explicitly requests more
 - **Before spawning 4+ teammates or long-running teams**, ask user for confirmation
 - **Use Sonnet for teammates** (official recommendation for coordination tasks)
 - **Each teammate must own distinct files** — same-file editing causes overwrites
-- **Advise user to enable delegate mode** (Shift+Tab) so lead coordinates without writing code
+- **Delegate mode recommended**: Suggest enabling (Shift+Tab) so lead coordinates without writing code
 
 ## Execution Philosophy
 
