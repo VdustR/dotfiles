@@ -129,7 +129,7 @@ Before creating a PR:
 - Process skills first (brainstorming, debugging, TDD), implementation skills second
 - When uncertain, invoke the skill — false positives are cheap, missed skills are costly
 - Never rationalize skipping: "simple task", "I already know", "just one thing first" are red flags
-- Clarification takes priority over skill invocation only when intent is genuinely ambiguous
+- Never skip skill invocation to ask clarifying questions — skills contain methodology for handling ambiguity
 
 ## Clarification
 
