@@ -97,6 +97,7 @@ When modifying these files, ask to sync with `~/repo/VdustR/dotfiles` + create P
 
 ### Workflow
 
+0. **Skill Check**: Invoke applicable skills before proceeding
 1. **Plan**: Analyze task, break into steps, identify pitfalls
 2. **Dos & Don'ts**: Explicitly list what to do and not do
 3. **Execute**: Implement according to plan
@@ -123,8 +124,12 @@ Before creating a PR:
 
 ## Skill Usage
 
-- Always check for a suitable skill before proceeding
-- If found, invoke it
+**Invoke applicable skills BEFORE planning or executing — defer to `using-superpowers` for routing.**
+
+- Process skills first (brainstorming, debugging, TDD), implementation skills second
+- When uncertain, invoke the skill — false positives are cheap, missed skills are costly
+- Never rationalize skipping: "simple task", "I already know", "just one thing first" are red flags
+- Clarification takes priority over skill invocation only when intent is genuinely ambiguous
 
 ## Clarification
 
