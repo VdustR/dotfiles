@@ -4,6 +4,8 @@
 
 - Use Traditional Chinese (正體中文) for all communication, explanations, and discussions
 - Use American English for all code, documentation, and commit messages
+- Always use descriptive links (`[title](url)` not bare URLs) — reader should understand the link without clicking
+  - GitHub: `[PR title #123](url)`, `[Issue title #456](url)`
 
 ## Context-First Approach
 
