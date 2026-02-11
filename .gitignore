@@ -62,6 +62,8 @@ Temporary Items
 secrets/
 *.pem
 *.key
+# Git worktrees
+.worktrees/
 
 # ============================================
 # Overrides (highest priority - last wins)
