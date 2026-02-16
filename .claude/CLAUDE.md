@@ -65,7 +65,7 @@ When modifying these files, ask to sync with `~/repo/VdustR/dotfiles` + create P
 
 - Only execute explicitly requested actions
 - **Requires explicit instruction**: git operations, commits, pushes, deploys
-- **Safe without asking**: tests, linting, type checks, reading files, exploring codebase
+- **Safe without asking**: tests, linting, type checks, reading files (except `~/.secrets`), exploring codebase
 
 ## Verification & Research
 
