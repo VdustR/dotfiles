@@ -150,3 +150,4 @@ Before creating a PR:
 - Validate external inputs
 - Use environment variables
 - Follow OWASP guidelines
+- **Secrets handling**: Never read, write, or modify `~/.secrets` directly. When sensitive information needs to be confirmed or updated (API keys, tokens, credentials), ask the user to open `~/.secrets` in their editor, make changes manually, then restart their shell and Claude Code

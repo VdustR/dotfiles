@@ -59,7 +59,7 @@ Temporary Items
 # ============================================
 
 .env
-secrets/
+.secrets
 *.pem
 *.key
 # Git worktrees
