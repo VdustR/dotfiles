@@ -1,3 +1,4 @@
+# vim: ft=zsh
 # Zsh Aliases - CLI tools via npx
 # Source in .zshrc: [ -f ~/.zsh_aliases ] && source ~/.zsh_aliases
 #
