@@ -65,7 +65,7 @@ When modifying these files, ask to sync with `~/repo/VdustR/dotfiles` + create P
 
 - Only execute explicitly requested actions
 - **Requires explicit instruction**: git operations, commits, pushes, deploys
-- **Safe without asking**: tests, linting, type checks, reading files, exploring codebase
+- **Safe without asking**: tests, linting, type checks, reading files (except `~/.secrets`), exploring codebase
 
 ## Verification & Research
 
@@ -150,3 +150,4 @@ Before creating a PR:
 - Validate external inputs
 - Use environment variables
 - Follow OWASP guidelines
+- **Secrets handling**: Never read, write, or modify `~/.secrets` directly. When sensitive information needs to be confirmed or updated (API keys, tokens, credentials), ask the user to open `~/.secrets` in their editor, make changes manually, then restart their shell and Claude Code
