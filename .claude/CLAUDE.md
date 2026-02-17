@@ -30,6 +30,7 @@ When documenting code behavior (especially async patterns):
   - Single `.code-workspace`: open it
   - Multiple `.code-workspace`: ask which one
   - None: open folder
+- Open VS Code: always use `CLAUDECODE= code <path>` to prevent nested session error
 - PR workflow:
   - Verify not on `main`/`master`; create branch if needed
   - After PR created: `git checkout --detach HEAD` then delete local branch
