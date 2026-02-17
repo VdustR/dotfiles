@@ -38,7 +38,9 @@ When documenting code behavior (especially async patterns):
   - After PR created: `git checkout --detach HEAD` then delete local branch
   - For review changes: `gh pr checkout <number>`
 
-## Docs Update Workflow
+## Knowledge Persistence
+
+### Docs Update Workflow
 
 1. **Identify** target file and location
 2. **Research** best practices if applicable
@@ -47,12 +49,19 @@ When documenting code behavior (especially async patterns):
 5. **Execute** and self-review
 6. **Present diff**
 
-### CLAUDE.md Specifics
+### Remembering Rules
 
-- **Triggers**: "remember this" or corrections suggesting recurring patterns
-- **Scope**: Global for cross-project; Repo for project-specific
-- **Conciseness**: Ask "Would removing this cause mistakes?" If not, cut it
-- **Proactive**: When corrected, suggest updating CLAUDE.md to prevent recurrence
+When asked to "remember" something, or when corrections suggest a recurring pattern:
+
+- **Prefer CLAUDE.md** over project memory files — version-controlled, shareable, durable
+- **Scope judgment**:
+  - Code convention, repo-specific tooling → repo `CLAUDE.md` or `.claude/rules/` (for file-pattern scoped rules)
+  - Cross-project personal preference → user `~/.claude/CLAUDE.md`
+  - Unclear → provide options (repo / user / both) with recommendation, confirm before executing
+- **Proactive on corrections** — when corrected on something likely to recur, suggest persisting it (with scope recommendation)
+- **Conciseness** (when writing rules): Ask "Would removing this cause mistakes?" If not, cut it
+- **Never auto-update project memory files** (e.g., `MEMORY.md`) — only if user explicitly requests
+- **Skills/commands mismatch** — if a skill/command produces poor results or user repeatedly corrects direction, suggest the user update the skill/command instead of adding rules to CLAUDE.md or project memory
 
 ### Dotfiles Sync
 
