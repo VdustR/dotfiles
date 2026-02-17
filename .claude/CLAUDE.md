@@ -4,8 +4,10 @@
 
 - Use Traditional Chinese (正體中文) for all communication, explanations, and discussions
 - Use American English for all code, documentation, and commit messages
-- Always use descriptive links (`[title](url)` not bare URLs) — reader should understand the link without clicking
-  - GitHub: `[PR title #123](url)`, `[Issue title #456](url)`
+- Always use descriptive links (not bare URLs) — reader should understand the link without clicking
+  - Contextual titles: GitHub `[PR title #123](url)`, Slack `[#channel](url)`, Google Maps `[Place name](url)`, etc.
+  - Adapt syntax to platform: Markdown `[text](url)`, Slack mrkdwn `<url|text>`, Jira/Confluence `[text|url]`, HTML `<a href="url">text</a>`
+  - Plain-text (no hyperlink support): put title and URL on separate lines
 
 ## Context-First Approach
 
