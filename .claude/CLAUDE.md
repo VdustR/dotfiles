@@ -6,6 +6,8 @@
 - Use American English for all code, documentation, and commit messages
 - Always use descriptive links (`[title](url)` not bare URLs) — reader should understand the link without clicking
   - GitHub: `[PR title #123](url)`, `[Issue title #456](url)`
+  - Slack: `[#channel](url)`, Google Maps: `[Place name](url)`
+  - Plain-text contexts (no hyperlink support): put title and URL on separate lines
 
 ## Context-First Approach
 
