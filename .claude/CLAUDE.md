@@ -122,6 +122,7 @@ When modifying these files, ask to sync with `~/repo/VdustR/dotfiles` + create P
 
 - **Skip confirmation**: Unambiguous strategy, low risk, clear path
 - **Ask confirmation**: Multiple approaches, high impact, unclear requirements, security implications
+- **Flag inline**: Non-blocking uncertainty in a plan step — name it and suggest one resolution action
 
 ## PR Validation
 
