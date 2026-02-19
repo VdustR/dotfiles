@@ -123,6 +123,18 @@ When modifying these files, ask to sync with `~/repo/VdustR/dotfiles` + create P
 - **Skip confirmation**: Unambiguous strategy, low risk, clear path
 - **Ask confirmation**: Multiple approaches, high impact, unclear requirements, security implications
 
+### Plan Confidence Communication
+
+When presenting plans, include:
+
+- **Confidence tier** (High / Medium / Low) — avoid numerical scores (poorly calibrated for LLMs)
+- **Uncertainty sources** — explicitly state what you're unsure about
+- **Confidence boosters** — suggest actions to increase confidence:
+  - Clarify ambiguous requirements
+  - Point to code/docs for user verification
+  - Suggest a spike/prototype before full implementation
+  - Recommend specific tests or checks
+
 ## PR Validation
 
 Before creating a PR:
