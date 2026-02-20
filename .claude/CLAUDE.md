@@ -9,6 +9,12 @@
   - Adapt syntax to platform: Markdown `[text](url)`, Slack mrkdwn `<url|text>`, Jira/Confluence `[text|url]`, HTML `<a href="url">text</a>`
   - Plain-text (no hyperlink support): put title and URL on separate lines
 
+## Code Style
+
+Fallback conventions — defer to repo conventions and existing codebase patterns when present:
+
+- **Acronyms in camelCase/PascalCase** — treat as regular words: `userId` not `userID`, `HttpClient` not `HTTPClient`
+
 ## Context-First Approach
 
 Before generating user-facing content (docs, descriptions), understand the project first:
