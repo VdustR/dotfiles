@@ -79,6 +79,12 @@ When modifying these files, ask to sync with `~/repo/VdustR/dotfiles` + create P
 - **Requires explicit instruction**: git operations, commits, pushes, deploys
 - **Safe without asking**: tests, linting, type checks, reading files (except `~/.secrets`), exploring codebase
 
+## IDE Linting Issues
+
+- **Repo has linting tool config** (e.g., `.cspell.json`, `.markdownlint-cli2.jsonc`) → handle according to repo conventions
+- **Repo has no config** (IDE-only) → notify the user, **do not auto-fix** by default
+- When handling specific linting issues (cspell, markdownlint, etc.), invoke the corresponding skill for detailed strategy
+
 ## Verification & Research
 
 - Always verify before providing solutions
