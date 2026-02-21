@@ -169,6 +169,13 @@ Before creating a PR:
 - Provide comparison (pros/cons, complexity, functionality)
 - Proceed only after user confirms
 
+## Token Efficiency
+
+- Don't re-read files after writing/editing or re-run commands just to confirm success — tests/linting per the Verify step are exempt
+- Batch related edits into minimal operations
+- Don't reproduce written code in responses or recap completed steps — only report unexpected results or errors
+- Prefer targeted reads (offset+limit) and precise search patterns over full file reads and multiple broad queries
+
 ## Security
 
 - Never hardcode sensitive information
