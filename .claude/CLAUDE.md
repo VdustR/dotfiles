@@ -190,10 +190,10 @@ Assumed format: `export KEY=value` (one per line).
 #### Verifying Env Vars (no value exposure)
 
 - **Existence + length**: `[ -n "${KEY+x}" ] && echo "set:${#KEY}" || echo "unset"` (length 0 = set but empty, not unset)
-- **Pattern search (keys only)**: `env | cut -d= -f1 | grep -iE '_PAT$|_TOKEN$|_KEY$|_SECRET$'`
+- **Pattern search (keys only)**: `env | cut -d= -f1 | grep -iE '<PATTERN>'` (e.g., `'_PAT$|_TOKEN$'`)
 - **Pattern with length**:
   ```bash
-  env | cut -d= -f1 | grep -iE '_PAT$|_TOKEN$' | while IFS= read -r k; do
+  env | cut -d= -f1 | grep -iE '<PATTERN>' | while IFS= read -r k; do
     v="$(printenv "$k")"; echo "$k: ${#v} chars"
   done
   ```
