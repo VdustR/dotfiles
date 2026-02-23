@@ -212,7 +212,7 @@ Assumed format: `export KEY=value` (one per line).
 
 #### PROHIBITED
 
-- **Output values**: `echo "$SECRET"`, `printenv SECRET`, `printf '%s' "$SECRET"`, `declare -p SECRET` (exception: `printenv` inside `$()` for length check only — value never printed)
+- **Output values**: `echo "$SECRET"`, `printenv SECRET`, `printf '%s' "$SECRET"`, `declare -p SECRET` (exception: `printenv` inside `$()` for length check only, e.g., `v="$(printenv "$k")"; echo "${#v}"` — value never printed)
 - **Read secrets file**: `cat`/`head`/`tail`/`less` or Read/Edit tool on `~/.secrets`
 - **Unfiltered dump**: bare `env`, `printenv`, `export -p` (exposes all values)
 - **Debug mode**: `set -x`, `bash -x` (prints variable expansions to stderr)
