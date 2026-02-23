@@ -216,5 +216,5 @@ Assumed format: `export KEY=value` (one per line).
 - **Read secrets file**: `cat`/`head`/`tail`/`less` or Read/Edit tool on `~/.secrets`
 - **Unfiltered dump**: bare `env`, `printenv`, `export -p` (exposes all values)
 - **Debug mode**: `set -x`, `bash -x` (prints variable expansions to stderr)
-- **Values in output**: secret values in command arguments, logs, commits, or files
+- **Values in output**: secret values in logs, commits, files, or non-write command arguments
 - **Cross-file leak**: copying secrets to `.env`, config files, or any tracked file
