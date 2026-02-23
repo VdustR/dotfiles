@@ -182,4 +182,39 @@ Before creating a PR:
 - Validate external inputs
 - Use environment variables
 - Follow OWASP guidelines
-- **Secrets handling**: Never read, write, or modify `~/.secrets` directly. When sensitive information needs to be confirmed or updated (API keys, tokens, credentials), ask the user to open `~/.secrets` in their editor, make changes manually, then restart their shell and Claude Code
+
+### Secrets Handling (`~/.secrets`)
+
+Assumed format: `export KEY=value` (one per line).
+
+#### Verifying Env Vars (no value exposure)
+
+- **Existence + length**: `[ -n "${KEY+x}" ] && echo "set:${#KEY}" || echo "unset"` (length 0 = set but empty, not unset)
+- **Pattern search (keys only)**: `env | cut -d= -f1 | grep -iE '<PATTERN>'` (e.g., `'_PAT$|_TOKEN$'`)
+- **Pattern with length**:
+  ```bash
+  env | cut -d= -f1 | grep -iE '<PATTERN>' | while IFS= read -r k; do
+    v="$(printenv "$k")"; echo "$k: ${#v} chars"
+  done
+  ```
+
+#### Writing / Updating
+
+- **Add** (verify key absent first): `grep -q '^export KEY=' ~/.secrets || echo 'export KEY=value' >> ~/.secrets`
+- **Update** (in-place, macOS only): `sed -i '' 's|^export KEY=.*|export KEY=new_value|' ~/.secrets`
+- If value contains the delimiter, pick one absent from the value (`/`, `@`, `#`)
+- Use Bash tool only — never Read or Edit tools on `~/.secrets` (see PROHIBITED)
+
+#### Reloading After Changes
+
+- `source ~/.secrets` — no shell/Claude Code restart needed
+- **One-shot** (subshell, doesn't pollute parent): `(source ~/.secrets && command)`
+
+#### PROHIBITED
+
+- **Output values**: `echo "$SECRET"`, `printenv SECRET`, `printf '%s' "$SECRET"`, `declare -p SECRET` (exception: `printenv` inside `$()` for length check only, e.g., `v="$(printenv "$k")"; echo "${#v}"` — value never printed)
+- **Read secrets file**: `cat`/`head`/`tail`/`less` or Read/Edit tool on `~/.secrets`
+- **Unfiltered dump**: bare `env`, `printenv`, `export -p` (exposes all values)
+- **Debug mode**: `set -x`, `bash -x` (prints variable expansions to stderr)
+- **Values in output**: secret values in logs, commits, files, or non-write command arguments
+- **Cross-file leak**: copying secrets to `.env`, config files, or any tracked file
