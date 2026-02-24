@@ -215,8 +215,8 @@ Assumed format: `export KEY=value` (one per line).
 
 **When AI obtains/generates a secret:**
 1. Ensure staging dir exists: `(umask 077; mkdir -p "${TMPDIR:-/tmp}/.claude-secrets")`
-2. Write to staging: `echo 'export KEY=value' >> "${TMPDIR:-/tmp}/.claude-secrets/.secrets.staged"`
-3. Source with error check: `source "${TMPDIR:-/tmp}/.claude-secrets/.secrets.staged" || echo "staging source failed"`
+2. Write to staging: `printf 'export %s=%q\n' "KEY" "value" >> "${TMPDIR:-/tmp}/.claude-secrets/.secrets.staged"`
+3. Source with error check: `source "${TMPDIR:-/tmp}/.claude-secrets/.secrets.staged" || echo "staging source failed"` — if source fails, stop workflow and report error to user
 4. Verify (length only): `[ -n "${KEY+x}" ] && echo "set:${#KEY}" || echo "unset"`
 5. Ask user whether to persist into `~/.secrets`
 
@@ -227,10 +227,10 @@ Assumed format: `export KEY=value` (one per line).
 
 | Option | Description |
 |--------|-------------|
+| **Override** (default) | Keep old (commented out), add new below — safest, preserves old |
 | **Add prefix** | Rename new key: `export PREFIX_KEY=value` |
 | **Add suffix** | Rename new key: `export KEY_V2=value` |
 | **Replace** | Overwrite old value in-place (needs extra confirmation: "old value will be lost") |
-| **Override** | Keep old (commented out), add new below — safest, preserves old |
 
 **Persist format with comment:**
 ```bash
@@ -241,15 +241,15 @@ export KEY=value
 For Override:
 ```bash
 # Replaced by Claude — <context>
-# export OLD_KEY=old_value
+# export KEY=old_value
 export KEY=new_value
 ```
 
 Note: no timestamp needed — git history provides audit trail.
 
-**After persisting:**
-- Reload: `source ~/.secrets`
-- Clean staging: `rm -f "${TMPDIR:-/tmp}/.claude-secrets/.secrets.staged"`
+**After persisting (or if user declines):**
+- Reload (if persisted): `source ~/.secrets`
+- Clean staging (always): `rm -f "${TMPDIR:-/tmp}/.claude-secrets/.secrets.staged"`
 
 **Staging file rules:**
 - Staging file may be read/written by AI (unlike `~/.secrets`)
@@ -264,7 +264,7 @@ When obtaining values from browser tools (agent-browser, Playwright, Chrome MCP,
 **Capture pattern — inline convention (not a separate file):**
 ```bash
 # Declare and call in single Bash command — value never appears in output
-_capture() { local k="$1" v="$2"; (umask 077; mkdir -p "${TMPDIR:-/tmp}/.claude-secrets"); echo "export ${k}=${v}" >> "${TMPDIR:-/tmp}/.claude-secrets/.secrets.staged"; }; _capture "KEY" "extracted_value"
+_capture() { local k="$1" v="$2"; (umask 077; mkdir -p "${TMPDIR:-/tmp}/.claude-secrets"); printf 'export %s=%q\n' "$k" "$v" >> "${TMPDIR:-/tmp}/.claude-secrets/.secrets.staged"; }; _capture "KEY" "extracted_value"
 ```
 
 **Key principle:**
