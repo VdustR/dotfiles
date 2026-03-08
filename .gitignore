@@ -64,6 +64,8 @@ Temporary Items
 *.key
 # Git worktrees
 .worktrees/
+# Claude Code runtime artifacts
+.claude/scheduled_tasks.lock
 
 # ============================================
 # Overrides (highest priority - last wins)
