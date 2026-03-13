@@ -66,6 +66,7 @@ Temporary Items
 .worktrees/
 # Claude Code runtime artifacts
 .claude/scheduled_tasks.lock
+.claude/worktrees/
 
 # ============================================
 # Overrides (highest priority - last wins)
