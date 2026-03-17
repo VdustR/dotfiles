@@ -14,7 +14,7 @@ Assumed format: `export KEY=value` (one per line).
 
 **Exemptions**: `.env.example`, `.env.sample`, `.env.template` and similar template files with placeholder values are NOT secrets — Read/Edit freely.
 
-## Verifying Env Vars (no value exposure)
+## Verifying Env Vars (minimal value exposure)
 
 - **Existence + length**: `[ -n "${KEY+x}" ] && echo "set:${#KEY}" || echo "unset"` (length 0 = set but empty, not unset)
 - **Safe partial inspection** (head/tail with masking — never prints full value):
@@ -43,7 +43,7 @@ Assumed format: `export KEY=value` (one per line).
 ## AI-Generated Secrets (Staging Workflow)
 
 **Staging directory & file:**
-- Location: `${TMPDIR:-/tmp}/.claude-secrets/` (fallback to `/tmp` if `$TMPDIR` unset)
+- Location: `${TMPDIR:-/tmp}/.claude-secrets/` (falls back to `/tmp` if `$TMPDIR` unset)
 - File: `.secrets.staged` (same `export KEY=value` format as `~/.secrets`)
 - Create with atomic permissions: `(umask 077; mkdir -p "${TMPDIR:-/tmp}/.claude-secrets")`
 - Auto-cleaned on reboot (system tmpdir); may be manually cleaned: `rm -f "${TMPDIR:-/tmp}/.claude-secrets/.secrets.staged"`
@@ -58,7 +58,7 @@ Assumed format: `export KEY=value` (one per line).
 **Conflict detection — before persisting, check if key exists:**
 - Check: `grep -q '^export KEY=' ~/.secrets`
 - If key does NOT exist → append directly (with comment)
-- If key EXISTS → present 4 options via AskUserQuestion, AI recommends the most appropriate one based on context (default: Override):
+- If key EXISTS → present 4 options, recommend the most appropriate one based on context (default: Override):
 
 | Option | Description |
 |--------|-------------|
@@ -80,7 +80,7 @@ For Override:
 export KEY=new_value
 ```
 
-Note: no timestamp needed — the comment itself serves as the audit trail (`~/.secrets` is not git-tracked).
+Note: no timestamp needed — the comment is the only record since `~/.secrets` is not git-tracked.
 
 **After persisting (or if user declines):**
 - Reload (if persisted): `source ~/.secrets`
@@ -119,7 +119,7 @@ _capture() { local k="$1" v="$2"; (umask 077; mkdir -p "${TMPDIR:-/tmp}/.claude-
 
 ## PROHIBITED
 
-- **Output values**: `echo "$SECRET"`, `printenv SECRET`, `printf '%s' "$SECRET"`, `declare -p SECRET` (exception: `printenv` inside `$()` for length check only, e.g., `v="$(printenv "$k")"; echo "${#v}"` — value never printed)
+- **Output values**: `echo "$SECRET"`, `printenv SECRET`, `printf '%s' "$SECRET"`, `declare -p SECRET` (exceptions: `printenv` inside `$()` for length check, e.g., `v="$(printenv "$k")"; echo "${#v}"`; safe partial inspection per "Verifying Env Vars" section above)
 - **Read secrets file**: `cat`/`head`/`tail`/`less` or Read/Edit tool on `~/.secrets`
 - **Unfiltered dump**: bare `env`, `printenv`, `export -p` (exposes all values)
 - **Debug mode**: `set -x`, `bash -x` (prints variable expansions to stderr)

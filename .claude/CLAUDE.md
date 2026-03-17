@@ -21,15 +21,15 @@ Before generating user-facing content (docs, descriptions), understand the proje
 
 - **Read existing files** to understand style, naming conventions, and context
 - **Check commit history** for voice/priorities; grep for branding patterns if relevant
-- **Never assume** - don't default to generic content without verifying
+- **Never assume** — don't default to generic content without verifying
 
 ## Technical Documentation
 
 When documenting code behavior (especially async patterns):
 
-- **Focus on execution timing** - explicitly state when code runs (immediately vs deferred)
-- **Show expected console output** with execution order
-- **Contrast similar APIs** - document behavioral differences side by side
+- **Focus on execution timing** — explicitly state when code runs (immediately vs deferred)
+- **Show expected console output** — include execution order
+- **Contrast similar APIs** — document behavioral differences side by side
 
 ## Git Operations
 
@@ -172,7 +172,7 @@ Before creating a PR:
 
 ## Tool Installation
 
-- Don't immediately fallback when tool is missing
+- Don't immediately fall back when tool is missing
 - Ask user: install missing tool or use alternative? (follow Clarification format)
 - Proceed only after user confirms
 
