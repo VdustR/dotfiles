@@ -21,7 +21,7 @@ Assumed format: `export KEY=value` (one per line).
   ```bash
   v="$(printenv "$k")"
   len=${#v}
-  if [ "$len" -le 8 ]; then echo "$k: ${len} chars | ****"
+  if [ "$len" -le 16 ]; then echo "$k: ${len} chars | ${v:0:3}…"
   else echo "$k: ${len} chars | ${v:0:4}…${v: -4}"; fi
   ```
   Use to diagnose: unexpected whitespace/newlines/quotes, wrong prefix (`sk-`, `ghp_`, `gho_`, `whsec_`), auth scheme leaked into value (`Bearer `, `Basic ` — should not be stored in env var), or value clearly from wrong source.
