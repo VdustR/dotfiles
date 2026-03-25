@@ -51,7 +51,6 @@ Instead, create a tmp file for the user to fill in with their editor:
    (umask 077; mkdir -p "${TMPDIR:-/tmp}/.claude-secrets")
    cat > "${TMPDIR:-/tmp}/.claude-secrets/.secrets.input" <<'TEMPLATE'
    # Paste your <KEY_NAME> below this line, then save and close:
-
    TEMPLATE
    ```
 2. Tell user to edit (suggest one):
@@ -59,7 +58,7 @@ Instead, create a tmp file for the user to fill in with their editor:
    - `open -t "${TMPDIR:-/tmp}/.claude-secrets/.secrets.input"` (macOS TextEdit)
 3. After user confirms saved, transfer to staging in a subshell (value doesn't leak to parent):
    ```bash
-   (val=$(sed -n '/^[^#]/p' "${TMPDIR:-/tmp}/.claude-secrets/.secrets.input" | tr -d '\n'); printf 'export %s=%q\n' "KEY_NAME" "$val") >> "${TMPDIR:-/tmp}/.claude-secrets/.secrets.staged" && rm -f "${TMPDIR:-/tmp}/.claude-secrets/.secrets.input"
+   (val=$(sed -n '/^[^#]/p' "${TMPDIR:-/tmp}/.claude-secrets/.secrets.input"); printf 'export %s=%q\n' "KEY_NAME" "$val") >> "${TMPDIR:-/tmp}/.claude-secrets/.secrets.staged" && rm -f "${TMPDIR:-/tmp}/.claude-secrets/.secrets.input"
    ```
 4. Continue with staging workflow below (source, verify, persist)
 
