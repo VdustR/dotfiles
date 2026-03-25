@@ -192,4 +192,9 @@ Before creating a PR:
 
 ### Secrets Handling
 
-See `~/.claude/rules/secrets.md` for detailed workflow (auto-loaded when working with secrets files). Key rules always in effect: NEVER read `~/.secrets` with Read/Edit tools or expose secret values in output.
+See `~/.claude/rules/secrets.md` for detailed workflow (loaded when working with `.secrets`/`.env` files). Key rules always in effect:
+
+- NEVER read `~/.secrets` with Read/Edit tools or expose secret values in output
+- **NEVER ask user to type, paste, or input secret values in conversation** — instead, create a tmp file for user to edit with their editor, then source indirectly (see `rules/secrets.md` § "Obtaining Secrets from User")
+
+@RTK.md

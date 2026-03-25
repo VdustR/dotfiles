@@ -40,6 +40,31 @@ Assumed format: `export KEY=value` (one per line).
 - If value contains the delimiter, pick one absent from the value (`/`, `@`, `#`)
 - Use Bash tool only — never Read or Edit tools on `~/.secrets` (see PROHIBITED)
 
+## Obtaining Secrets from User
+
+**NEVER ask the user to type, paste, or input secret values (tokens, API keys, passwords, credentials) in the conversation.**
+
+Instead, create a tmp file for the user to fill in with their editor:
+
+1. Create input file with instructions:
+   ```bash
+   (umask 077; mkdir -p "${TMPDIR:-/tmp}/.claude-secrets")
+   cat > "${TMPDIR:-/tmp}/.claude-secrets/.secrets.input" <<'TEMPLATE'
+   # Paste your <KEY_NAME> below this line, then save and close:
+
+   TEMPLATE
+   ```
+2. Tell user to edit (suggest one):
+   - `$EDITOR "${TMPDIR:-/tmp}/.claude-secrets/.secrets.input"`
+   - `open -t "${TMPDIR:-/tmp}/.claude-secrets/.secrets.input"` (macOS TextEdit)
+3. After user confirms saved, transfer to staging in a subshell (value doesn't leak to parent):
+   ```bash
+   (val=$(sed -n '/^[^#]/p' "${TMPDIR:-/tmp}/.claude-secrets/.secrets.input" | tr -d '\n'); printf 'export %s=%q\n' "KEY_NAME" "$val") >> "${TMPDIR:-/tmp}/.claude-secrets/.secrets.staged" && rm -f "${TMPDIR:-/tmp}/.claude-secrets/.secrets.input"
+   ```
+4. Continue with staging workflow below (source, verify, persist)
+
+**Diagnosis only** — after sourcing, only inspect via length or safe partial (see "Verifying Env Vars"). Never output the full value.
+
 ## AI-Generated Secrets (Staging Workflow)
 
 **Staging directory & file:**
@@ -119,6 +144,7 @@ _capture() { local k="$1" v="$2"; (umask 077; mkdir -p "${TMPDIR:-/tmp}/.claude-
 
 ## PROHIBITED
 
+- **Ask for secrets in conversation**: asking user to type, paste, or input secret values — use tmp file workflow (see "Obtaining Secrets from User")
 - **Output values**: `echo "$SECRET"`, `printenv SECRET`, `printf '%s' "$SECRET"`, `declare -p SECRET` (exceptions: `printenv` inside `$()` for length check, e.g., `v="$(printenv "$k")"; echo "${#v}"`; safe partial inspection per "Verifying Env Vars" section above)
 - **Read secrets file**: `cat`/`head`/`tail`/`less` or Read/Edit tool on `~/.secrets`
 - **Unfiltered dump**: bare `env`, `printenv`, `export -p` (exposes all values)
