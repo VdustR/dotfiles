@@ -43,6 +43,8 @@ When documenting code behavior (especially async patterns):
   - Verify not on `main`/`master`; create branch if needed
   - After PR created: `git checkout --detach HEAD` then delete local branch
   - For review changes: `gh pr checkout <number>`
+  - Worktree path: `<repo>.worktrees/<branch>/` (parallel to repo, no `.gitignore` changes needed)
+- Review workflow (PR and retro): subagent review → auto fix clear risk issues without asking; flag ambiguous ones
 
 ## Knowledge Persistence
 
