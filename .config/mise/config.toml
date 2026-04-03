@@ -1,0 +1,37 @@
+[tools]
+bun = "latest"
+go = "latest"
+node = "latest"
+npm = "latest"
+"npm:@openai/codex" = "latest"
+"npm:agent-browser" = "latest"
+python = "latest"
+"npm:@typescript/analyze-trace" = "latest"
+"npm:@github/copilot" = "latest"
+"npm:commitizen" = "latest"
+"npm:@dotenvx/dotenvx" = "latest"
+"npm:firebase-tools" = "latest"
+"npm:@g2d/cli" = "latest"
+"npm:@google/gemini-cli" = "latest"
+"npm:@googleworkspace/cli" = "latest"
+"npm:http-server" = "latest"
+"npm:@microsoft/inshellisense" = "latest"
+"npm:@antfu/ni" = "latest"
+"npm:@antfu/nip" = "latest"
+"npm:ngrok" = "latest"
+"npm:qnm" = "latest"
+"npm:serve" = "latest"
+"npm:@statsig/siggy" = "latest"
+"npm:skills" = "latest"
+"npm:taze" = "latest"
+"npm:tunnelmole" = "latest"
+"npm:vercel" = "latest"
+"npm:wrangler" = "latest"
+
+[settings]
+idiomatic_version_file = true
+idiomatic_version_file_enable_tools = ["node", "go"]
+status.missing_tools = "always"
+
+[env]
+MISE_PYTHON_PRECOMPILED_FLAVOR = "install_only_stripped"
