@@ -82,6 +82,8 @@ When modifying these files, ask to sync with `~/repo/VdustR/dotfiles` + create P
 | `~/.claude/rules/secrets.md` | `.claude/rules/secrets.md` |
 | `~/.config/mise/config.toml` | `.config/mise/config.toml` |
 
+This includes `mise use --global` operations — mise auto-generates `config.toml`, so after any global tool change, ask to sync + PR.
+
 ## Task Boundary Discipline
 
 - Only execute explicitly requested actions
