@@ -8,7 +8,8 @@ This is a dotfiles repository. When asked to apply or install these dotfiles, fo
 |--------|--------|-------------|
 | `.gitignore` | `~/.gitignore` | Global gitignore (macOS, VSCode) |
 | `.claude/CLAUDE.md` | `~/.claude/CLAUDE.md` | Claude Code global instructions |
-| `.zsh_aliases` | `~/.zsh_aliases` | Zsh aliases for CLI tools via npx |
+| `.claude/rules/secrets.md` | `~/.claude/rules/secrets.md` | Claude Code secrets handling rules |
+| `.config/mise/config.toml` | `~/.config/mise/config.toml` | mise global tool configuration |
 
 ## Installation Steps
 
@@ -18,24 +19,23 @@ This is a dotfiles repository. When asked to apply or install these dotfiles, fo
    git config --global core.excludesfile ~/.gitignore
    ```
 
-2. **CLAUDE.md**: Copy to user's Claude config
+2. **Claude Code config**: Copy to user's Claude config
    ```bash
+   mkdir -p ~/.claude/rules
    cp .claude/CLAUDE.md ~/.claude/CLAUDE.md
+   cp .claude/rules/secrets.md ~/.claude/rules/secrets.md
    ```
 
-3. **Zsh aliases**: Copy and source in `.zshrc`
+3. **mise global tools**: Copy config and install
    ```bash
-   cp .zsh_aliases ~/.zsh_aliases
-   # Add sourcing line to ~/.zshrc if not already present
-   LINE_TO_ADD='[ -f ~/.zsh_aliases ] && source ~/.zsh_aliases'
-   if ! grep -qF -- "$LINE_TO_ADD" ~/.zshrc 2>/dev/null; then
-     printf "\n# Source custom Zsh aliases\n%s\n" "$LINE_TO_ADD" >> ~/.zshrc
-   fi
+   mkdir -p ~/.config/mise
+   cp .config/mise/config.toml ~/.config/mise/config.toml
+   mise install
    ```
 
-## Zsh Aliases Maintenance
+## mise Tool Maintenance
 
-When user requests adding a new CLI alias:
+When user requests adding a new CLI tool:
 
 1. **Research the tool**
    - Use `/docs` skill (Context7) to lookup package documentation
@@ -49,14 +49,14 @@ When user requests adding a new CLI alias:
    - Give recommendation with reasoning
    - Wait for user confirmation
 
-4. **Generate alias**
-   - Format: `alias <cmd>="npx -y [--package=<pkg>] <cmd>"`
-   - Use `--package=<pkg>` only when package name differs from executable
-   - Maintain alphabetical order
+4. **Install via mise**
+   ```bash
+   mise use --global npm:<package-name>
+   ```
+   mise auto-generates `~/.config/mise/config.toml` — do not hand-edit for ordering or formatting.
 
-5. **Update both files**
-   - Repo: `.zsh_aliases`
-   - User: `~/.zsh_aliases`
+5. **Sync dotfiles**
+   After any `mise use --global` change, ask the user whether to sync `~/.config/mise/config.toml` to `~/repo/VdustR/dotfiles` and create a PR.
 
 ## Notes
 
