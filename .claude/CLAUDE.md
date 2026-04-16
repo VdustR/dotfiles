@@ -152,7 +152,7 @@ Only use port-based detection when the port is **read from project config or pro
 
 ### Reuse vs Restart
 
-- CWD/args matches current project → reusable. Needs restart (e.g., config changed) → confirm before killing, then restart; otherwise reuse as-is
+- CWD/args matches current project → reusable. Needs restart (e.g., config changed) → follow Before Stopping rules below; otherwise reuse as-is
 - Does NOT match → different project. Report what's running (CWD + command + port) and ask user
 - Cannot determine → ask user
 
@@ -160,9 +160,8 @@ Only use port-based detection when the port is **read from project config or pro
 
 **Never kill or close a long-running process without user confirmation.**
 
-- **User's initial instruction explicitly includes shutdown** (e.g., "restart the dev server", "close the browser and clean up") → proceed without extra confirmation
-- **Restart for reuse** (detected in Reuse vs Restart above) → confirm before killing, then restart
-- **All other cases** → ask before stopping, even if the process seems no longer needed
+- **User's initial instruction explicitly includes shutdown or restart** (e.g., "restart the dev server", "close the browser and clean up") → proceed without extra confirmation
+- **All other cases** (including restart-for-reuse detected above) → ask before stopping, even if the process seems no longer needed
 
 ## IDE Linting Issues
 
