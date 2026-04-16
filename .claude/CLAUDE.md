@@ -102,7 +102,7 @@ This includes `mise use --global` operations — mise auto-generates `config.tom
 
 - Only execute explicitly requested actions
 - **Requires explicit instruction**: git operations (commits, pushes, branch changes), deploys
-- **Safe without asking**: tests, linting, type checks, read-only git (`git diff`, `git status`, `git log`), reading files (except `~/.secrets`), exploring codebase
+- **Safe without asking**: tests, linting, type checks, read-only git (`git diff`, `git status`, `git log`), reading files (except secret files, e.g., `~/.secrets`, `.env`), exploring codebase
 
 ## Long-Running Service Reuse
 
