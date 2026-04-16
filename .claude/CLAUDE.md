@@ -106,12 +106,12 @@ This includes `mise use --global` operations — mise auto-generates `config.tom
 
 ## Long-Running Service Reuse
 
-Before starting any long-lived process, unconditionally verify no reusable instance exists:
+Before starting any long-lived process, unconditionally verify no reusable instance exists. Examples (not exhaustive — extrapolate as needed):
 
-- **Port-bound** (dev server, database, tunnel): `lsof -i :<port> -sTCP:LISTEN`
-- **Non-port** (`tsc -w`, `jest --watch`, nodemon, file watchers): `pgrep -f <process>`
-- **Browser sessions**: call `tabs_context_mcp` before opening new tabs
-- **Background agents**: check `TaskList` before spawning new agents
+- **Port-bound** (e.g., dev server, database, tunnel): `lsof -i :<port> -sTCP:LISTEN`
+- **Non-port** (e.g., `tsc -w`, file watchers): `pgrep -f <process>`
+- **Browser sessions** (e.g., Chrome MCP): check existing tabs before opening new ones
+- **Background agents** (e.g., subagents, tasks): check running agents before spawning new ones
 
 After finding a matching process, **verify it's the right one** (check CWD, args, project path — not just process name), then:
 
