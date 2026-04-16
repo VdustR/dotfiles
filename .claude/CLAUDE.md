@@ -109,7 +109,7 @@ This includes `mise use --global` operations — mise auto-generates `config.tom
 Before starting any long-lived process, unconditionally verify no reusable instance exists:
 
 - **Port-bound** (dev server, database, tunnel): `lsof -i :<port> -sTCP:LISTEN`
-- **Non-port** (`tsc -w`, `jest --watch`, nodemon, file watchers): `ps aux | grep <process>`
+- **Non-port** (`tsc -w`, `jest --watch`, nodemon, file watchers): `pgrep -af <process>`
 - **Browser sessions**: call `tabs_context_mcp` before opening new tabs
 - **Background agents**: check `TaskList` before spawning new agents
 
