@@ -106,30 +106,51 @@ This includes `mise use --global` operations — mise auto-generates `config.tom
 
 ## Long-Running Service Reuse
 
-Before starting any long-lived process, unconditionally verify no reusable instance exists. Two mandatory steps — **both required, never skip step 2**:
+Before starting any long-lived process, unconditionally verify no reusable instance exists.
 
-### Step 1: Detect
+### Preferred: Find by project path (no port guessing)
 
-- **Port-bound** (e.g., dev server, database, tunnel): `lsof -i :<port> -sTCP:LISTEN`
+Search running processes for the current project path — **never assume a framework's default port**:
+
+```bash
+ps -ewwo pid,args 2>/dev/null | grep -F "/current/project" | grep -v grep
+```
+
+(`-ww` is required on macOS — without it `ps` truncates args and misses full paths)
+
+If a matching process is found, get its actual port:
+
+```bash
+lsof -p <PID> -a -iTCP -sTCP:LISTEN -FnP 2>/dev/null | grep '^n'
+```
+
+### Fallback: Find by port (only when port is known from config/output)
+
+Only use port-based detection when the port is **read from project config or process output**, not guessed:
+
+- `lsof -i :<port> -sTCP:LISTEN` → get PID
+- Then verify ownership — extract PID and run **both** in a single Bash call:
+  ```bash
+  lsof -p <PID> -a -d cwd -Fn 2>/dev/null | grep '^n' | cut -c2-   # CWD
+  ps -p <PID> -wwo args=                                             # full command
+  ```
+
+### Other process types
+
 - **Non-port** (e.g., `tsc -w`, file watchers): `pgrep -f <process>`
 - **Browser sessions** (e.g., Chrome MCP): check existing tabs before opening new ones
 - **Background agents** (e.g., subagents, tasks): check running agents before spawning new ones
 
-If nothing found → safe to start. If found → proceed to step 2.
+### Known limitations
 
-### Step 2: Verify ownership (mandatory)
+- **Partial path match**: `grep -F "/repo/app"` also matches `/repo/app-backend` — use the most specific path available
+- **Args without project path**: processes started with relative paths (`python app.py`, `go run main.go`) or global binaries won't appear in `ps` args — if preferred path finds nothing but you suspect something is running, fall back to port-based detection or check CWD of candidate PIDs via `pgrep`
 
-Extract PID from step 1, then run **both** in a single Bash call:
+### Decision
 
-```bash
-lsof -p <PID> -a -d cwd -Fn 2>/dev/null | grep '^n' | cut -c2-  # CWD
-ps -p <PID> -o args=                                               # full command
-```
-
-**Decision**:
-- CWD matches current project path → reusable. Check if it needs restart (e.g., config changed) — if yes and confident, auto-kill + restart; if no, reuse as-is
-- CWD does NOT match → different project. Report what's on the port (CWD + command) and ask user before killing or starting a conflicting instance
-- Cannot determine CWD → ask user
+- CWD/args matches current project → reusable. Needs restart (e.g., config changed) → auto-kill + restart; otherwise reuse as-is
+- Does NOT match → different project. Report what's running (CWD + command + port) and ask user
+- Cannot determine → ask user
 
 This check is unconditional — every time, not only when suspecting a duplicate.
 
