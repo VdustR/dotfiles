@@ -121,7 +121,7 @@ ps -ewwo pid,args 2>/dev/null | grep -F "/current/project" | grep -v grep
 If a matching process is found, get its actual port:
 
 ```bash
-lsof -p <PID> -a -iTCP -sTCP:LISTEN -FnP 2>/dev/null | grep '^n'
+lsof -p <PID> -a -iTCP -sTCP:LISTEN -Fn -P 2>/dev/null | grep '^n'
 ```
 
 ### Fallback: Find by port (only when port is known from config/output)
