@@ -104,11 +104,15 @@ This includes `mise use --global` operations — mise auto-generates `config.tom
 - **Requires explicit instruction**: git operations (commits, pushes, branch changes), deploys
 - **Safe without asking**: tests, linting, type checks, read-only git (`git diff`, `git status`, `git log`), reading files (except secret files, e.g., `~/.secrets`, `.env`), exploring codebase
 
-## Long-Running Service Reuse
+## Long-Running Process Lifecycle
 
-Before starting any long-lived process, unconditionally verify no reusable instance exists.
+Applies to: dev servers, `tsc -w`, file watchers, browser sessions (Chrome MCP, agent-browser), background agents/subagents.
 
-### Preferred: Find by project path (no port guessing)
+### Before Starting — detect existing instances
+
+Unconditionally verify no reusable instance exists before starting any long-lived process.
+
+**Preferred: Find by project path** (no port guessing)
 
 Search running processes for the current project path — **never assume a framework's default port**:
 
@@ -124,7 +128,7 @@ If a matching process is found, get its actual port:
 lsof -p <PID> -a -iTCP -sTCP:LISTEN -Fn -P 2>/dev/null | grep '^n'
 ```
 
-### Fallback: Find by port (only when port is known from config/output)
+**Fallback: Find by port** (only when port is known from config/output)
 
 Only use port-based detection when the port is **read from project config or process output**, not guessed:
 
@@ -135,24 +139,29 @@ Only use port-based detection when the port is **read from project config or pro
   ps -p <PID> -wwo args=                                             # full command
   ```
 
-### Other process types
+**Other process types**
 
 - **Non-port** (e.g., `tsc -w`, file watchers): `pgrep -f <process>`
 - **Browser sessions** (e.g., Chrome MCP): check existing tabs before opening new ones
 - **Background agents** (e.g., subagents, tasks): check running agents before spawning new ones
 
-### Known limitations
+**Known limitations**
 
 - **Partial path match**: `grep -F "/repo/app"` also matches `/repo/app-backend` — use the most specific path available
 - **Args without project path**: processes started with relative paths (`python app.py`, `go run main.go`) or global binaries won't appear in `ps` args — if preferred path finds nothing but you suspect something is running, fall back to port-based detection or check CWD of candidate PIDs via `pgrep`
 
-### Decision
+### Reuse vs Restart
 
-- CWD/args matches current project → reusable. Needs restart (e.g., config changed) → auto-kill + restart; otherwise reuse as-is
+- CWD/args matches current project → reusable. Needs restart (e.g., config changed) → follow Before Stopping rules below; otherwise reuse as-is
 - Does NOT match → different project. Report what's running (CWD + command + port) and ask user
 - Cannot determine → ask user
 
-This check is unconditional — every time, not only when suspecting a duplicate.
+### Before Stopping — confirm with user
+
+**Never kill or close a long-running process without user confirmation.**
+
+- **User's initial instruction explicitly includes shutdown or restart** (e.g., "restart the dev server", "close the browser and clean up") → proceed without extra confirmation
+- **All other cases** (including restart-for-reuse detected above) → ask before stopping, even if the process seems no longer needed
 
 ## IDE Linting Issues
 
