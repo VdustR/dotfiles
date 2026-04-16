@@ -104,11 +104,28 @@ This includes `mise use --global` operations — mise auto-generates `config.tom
 - **Requires explicit instruction**: git operations, commits, pushes, deploys
 - **Safe without asking**: tests, linting, type checks, reading files (except `~/.secrets`), exploring codebase
 
+## Long-Running Service Reuse
+
+Before starting any long-lived process, unconditionally verify no reusable instance exists:
+
+- **Port-bound** (dev server, database, tunnel): `lsof -i :<port> -sTCP:LISTEN`
+- **Non-port** (`tsc -w`, `jest --watch`, nodemon, file watchers): `ps aux | grep <process>`
+- **Browser sessions**: call `tabs_context_mcp` before opening new tabs
+- **Background agents**: check `TaskList` before spawning new agents
+
+After finding a matching process, **verify it's the right one** (check CWD, args, project path — not just process name), then:
+
+- Working and reusable as-is → reuse, don't restart
+- Needs restart (e.g., config changed) and confident it's same project with no side effects → auto-kill + restart
+- Unclear ownership or impact → ask user
+
+This check is unconditional — every time, not only when suspecting a duplicate.
+
 ## IDE Linting Issues
 
 - **Repo has linting tool config** (e.g., `.cspell.json`, `.markdownlint-cli2.jsonc`) → handle according to repo conventions
 - **Repo has no config** (IDE-only) → notify the user, **do not auto-fix** by default
-- When handling specific linting issues (cspell, markdownlint, etc.), invoke the corresponding skill for detailed strategy
+- **MUST invoke the corresponding plugin skill** when encountering linting/tooling errors — `vp-cspell:cspell` for cspell, etc. Invoke even if you think you know the fix; skills contain decision trees that prevent destructive fixes (e.g., rewriting entire config files). False-positive invocations are cheap; skipping a skill can destroy config.
 
 ## Bug Fixing Strategy
 
@@ -140,7 +157,7 @@ This includes `mise use --global` operations — mise auto-generates `config.tom
 1. **Plan**: Analyze task, break into steps, identify pitfalls
 2. **Dos & Don'ts**: Explicitly list what to do and not do
 3. **Execute**: Implement according to plan
-4. **Verify**: Self-review, run tests/linting, check against plan
+4. **Verify**: Self-review with `git diff` (check for unintended scope — files you didn't mean to touch, large deletions, destroyed config), then run tests/linting, check against plan
 5. **Iterate**: Max 3 iterations; re-plan if stuck
 
 ### Confirmation Rules
