@@ -106,18 +106,30 @@ This includes `mise use --global` operations — mise auto-generates `config.tom
 
 ## Long-Running Service Reuse
 
-Before starting any long-lived process, unconditionally verify no reusable instance exists. Examples (not exhaustive — extrapolate as needed):
+Before starting any long-lived process, unconditionally verify no reusable instance exists. Two mandatory steps — **both required, never skip step 2**:
+
+### Step 1: Detect
 
 - **Port-bound** (e.g., dev server, database, tunnel): `lsof -i :<port> -sTCP:LISTEN`
 - **Non-port** (e.g., `tsc -w`, file watchers): `pgrep -f <process>`
 - **Browser sessions** (e.g., Chrome MCP): check existing tabs before opening new ones
 - **Background agents** (e.g., subagents, tasks): check running agents before spawning new ones
 
-After finding a matching process, **verify it's the right one** (check CWD, args, project path — not just process name), then:
+If nothing found → safe to start. If found → proceed to step 2.
 
-- Working and reusable as-is → reuse, don't restart
-- Needs restart (e.g., config changed) and confident it's same project with no side effects → auto-kill + restart
-- Unclear ownership or impact → ask user
+### Step 2: Verify ownership (mandatory)
+
+Extract PID from step 1, then run **both** in a single Bash call:
+
+```bash
+lsof -p <PID> -a -d cwd -Fn 2>/dev/null | grep '^n' | cut -c2-  # CWD
+ps -p <PID> -o args=                                               # full command
+```
+
+**Decision**:
+- CWD matches current project path → reusable. Check if it needs restart (e.g., config changed) — if yes and confident, auto-kill + restart; if no, reuse as-is
+- CWD does NOT match → different project. Report what's on the port (CWD + command) and ask user before killing or starting a conflicting instance
+- Cannot determine CWD → ask user
 
 This check is unconditional — every time, not only when suspecting a duplicate.
 
