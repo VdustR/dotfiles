@@ -197,13 +197,19 @@ Only use port-based detection when the port is **read from project config or pro
 ### Workflow
 
 0. **Skill Check**: Invoke applicable skills before proceeding
-1. **Plan**: For non-trivial tasks, transform the request into verifiable success criteria, then break into steps with explicit pitfalls
+1. **Research**: Before planning non-trivial work, reduce unknowns until a Plan can stand on verified facts
+   - **When needed**: if a Plan draft would contain unverified assumptions or if/else branches avoiding unknowns, OR if a mistake is hard to reverse — Research first. Otherwise (small/familiar/low-risk) go straight to Plan
+   - **Done when**: "If this Plan fails, could it be because I didn't look at something?" — answer must be "no", or "the remaining uncertainty is explicit and acceptable"
+   - **Two loops, same phase**: (a) *explore* — clarify intent, map viable directions; (b) *verify* — check current state (code, env, version, config) and feasibility of each direction. Exploration alone is brainstorming, not Research
+   - **Rule**: verified facts and unverified assumptions must be visibly separated. "If X then Y else Z" is a research-deficit signal, not robust design — go look
+2. **Plan**: For non-trivial tasks, transform the request into verifiable success criteria, then break into steps with explicit pitfalls
+   - **Open with a Research summary** (facts / outstanding assumptions / chosen direction with why). Plan then explores implementation paths under that direction and commits to one. If any outstanding assumption could invalidate the Plan, pause and confirm before continuing
    - Imperative → verifiable: "Add validation" → "Write tests for invalid inputs, then make them pass"; "Refactor X" → "Ensure tests pass before and after"
    - Multi-step format: `[Step] → verify: [check]`
-2. **Dos & Don'ts**: Explicitly list what to do and not do
-3. **Execute**: Implement according to plan; follow Editing Discipline
-4. **Verify**: Self-review with `git diff` — every changed line must trace to the request; flag unintended scope (stray files, large deletions, destroyed config), then run tests/linting, check against plan
-5. **Iterate**: Max 3 iterations; re-plan if stuck
+3. **Dos & Don'ts**: Explicitly list what to do and not do
+4. **Execute**: Implement according to plan; follow Editing Discipline
+5. **Verify**: Self-review with `git diff` — every changed line must trace to the request; flag unintended scope (stray files, large deletions, destroyed config), then run tests/linting, check against plan
+6. **Iterate**: Max 3 iterations; re-plan if stuck
 
 ### Editing Discipline
 
@@ -239,6 +245,7 @@ Before creating a PR:
 - When uncertain, invoke the skill — false positives are cheap, missed skills are costly
 - Never rationalize skipping: "simple task", "I already know", "just one thing first" are red flags
 - Never skip skill invocation to ask clarifying questions — skills contain methodology for handling ambiguity
+- **Brainstorming-type skills are the "explore" half of a phase, not a substitute for it** — must pair with verification (Research) or commitment (Plan) to close the loop
 
 ## Tool Installation
 
