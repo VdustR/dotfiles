@@ -9,6 +9,7 @@ This is a dotfiles repository. When asked to apply or install these dotfiles, fo
 | `.gitignore` | `~/.gitignore` | Global gitignore (macOS, VSCode) |
 | `.claude/CLAUDE.md` | `~/.claude/CLAUDE.md` | Claude Code global instructions |
 | `.claude/rules/secrets.md` | `~/.claude/rules/secrets.md` | Claude Code secrets handling rules |
+| `.codex/AGENTS.md` | `~/.codex/AGENTS.md` | Codex global instructions |
 | `.config/mise/config.toml` | `~/.config/mise/config.toml` | mise global tool configuration |
 
 ## Installation Steps
@@ -26,7 +27,13 @@ This is a dotfiles repository. When asked to apply or install these dotfiles, fo
    cp .claude/rules/secrets.md ~/.claude/rules/secrets.md
    ```
 
-3. **mise global tools**: Copy config and install
+3. **Codex config**: Copy to user's Codex config
+   ```bash
+   mkdir -p ~/.codex
+   cp .codex/AGENTS.md ~/.codex/AGENTS.md
+   ```
+
+4. **mise global tools**: Copy config and install
    ```bash
    mkdir -p ~/.config/mise
    cp .config/mise/config.toml ~/.config/mise/config.toml
