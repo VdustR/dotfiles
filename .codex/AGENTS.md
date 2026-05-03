@@ -78,6 +78,12 @@ Personal guidance for Codex sessions. Claude Code is maintained separately in `~
 - Do not immediately fall back from a missing tool when installing it may be the correct path; explain the tradeoff and ask.
 - Do not print or persist machine-specific absolute paths in reusable/public artifacts unless the artifact is explicitly local-only.
 
+## Editor
+
+- Use Zed for local editor handoffs and file-opening instructions.
+- Prefer `zed <path>` when the user asks to open a local file or project in an editor.
+- Do not use `code`, `.code-workspace`, or `CLAUDECODE= code` unless the user explicitly requests that toolchain.
+
 ## Secrets And Credentials
 
 - Never ask the user to type, paste, or input secrets such as tokens, API keys, passwords, cookies, private keys, or session credentials in the conversation.
@@ -86,6 +92,9 @@ Personal guidance for Codex sessions. Claude Code is maintained separately in `~
 - When a secret value is needed, use a local tmp-file or editor handoff with restrictive permissions, then verify by length or masked partial only.
 - Never hardcode sensitive information. Prefer environment variables or the platform's secret manager.
 - Validate external inputs and follow OWASP guidance for security-sensitive work.
+- Treat `.env.example`, `.env.sample`, `.env.template`, and similar placeholder files as non-secret unless real secret values are present.
+- Never run unfiltered `env`, `printenv`, `export -p`, `set -x`, or `bash -x` when secrets may be present.
+- Do not put secret values in command output, logs, commits, PR text, tracked files, or reusable artifacts.
 
 ## Long-Running Processes
 
