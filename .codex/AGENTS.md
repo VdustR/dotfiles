@@ -92,6 +92,7 @@ Personal guidance for Codex sessions. Claude Code is maintained separately in `~
 - Do not install new production dependencies without confirmation.
 - If a required tool is missing, explain the missing tool and ask whether to install it or use an alternative.
 - When package manager conventions exist in the repo, use those conventions.
+- For Node.js projects or repositories with no package manager specified by repo docs, config, or lockfiles, default to the latest stable `pnpm`.
 - Prefer official install and auth paths over local compatibility hacks.
 - If a workaround touches installed tool files, config internals, or persistent local state, discuss it before applying.
 - Do not immediately fall back from a missing tool when installing it may be the correct path; explain the tradeoff and ask.
