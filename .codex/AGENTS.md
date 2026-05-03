@@ -160,6 +160,7 @@ lsof -p <PID> -a -iTCP -sTCP:LISTEN -Fn -P 2>/dev/null | grep '^n'
 ## Skills And Delegation
 
 - Use available platform skills when they directly match the task, especially for specialized tools, documents, spreadsheets, presentations, browser work, and repository workflows.
+- When using `vp-skills` or `npx skills` to install or update skills, make the change global and apply it to all supported agents by default, unless the user explicitly asks for project-local or specific-agent scope.
 - Treat skills as scoped workflow guidance, not as a reason to override user instructions.
 - Use delegation or subagents only when the platform policy allows it, the user request permits it, and the work can be split into independent tasks.
 - Do not delegate urgent blocking work that the main thread needs immediately.
