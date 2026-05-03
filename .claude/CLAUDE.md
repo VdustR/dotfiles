@@ -49,11 +49,11 @@ When documenting code behavior (especially async patterns):
 ## Git Operations
 
 - Clone without path: `~/repo/<user|org>/<repo>`
-- After clone, ask to open with VSCode:
-  - Single `.code-workspace`: open it
-  - Multiple `.code-workspace`: ask which one
-  - None: open folder
-- Open VS Code: always use `CLAUDECODE= code <path>` to prevent nested session error
+- After clone, ask to open with Zed:
+  - Default: open the repo folder
+  - Multiple plausible project roots: ask which one
+- Open Zed: use `zed <path>` for local editor handoffs
+- Do not use `code`, `.code-workspace`, or `CLAUDECODE= code` unless explicitly requested
 - PR workflow:
   - Verify not on `main`/`master`; create branch if needed
   - After PR created: `git checkout --detach HEAD` then delete local branch
