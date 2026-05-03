@@ -71,7 +71,7 @@ Personal guidance for Codex sessions. Claude Code is maintained separately in `~
 ## PR And Commit Conventions
 
 - Before writing commit messages, PR titles, or PR bodies, inspect the repository's existing convention first.
-- Check repository instructions and templates, including `AGENTS.md`, `CONTRIBUTING.md`, `.github/PULL_REQUEST_TEMPLATE*`, `.github/COMMIT_TEMPLATE*`, release docs, and changelog guidance.
+- Check repository instructions and templates, including `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`, `.github/PULL_REQUEST_TEMPLATE*`, `.github/COMMIT_TEMPLATE*`, release docs, and changelog guidance.
 - Inspect recent accepted history before inferring style, including `git log --format=%s -n 30` and existing PR titles and bodies when GitHub access is available.
 - Check whether commit tooling is configured before drafting commits, including `commitlint.config.*`, `.commitlintrc*`, `package.json` scripts and devDependencies, `.husky/*`, `lefthook.yml`, `lint-staged`, `semantic-release`, `release-please`, and `changesets`.
 - Prefer explicit repository documentation and tooling over inferred style.

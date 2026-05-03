@@ -56,10 +56,6 @@ When documenting code behavior (especially async patterns):
 - Do not use `code`, `.code-workspace`, or `CLAUDECODE= code` unless explicitly requested
 - PR workflow:
   - Verify not on `main`/`master`; create branch if needed
-  - Always create GitHub PRs as draft PRs first
-  - After creating a draft PR, run a PR review pass before marking it ready for review
-  - Mark the PR ready for review only after review findings have been addressed or explicitly accepted
-  - If a review cannot be completed, leave the PR as draft and report the blocker
   - After PR created: `git checkout --detach HEAD` then delete local branch
   - For review changes: `gh pr checkout <number>`
   - Worktree path: `<repo>.worktrees/<branch>/` (parallel to repo, no `.gitignore` changes needed)
@@ -79,6 +75,10 @@ When documenting code behavior (especially async patterns):
 - Commit bodies should explain why the change was made, what changed, and any verification, migration, or risk notes when relevant.
 - PR titles should match the repository's existing style. If no style exists, align with the main commit title.
 - PR bodies should follow the repository PR template. If no template exists, include a concise summary, verification, and risks or notes.
+- Always create GitHub PRs as draft PRs first.
+- After creating a draft PR, run a PR review pass before marking it ready for review.
+- Mark the PR ready for review only after review findings have been addressed or explicitly accepted.
+- If a review cannot be completed, leave the PR as draft and report the blocker.
 
 ## Knowledge Persistence
 
