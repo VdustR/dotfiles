@@ -68,6 +68,25 @@ Personal guidance for Codex sessions. Claude Code is maintained separately in `~
 - When asked to address review feedback, inspect unresolved review comments or threads before making changes.
 - After creating or updating PR-facing text, keep PR titles, descriptions, and commit messages in American English.
 
+## PR And Commit Conventions
+
+- Before writing commit messages, PR titles, or PR bodies, inspect the repository's existing convention first.
+- Check repository instructions and templates, including `AGENTS.md`, `CONTRIBUTING.md`, `.github/PULL_REQUEST_TEMPLATE*`, `.github/COMMIT_TEMPLATE*`, release docs, and changelog guidance.
+- Inspect recent accepted history before inferring style, including `git log --format=%s -n 30` and existing PR titles and bodies when GitHub access is available.
+- Check whether commit tooling is configured before drafting commits, including `commitlint.config.*`, `.commitlintrc*`, `package.json` scripts and devDependencies, `.husky/*`, `lefthook.yml`, `lint-staged`, `semantic-release`, `release-please`, and `changesets`.
+- Prefer explicit repository documentation and tooling over inferred style.
+- If repository rules conflict, follow this priority: repo docs/templates, configured tooling, recent accepted commits/PRs, then Conventional Commits as fallback.
+- When feasible, validate commit messages with the repository's configured tool before committing. Do not install new dependencies or bypass hooks without confirmation.
+- If no convention is discoverable, use Conventional Commits for commit titles: `<type>(<scope>): <summary>`.
+- Keep commit titles concise, ideally 72 characters or less.
+- Commit bodies should explain why the change was made, what changed, and any verification, migration, or risk notes when relevant.
+- PR titles should match the repository's existing style. If no style exists, align with the main commit title.
+- PR bodies should follow the repository PR template. If no template exists, include a concise summary, verification, and risks or notes.
+- Always create GitHub PRs as draft PRs first.
+- After creating a draft PR, run a PR review pass before marking it ready for review.
+- Mark the PR ready for review only after review findings have been addressed or explicitly accepted.
+- If a review cannot be completed, leave the PR as draft and report the blocker.
+
 ## Dependencies And Tools
 
 - Do not install new production dependencies without confirmation.
