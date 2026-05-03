@@ -80,6 +80,10 @@ When documenting code behavior (especially async patterns):
 - Mark the PR ready for review only after review findings have been addressed or explicitly accepted.
 - If a review cannot be completed, leave the PR as draft and report the blocker.
 
+## Package Managers
+
+- For Node.js projects or repositories with no package manager specified by repo docs, config, or lockfiles, default to the latest stable `pnpm`.
+
 ## Knowledge Persistence
 
 ### Docs Update Workflow
