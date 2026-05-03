@@ -262,7 +262,7 @@ Before creating a PR:
 
 - Prioritize process skills (e.g., brainstorming, debugging, TDD) over implementation skills
 - When uncertain, invoke the skill — false positives are cheap, missed skills are costly
-- When using `npx skills` to install or update skills, make the change global and apply it to all supported agents by default, unless the user explicitly asks for project-local or specific-agent scope.
+- When using `vp-skills` or `npx skills` to install or update skills, make the change global and apply it to all supported agents by default, unless the user explicitly asks for project-local or specific-agent scope.
 - Never rationalize skipping: "simple task", "I already know", "just one thing first" are red flags
 - Never skip skill invocation to ask clarifying questions — skills contain methodology for handling ambiguity
 - **Brainstorming-type skills are the "explore" half of a phase, not a substitute for it** — must pair with verification (Research) or commitment (Plan) to close the loop
