@@ -260,6 +260,14 @@ Before creating a PR:
 - X/Twitter: Use `twitter-thread.com/t/<tweet_id>` first
 - Other sites: Use WebFetch; if JS-required (empty content, login wall), use agent-browser skill
 
+## Chat Platform Messaging
+
+Applies to Slack, Discord, Microsoft Teams, and similar chat platforms.
+
+- **Posting images** — always upload the image as a file attachment via the platform's file API (Slack: `files.getUploadURLExternal` + `files.completeUploadExternal`; Discord: `multipart/form-data` on the message endpoint; Teams: Graph API hosted-content). Do NOT paste the image URL in the message text and rely on auto-unfurl — even direct `*.png`/`*.jpg` URLs and especially GitHub `user-attachments/assets/<id>` URLs do not render as inline images. Download the bytes (`curl -fSL`) to a tmp file, then upload with the target channel/thread context set.
+- **Identity** — chat-platform tokens stored in `~/.secrets` are typically the user's own account, not a separate bot. Posts appear as the user. Don't frame the choice as "my identity vs yours."
+- **Threading** — when replying to a specific thread, set the platform's threading param (Slack: `thread_ts`; Discord: `message_reference`). Confirm the parent thread/message ID before posting; never assume it from context.
+
 ## Skill Usage
 
 **Invoke applicable skills BEFORE planning or executing — defer to `using-superpowers` for routing.**
