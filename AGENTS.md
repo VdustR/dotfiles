@@ -23,6 +23,7 @@ When asked to apply or install these dotfiles, follow the instructions below.
 
 2. **Claude Code config**: Copy to user's Claude config
    ```bash
+   mkdir -p ~/.claude
    cp .claude/CLAUDE.md ~/.claude/CLAUDE.md
    ```
 
