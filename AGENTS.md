@@ -10,7 +10,6 @@ When asked to apply or install these dotfiles, follow the instructions below.
 |--------|--------|-------------|
 | `.gitignore` | `~/.gitignore` | Global gitignore (macOS, local files) |
 | `.claude/CLAUDE.md` | `~/.claude/CLAUDE.md` | Claude Code global instructions |
-| `.claude/rules/secrets.md` | `~/.claude/rules/secrets.md` | Claude Code secrets handling rules |
 | `.codex/AGENTS.md` | `~/.codex/AGENTS.md` | Codex global instructions |
 | `.config/mise/config.toml` | `~/.config/mise/config.toml` | mise global tool configuration |
 
@@ -24,9 +23,8 @@ When asked to apply or install these dotfiles, follow the instructions below.
 
 2. **Claude Code config**: Copy to user's Claude config
    ```bash
-   mkdir -p ~/.claude/rules
+   mkdir -p ~/.claude
    cp .claude/CLAUDE.md ~/.claude/CLAUDE.md
-   cp .claude/rules/secrets.md ~/.claude/rules/secrets.md
    ```
 
 3. **Codex config**: Copy to user's Codex config

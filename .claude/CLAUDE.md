@@ -117,7 +117,6 @@ When modifying these files, ask to sync with `~/repo/VdustR/dotfiles` + create P
 |-----------|-----------|
 | `~/.gitignore` | `.gitignore` |
 | `~/.claude/CLAUDE.md` | `.claude/CLAUDE.md` |
-| `~/.claude/rules/secrets.md` | `.claude/rules/secrets.md` |
 | `~/.config/mise/config.toml` | `.config/mise/config.toml` |
 
 This includes `mise use --global` operations — mise auto-generates `config.toml`, so after any global tool change, ask to sync + PR.
@@ -289,10 +288,3 @@ Before creating a PR:
 - Validate external inputs
 - Use environment variables
 - Follow OWASP guidelines
-
-### Secrets Handling
-
-See `~/.claude/rules/secrets.md` for detailed workflow (loaded when working with `.secrets`/`.env` files). Key rules always in effect:
-
-- NEVER read `~/.secrets` with Read/Edit tools or expose secret values in output
-- **NEVER ask user to type, paste, or input secret values in conversation** — instead, create a tmp file for user to edit with their editor, then source indirectly (see `rules/secrets.md` § "Obtaining Secrets from User")
