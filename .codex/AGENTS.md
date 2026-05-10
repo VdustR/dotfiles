@@ -104,6 +104,12 @@ Personal guidance for Codex sessions. Claude Code is maintained separately in `~
 - Prefer `zed <path>` when the user asks to open a local file or project in an editor.
 - Do not use `code`, `.code-workspace`, or `CLAUDECODE= code` unless the user explicitly requests that toolchain.
 
+## Security
+
+- Never hardcode sensitive information.
+- Validate external inputs and follow OWASP guidance for security-sensitive work.
+- Prefer environment variables or the platform's secret manager.
+
 ## Long-Running Processes
 
 - Before starting a dev server, watcher, browser session, or other long-running process, check whether a reusable instance already exists.
