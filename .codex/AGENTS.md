@@ -104,18 +104,6 @@ Personal guidance for Codex sessions. Claude Code is maintained separately in `~
 - Prefer `zed <path>` when the user asks to open a local file or project in an editor.
 - Do not use `code`, `.code-workspace`, or `CLAUDECODE= code` unless the user explicitly requests that toolchain.
 
-## Secrets And Credentials
-
-- Never ask the user to type, paste, or input secrets such as tokens, API keys, passwords, cookies, private keys, or session credentials in the conversation.
-- Never print raw secret values. For diagnostics, report only existence, length, or a masked prefix/suffix.
-- Do not read or dump credential files such as `~/.secrets`, `.env`, `auth.json`, browser cookies, or credential SQLite stores unless explicitly requested and a safe redaction plan is in place.
-- When a secret value is needed, use a local tmp-file or editor handoff with restrictive permissions, then verify by length or masked partial only.
-- Never hardcode sensitive information. Prefer environment variables or the platform's secret manager.
-- Validate external inputs and follow OWASP guidance for security-sensitive work.
-- Treat `.env.example`, `.env.sample`, `.env.template`, and similar placeholder files as non-secret unless real secret values are present.
-- Never run unfiltered `env`, `printenv`, `export -p`, `set -x`, or `bash -x` when secrets may be present.
-- Do not put secret values in command output, logs, commits, PR text, tracked files, or reusable artifacts.
-
 ## Long-Running Processes
 
 - Before starting a dev server, watcher, browser session, or other long-running process, check whether a reusable instance already exists.
