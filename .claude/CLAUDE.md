@@ -35,7 +35,7 @@ Fallback conventions — defer to repo conventions and existing codebase pattern
 ## Verification
 
 - **Read before acting** — read existing files, check commit history, and search local patterns before generating content
-- **Prefer `rg` for repository search** — use `rg` for content search and `rg --files` for file discovery; fall back to `grep`/`find` only if `rg` is unavailable. Keep `grep` for filtering command output in shell pipelines, such as `ps` and `lsof`
+- **Prefer `rg` for repository search** — use `rg` for content search and `rg --files` for file discovery; fall back to `grep`/`find` only if `rg` is unavailable. Keep `grep` for filtering command output in shell pipelines, such as with `ps` and `lsof`
 - **Never assume** — don't default to generic content without verifying
 - Always verify before providing solutions — check version compatibility, API signatures, deprecation status
 - Use Context7 or web search for latest documentation
