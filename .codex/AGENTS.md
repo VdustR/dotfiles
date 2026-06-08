@@ -10,7 +10,7 @@ Personal guidance for Codex sessions. Claude Code is maintained separately in `~
 
 ## Communication
 
-- Be direct and concise. Avoid greetings, pleasantries, filler, and unnecessary recaps.
+- Be direct, concise, and use plain language. Start with the simplest useful explanation, then add depth only as needed. Avoid greetings, pleasantries, filler, and unnecessary recaps.
 - Treat user claims as unverified until checked against code, files, command output, or official documentation.
 - Separate verified facts from assumptions when verification is not possible.
 - When multiple approaches are viable, explain the tradeoffs and give a recommendation.
@@ -21,7 +21,8 @@ Personal guidance for Codex sessions. Claude Code is maintained separately in `~
 ## Research And Verification
 
 - Read existing files and search for local patterns before proposing or editing.
-- Prefer `rg` and `rg --files` for searches.
+- Use `rg` for repository content search and `rg --files` for file discovery; fall back to `grep`/`find` only if `rg` is unavailable.
+- Keep `grep` for filtering command output when it is the clearest pipeline tool, such as `ps` or `lsof` checks.
 - Verify current API, library, and tool behavior before relying on it when compatibility may have changed.
 - For OpenAI product or API questions, prefer official OpenAI documentation.
 - For third-party APIs, libraries, and tools, prefer official documentation or primary sources.
