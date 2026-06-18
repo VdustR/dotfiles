@@ -1,6 +1,6 @@
 # Dotfiles Agent Guide
 
-This is the shared repository instruction source for coding agents. Claude Code loads this file through `CLAUDE.md`; Codex reads this file directly.
+This is the shared repository instruction source for coding agents. Claude Code loads this file through the root `CLAUDE.md`; Codex reads this file directly.
 
 When asked to apply or install these dotfiles, follow the instructions below.
 
@@ -9,8 +9,8 @@ When asked to apply or install these dotfiles, follow the instructions below.
 | Source | Target | Description |
 |--------|--------|-------------|
 | `.gitignore` | `~/.gitignore` | Global gitignore (macOS, local files) |
-| `.claude/CLAUDE.md` | `~/.claude/CLAUDE.md` | Claude Code global instructions |
-| `.codex/AGENTS.md` | `~/.codex/AGENTS.md` | Codex global instructions |
+| `.codex/AGENTS.md` | `~/.codex/AGENTS.md` | Shared personal agent instructions for Codex |
+| `.claude/CLAUDE.md` | `~/.claude/CLAUDE.md` | Claude Code wrapper that imports `../.codex/AGENTS.md` |
 | `.config/mise/config.toml` | `~/.config/mise/config.toml` | mise global tool configuration |
 
 ## Installation Steps
@@ -21,13 +21,13 @@ When asked to apply or install these dotfiles, follow the instructions below.
    git config --global core.excludesfile ~/.gitignore
    ```
 
-2. **Claude Code config**: Copy to user's Claude config
+2. **Claude Code config**: Copy the wrapper to user's Claude config
    ```bash
    mkdir -p ~/.claude
    cp .claude/CLAUDE.md ~/.claude/CLAUDE.md
    ```
 
-3. **Codex config**: Copy to user's Codex config
+3. **Codex config**: Copy the same shared instructions to user's Codex config
    ```bash
    mkdir -p ~/.codex
    cp .codex/AGENTS.md ~/.codex/AGENTS.md

@@ -29,10 +29,10 @@ Then ask:
 | Path | Description |
 |------|-------------|
 | `AGENTS.md` | Shared repository instructions for coding agents |
-| `CLAUDE.md` | Claude Code wrapper that imports `AGENTS.md` |
+| `CLAUDE.md` | Claude Code wrapper that imports root `AGENTS.md` |
 | `.gitignore` | Global gitignore (macOS, local files) |
-| `.claude/CLAUDE.md` | Claude Code global instructions and preferences |
-| `.codex/AGENTS.md` | Codex global instructions and preferences |
+| `.codex/AGENTS.md` | Shared personal agent instructions and preferences |
+| `.claude/CLAUDE.md` | Claude Code global wrapper that imports `.codex/AGENTS.md` |
 
 ## Manual Installation
 
