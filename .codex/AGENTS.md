@@ -1,6 +1,6 @@
-# Personal Codex Instructions
+# Personal Agent Instructions
 
-Personal guidance for Codex sessions. Claude Code is maintained separately in `~/.claude/CLAUDE.md`.
+Shared personal guidance for coding-agent sessions. Codex reads this file directly; Claude Code should load the same content through a `CLAUDE.md` wrapper that imports this file.
 
 ## Language
 
@@ -26,6 +26,7 @@ Personal guidance for Codex sessions. Claude Code is maintained separately in `~
 - Verify current API, library, and tool behavior before relying on it when compatibility may have changed.
 - For OpenAI product or API questions, prefer official OpenAI documentation.
 - For third-party APIs, libraries, and tools, prefer official documentation or primary sources.
+- Use current documentation lookup tools or web search when version-sensitive behavior may have changed.
 - Use command output, code references, or documentation links as evidence for technical claims.
 - If a claim has no source, say that it needs checking rather than guessing.
 - Before non-trivial work, reduce unknowns until a plan can stand on verified facts.
@@ -64,6 +65,7 @@ Personal guidance for Codex sessions. Claude Code is maintained separately in `~
 - Do not create branches, commit, push, open PRs, or change checkout state unless explicitly requested.
 - Before creating a PR, verify the relevant local checks when feasible.
 - If asked to clone a repository without a target path, clone into `~/repo/<owner>/<repo>`.
+- After cloning, ask whether to open the repo with Zed. If multiple project roots are plausible, ask which one to open.
 - For review changes, inspect the actual diff or review thread before editing.
 - Before PR creation, verify that the branch is not `main` or `master`, inspect the diff, and run the relevant local checks.
 - When asked to address review feedback, inspect unresolved review comments or threads before making changes.
@@ -94,6 +96,7 @@ Personal guidance for Codex sessions. Claude Code is maintained separately in `~
 - If a required tool is missing, explain the missing tool and ask whether to install it or use an alternative.
 - When package manager conventions exist in the repo, use those conventions.
 - For Node.js projects or repositories with no package manager specified by repo docs, config, or lockfiles, default to the latest stable `pnpm`.
+- Prefer CLIs managed by the user's `mise` environment. For tools that are available through `mise`, use `mise exec -- <command>` or the `mise`-provided binary before falling back to other installations. Basic system tools such as `rg`, `git`, `ps`, and `lsof` can be used normally.
 - Prefer official install and auth paths over local compatibility hacks.
 - If a workaround touches installed tool files, config internals, or persistent local state, discuss it before applying.
 - Do not immediately fall back from a missing tool when installing it may be the correct path; explain the tradeoff and ask.
@@ -110,6 +113,8 @@ Personal guidance for Codex sessions. Claude Code is maintained separately in `~
 - Never hardcode sensitive information.
 - Validate external inputs and follow OWASP guidance for security-sensitive work.
 - Prefer environment variables or the platform's secret manager.
+- When a user-level PAT or token is needed, prefer the `vp-env-secrets` skill to load it from user-home secrets. If a PAT is available, prefer the PAT/CLI path over agent connectors.
+- For operations that require user identity, consciously distinguish personal accounts from company accounts. Infer the intended account from the task context, then verify the active account before external reads or writes.
 
 ## Long-Running Processes
 
@@ -156,6 +161,7 @@ lsof -p <PID> -a -iTCP -sTCP:LISTEN -Fn -P 2>/dev/null | grep '^n'
 ## Skills And Delegation
 
 - Use available platform skills when they directly match the task, especially for specialized tools, documents, spreadsheets, presentations, browser work, and repository workflows.
+- Invoke applicable skills before planning or executing work when the task directly matches their scope.
 - When using `vp-skills` or `npx skills` to install or update skills, make the change global and apply it to all supported agents by default, unless the user explicitly asks for project-local or specific-agent scope.
 - Treat skills as scoped workflow guidance, not as a reason to override user instructions.
 - Use delegation or subagents only when the platform policy allows it, the user request permits it, and the work can be split into independent tasks.
@@ -166,6 +172,7 @@ lsof -p <PID> -a -iTCP -sTCP:LISTEN -Fn -P 2>/dev/null | grep '^n'
 ## Linting And IDE Issues
 
 - If a repo has linting or spelling configuration, follow the repo convention and run the narrowest relevant check.
+- If a linting or spelling issue has a matching platform skill, use that skill before editing configuration.
 - If an issue appears to be IDE-only and the repo has no matching config, report it instead of auto-fixing by default.
 - Do not rewrite entire linting or spelling configs to fix one false positive unless the repo pattern supports that change.
 
@@ -182,11 +189,11 @@ lsof -p <PID> -a -iTCP -sTCP:LISTEN -Fn -P 2>/dev/null | grep '^n'
 - Keep agent instructions short, operational, and specific.
 - Update docs when public behavior, setup, or commands change.
 - Avoid duplicating the same command or rule across multiple docs unless one document is explicitly the source of truth.
-- For persistent Codex preferences, update this file.
-- Put Claude Code-specific guidance in `~/.claude/CLAUDE.md`, not in this file.
+- For persistent personal agent preferences, update this file.
+- Keep Claude Code's `CLAUDE.md` as an import wrapper; do not maintain a second copy of these instructions there.
 - Put repo-specific conventions in the repository instruction file.
 - Do not update memory files automatically unless the user explicitly requests it.
-- When asked to remember a recurring preference, suggest the right scope: Codex personal instructions, Claude Code instructions, repo instructions, or a task-specific skill.
+- When asked to remember a recurring preference, suggest the right scope: personal agent instructions, repo instructions, or a task-specific skill.
 - When updating instruction files, prefer a focused edit over a full rewrite unless the file is already structurally wrong.
 - When corrections reveal a recurring pattern, suggest persisting the rule and name the recommended location.
 
