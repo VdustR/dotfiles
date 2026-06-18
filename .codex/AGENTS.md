@@ -1,6 +1,6 @@
 # Personal Agent Instructions
 
-Shared personal guidance for coding-agent sessions. Codex reads this file directly; Claude Code should load the same content through a `CLAUDE.md` wrapper that contains `@AGENTS.md`.
+Shared personal guidance for coding-agent sessions. Codex reads this file directly; Claude Code should load the same content through a `CLAUDE.md` wrapper that imports this file.
 
 ## Language
 
