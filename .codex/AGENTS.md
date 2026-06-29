@@ -17,6 +17,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 - If the user is wrong, say so directly with evidence.
 - Do not reproduce code or completed steps in the final response unless the user asks for details.
 - When presenting non-trivial choices, include the available options, differences, examples or outcomes, and a recommendation.
+- For Slack, Asana, GitHub, Kanban, weekly updates, and other summaries intended for readers other than V, assume readers have no prior context. State the topic, impact, current state, owner or dependency, and next action before relying on links or identifiers.
 
 ## Research And Verification
 
@@ -155,6 +156,7 @@ lsof -p <PID> -a -iTCP -sTCP:LISTEN -Fn -P 2>/dev/null | grep '^n'
 - Keep plans proportional; do not create heavyweight planning artifacts for small, low-risk edits.
 - During execution, iterate up to three focused attempts before stepping back to re-plan.
 - Batch related file edits, but keep the change set easy to review.
+- For multi-line external writes, JSON payloads, Slack or Asana messages, and text containing quotes, mentions, or URLs, pass content through `stdin`, heredocs, or payload files instead of deeply nested shell quoting.
 - Prefer targeted file reads and precise searches over broad recursive scans.
 - Do not re-read files or re-run commands just to create reassuring output; run verification when it proves a specific claim.
 
