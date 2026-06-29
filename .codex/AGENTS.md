@@ -17,7 +17,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 - If the user is wrong, say so directly with evidence.
 - Do not reproduce code or completed steps in the final response unless the user asks for details.
 - When presenting non-trivial choices, include the available options, differences, examples or outcomes, and a recommendation.
-- For Slack, Asana, GitHub, kanban, weekly updates, and other summaries intended for readers other than V, assume readers have no prior context. State the topic, impact, current state, owner or dependency, and next action before relying on links or identifiers.
+- For Slack, Asana, GitHub, Kanban, weekly updates, and other summaries intended for readers other than V, assume readers have no prior context. State the topic, impact, current state, owner or dependency, and next action before relying on links or identifiers.
 
 ## Research And Verification
 
