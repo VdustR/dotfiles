@@ -66,7 +66,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 - Do not create branches, commit, push, open PRs, or change checkout state unless explicitly requested.
 - Before creating a PR, verify the relevant local checks when feasible.
 - If asked to clone a repository without a target path, clone into `~/repo/<owner>/<repo>`.
-- After cloning, ask whether to open the repo with Zed. If multiple project roots are plausible, ask which one to open.
+- After cloning, report the repository path and relevant next steps. Do not offer to open it unless the user asks for a local app handoff. If multiple project roots are plausible and the user asks to open one, ask which path to open.
 - For review changes, inspect the actual diff or review thread before editing.
 - Before PR creation, verify that the branch is not `main` or `master`, inspect the diff, and run the relevant local checks.
 - When asked to address review feedback, inspect unresolved review comments or threads before making changes.
@@ -86,10 +86,13 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 - Commit bodies should explain why the change was made, what changed, and any verification, migration, or risk notes when relevant.
 - PR titles should match the repository's existing style. If no style exists, align with the main commit title.
 - PR bodies should follow the repository PR template. If no template exists, include a concise summary, verification, and risks or notes.
-- Always create GitHub PRs as draft PRs first.
-- After creating a draft PR, run a PR review pass before marking it ready for review.
-- Mark the PR ready for review only after review findings have been addressed or explicitly accepted.
-- If a review cannot be completed, leave the PR as draft and report the blocker.
+- For requested PR-stage work, create GitHub PRs as draft PRs first.
+- After creating a draft PR, run a review pass and fix material risks with focused commits before marking it ready for review.
+- Inspect GitHub AI feedback before marking a PR ready, including review comments, bottom-of-PR replies, and emoji or reaction-only signals.
+- Use `vp-pr-comment-resolver` for actionable PR feedback. Verify each comment, fix valid issues, reply with evidence, and resolve only the right threads.
+- Mark a PR ready and merge only when no material risks remain, required checks pass, reviewer or AI feedback is handled, and merge has been explicitly authorized.
+- If review cannot be completed, feedback is ambiguous, checks fail, or risk remains, leave the PR as draft and report the blocker.
+- After merging, sync the local device checkout back to the merged state with non-destructive commands unless the user explicitly authorizes a destructive reset.
 
 ## Dependencies And Tools
 
@@ -105,8 +108,9 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 
 ## Editor
 
-- Use Zed for local editor handoffs and file-opening instructions.
-- Prefer `zed <path>` when the user asks to open a local file or project in an editor.
+- Use the system default application for local file, folder, and project handoffs.
+- Prefer `open <path>` when the user asks to open a local file, folder, or project.
+- Use Zed only when the user explicitly asks for Zed or an editor-specific handoff.
 - Do not use `code`, `.code-workspace`, or `CLAUDECODE= code` unless the user explicitly requests that toolchain.
 
 ## Security
