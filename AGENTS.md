@@ -9,8 +9,8 @@ When asked to apply or install these dotfiles, follow the instructions below.
 | Source | Target | Description |
 |--------|--------|-------------|
 | `.gitignore` | `~/.gitignore` | Global gitignore (macOS, local files) |
-| `.codex/AGENTS.md` | `~/.codex/AGENTS.md` | Shared personal agent instructions for Codex |
-| `.claude/CLAUDE.md` | `~/.claude/CLAUDE.md` | Claude Code wrapper that imports `../.codex/AGENTS.md` |
+| `.codex/AGENTS.md` | `~/.codex/AGENTS.md` | Shared personal agent instructions for Codex and Claude Code |
+| (generated at install) | `~/.claude/CLAUDE.md` | Claude Code wrapper that imports `~/.codex/AGENTS.md` |
 | `.config/mise/config.toml` | `~/.config/mise/config.toml` | mise global tool configuration |
 
 ## Installation Steps
@@ -21,10 +21,10 @@ When asked to apply or install these dotfiles, follow the instructions below.
    git config --global core.excludesfile ~/.gitignore
    ```
 
-2. **Claude Code config**: Copy the wrapper to user's Claude config
+2. **Claude Code config**: Generate the wrapper that imports the shared instructions
    ```bash
    mkdir -p ~/.claude
-   cp .claude/CLAUDE.md ~/.claude/CLAUDE.md
+   printf '@../.codex/AGENTS.md\n' > ~/.claude/CLAUDE.md
    ```
 
 3. **Codex config**: Copy the same shared instructions to user's Codex config
@@ -69,3 +69,4 @@ When user requests adding a new CLI tool:
 
 - Always ask before overwriting existing files
 - Show diff if target file already exists
+- The Claude Code wrapper is generated at install instead of being checked in: a tracked `.claude/CLAUDE.md` would also be auto-loaded as project instructions in every Claude Code session inside this repo, duplicating the personal instructions that the user-level `~/.claude/CLAUDE.md` already imports
