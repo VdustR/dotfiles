@@ -31,7 +31,8 @@ Then ask:
 | `AGENTS.md` | Shared repository instructions for coding agents |
 | `CLAUDE.md` | Claude Code wrapper that imports root `AGENTS.md` |
 | `.gitignore` | Global gitignore (macOS, local files) |
-| `.codex/AGENTS.md` | Shared personal agent instructions and preferences |
+| `.codex/AGENTS.md` | Shared personal agent instructions for Codex and Claude Code |
+| `.config/mise/config.toml` | mise global tool configuration |
 
 ## Manual Installation
 

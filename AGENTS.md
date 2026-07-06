@@ -21,23 +21,23 @@ When asked to apply or install these dotfiles, follow the instructions below.
    git config --global core.excludesfile ~/.gitignore
    ```
 
-2. **Claude Code config**: Generate the wrapper that imports the shared instructions
-   ```bash
-   mkdir -p ~/.claude
-   printf '@../.codex/AGENTS.md\n' > ~/.claude/CLAUDE.md
-   ```
-
-3. **Codex config**: Copy the same shared instructions to user's Codex config
+2. **Codex config**: Copy the shared instructions to user's Codex config
    ```bash
    mkdir -p ~/.codex
    cp .codex/AGENTS.md ~/.codex/AGENTS.md
    ```
 
-4. **mise global tools**: Copy config and install
+3. **Claude Code config**: Generate the wrapper that imports the instructions installed in step 2
+   ```bash
+   mkdir -p ~/.claude
+   printf '@../.codex/AGENTS.md\n' > ~/.claude/CLAUDE.md
+   ```
+
+4. **mise global tools**: Copy config, then install from the home directory — running inside the repo would hit mise's trust gate on the repo-local copy
    ```bash
    mkdir -p ~/.config/mise
    cp .config/mise/config.toml ~/.config/mise/config.toml
-   mise install
+   (cd ~ && mise install)
    ```
 
 ## mise Tool Maintenance
@@ -67,6 +67,5 @@ When user requests adding a new CLI tool:
 
 ## Notes
 
-- Always ask before overwriting existing files
-- Show diff if target file already exists
-- The Claude Code wrapper is generated at install instead of being checked in: a tracked `.claude/CLAUDE.md` would also be auto-loaded as project instructions in every Claude Code session inside this repo, duplicating the personal instructions that the user-level `~/.claude/CLAUDE.md` already imports
+- If a target file already exists with different content, show the diff and ask before overwriting; if it is identical, skip it and report no change
+- The Claude Code wrapper is generated at install instead of being checked in: tracked files at `~`-mirror paths can be auto-loaded as live config by tools running inside this repo (a tracked `.claude/CLAUDE.md` duplicated the personal instructions in every session). Only add mirror-path dotfiles that are harmless when auto-loaded in-repo; generate or relocate config that would self-apply
