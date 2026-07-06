@@ -80,7 +80,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 - Keep commit titles concise, ideally 72 characters or less; commit bodies explain why the change was made, what changed, and any verification, migration, or risk notes when relevant.
 - PR titles match the repository's existing style, or align with the main commit title when no style exists. PR bodies follow the repository PR template, or include a concise summary, verification, and risks or notes when no template exists.
 - For requested PR-stage work, create GitHub PRs as drafts first; after creating a draft PR, run a review pass and fix material risks with focused commits before marking it ready.
-- Before marking a PR ready, inspect reviewer and AI feedback, including review comments, bottom-of-PR replies, and emoji or reaction-only signals. Use `vp-pr-comment-resolver` for actionable PR feedback: verify each comment, fix valid issues, reply with evidence, and resolve only the right threads.
+- Before marking a PR ready, inspect reviewer and AI feedback, including review comments, bottom-of-PR replies, and emoji or reaction-only signals. Use `vp-pr-comment-resolver` for actionable PR feedback.
 - Mark a PR ready and merge only when no material risks remain, required checks pass, reviewer or AI feedback is handled, and merge has been explicitly authorized; otherwise leave the PR as draft and report the blocker.
 - After merging, sync the local device checkout back to the merged state with non-destructive commands unless the user explicitly authorizes a destructive reset.
 
@@ -88,7 +88,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 
 - Do not install new production dependencies without confirmation.
 - If a required tool is missing, explain the missing tool and the tradeoff, then ask whether to install it or use an alternative; do not silently fall back.
-- Follow the repo's package manager conventions; for Node.js projects or repositories with no package manager specified by repo docs, config, or lockfiles, default to the latest stable `pnpm`.
+- Follow the repo's package manager conventions; for Node.js projects with no package manager specified by repo docs, config, or lockfiles, default to the latest stable `pnpm`.
 - Prefer CLIs managed by the user's `mise` environment: use `mise exec -- <command>` or the `mise`-provided binary before falling back to other installations. Basic system tools such as `rg`, `git`, `ps`, and `lsof` can be used normally.
 - Prefer official install and auth paths over local compatibility hacks; if a workaround touches installed tool files, config internals, or persistent local state, discuss it before applying.
 - Do not print or persist machine-specific absolute paths in reusable/public artifacts unless the artifact is explicitly local-only.
@@ -107,21 +107,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 
 ## Long-Running Processes
 
-- Before starting a dev server, watcher, browser session, or other long-running process, check whether a reusable instance already exists; find existing processes by project path instead of guessing ports. On macOS, use full-width process output:
-
-```bash
-ps -ewwo pid,args 2>/dev/null | grep -F "/current/project" | grep -v grep
-```
-
-- If a matching process is found, inspect its listening ports with:
-
-```bash
-lsof -p <PID> -a -iTCP -sTCP:LISTEN -Fn -P 2>/dev/null | grep '^n'
-```
-
-- Use port-based detection only when the port is read from config or process output, not guessed; for non-port watchers, search by process name and project path when possible.
-- For browser sessions, check existing pages or tabs before opening a new one when the platform exposes browser state.
-- For background agents or asynchronous jobs, check whether related work is already running before starting another instance.
+- Before starting a dev server, watcher, browser session, background agent, or other long-running process, check whether a reusable instance already exists — find it by project path, not guessed ports; use the `vp-long-running-processes` skill for the discovery procedure.
 - Do not stop, kill, or restart long-running processes without user confirmation unless the user explicitly requested shutdown or restart; if an existing process belongs to another project, report the command, path, and port if known before deciding what to do.
 
 ## Skills And Delegation
