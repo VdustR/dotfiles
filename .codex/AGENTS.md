@@ -20,7 +20,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 
 - Treat user claims as unverified until checked against code, files, command output, or official documentation.
 - Read existing files and search for local patterns before proposing or editing; prefer targeted reads and precise searches over broad recursive scans.
-- Use `rg` for repository content search and `rg --files` for file discovery — add `--hidden` when dotfiles or hidden directories matter, since `rg` skips them by default.
+- Use `rg` for repository content search and `rg --files` for file discovery — `rg` skips hidden files and gitignored paths (including the global excludesfile) by default; add `--hidden` or `--no-ignore` when those files matter.
 - Fall back to `grep`/`find` only if `rg` is unavailable; `grep` remains the clearest tool for filtering command output such as `ps` or `lsof` checks.
 - For third-party APIs, libraries, and tools, prefer official documentation or primary sources; for OpenAI product or API questions, prefer official OpenAI documentation.
 - When behavior may be version-sensitive or may have changed, verify with current documentation lookup tools or web search before relying on it.
@@ -49,14 +49,16 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 - Use the platform's structured file-editing tool for manual edits when available.
 - Clean up unused imports, variables, or files introduced by your own changes.
 - Treat acronyms in camelCase and PascalCase as regular words: use `userId`, not `userID`; use `HttpClient`, not `HTTPClient`.
-- In technical documentation, state execution timing clearly (immediate versus deferred async), include expected console output or execution order when documenting confusing runtime behavior, and contrast similar APIs side by side when that prevents misuse.
+- For technical documentation, state execution timing clearly, especially immediate versus deferred async behavior.
+- When documenting confusing runtime behavior, include expected console output or execution order.
+- Contrast similar APIs side by side when that prevents misuse.
 
 ## Testing
 
 - For bug and regression fixes, prefer a red-green check with a focused test: demonstrate it fails on the old behavior and passes after the fix.
 - Run the narrowest relevant verification first, then broader checks when risk justifies it.
 - Do not fix unrelated test failures unless asked; report them separately.
-- Before claiming work is complete or passing, run a fresh verification command and read the result. Run verification when it proves a specific claim; do not re-read files or re-run commands just to create reassuring output.
+- Before claiming work is complete or passing, run a fresh verification command and read the result. Do not re-read files or re-run commands just to create reassuring output; run verification when it proves a specific claim.
 - Before finalizing changes, self-review the diff and verify each changed line traces back to the request.
 
 ## Git And GitHub
@@ -85,7 +87,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 ## Dependencies And Tools
 
 - Do not install new production dependencies without confirmation.
-- If a required tool is missing, explain the missing tool and ask whether to install it or use an alternative; do not immediately fall back when installing may be the correct path — explain the tradeoff and ask.
+- If a required tool is missing, explain the missing tool and the tradeoff, then ask whether to install it or use an alternative; do not silently fall back.
 - Follow the repo's package manager conventions; for Node.js projects or repositories with no package manager specified by repo docs, config, or lockfiles, default to the latest stable `pnpm`.
 - Prefer CLIs managed by the user's `mise` environment: use `mise exec -- <command>` or the `mise`-provided binary before falling back to other installations. Basic system tools such as `rg`, `git`, `ps`, and `lsof` can be used normally.
 - Prefer official install and auth paths over local compatibility hacks; if a workaround touches installed tool files, config internals, or persistent local state, discuss it before applying.
@@ -118,7 +120,8 @@ lsof -p <PID> -a -iTCP -sTCP:LISTEN -Fn -P 2>/dev/null | grep '^n'
 ```
 
 - Use port-based detection only when the port is read from config or process output, not guessed; for non-port watchers, search by process name and project path when possible.
-- Before opening or starting more, check existing browser pages or tabs (when the platform exposes browser state) and whether related background agents or asynchronous jobs are already running.
+- For browser sessions, check existing pages or tabs before opening a new one when the platform exposes browser state.
+- For background agents or asynchronous jobs, check whether related work is already running before starting another instance.
 - Do not stop, kill, or restart long-running processes without user confirmation unless the user explicitly requested shutdown or restart; if an existing process belongs to another project, report the command, path, and port if known before deciding what to do.
 
 ## Skills And Delegation
@@ -151,6 +154,6 @@ lsof -p <PID> -a -iTCP -sTCP:LISTEN -Fn -P 2>/dev/null | grep '^n'
 
 ## Dotfiles Sync
 
-- When modifying user dotfiles, mention whether the corresponding dotfiles repository should be synced; the sync itself (branch, commit, push, PR) still requires explicit instruction per Task Boundaries.
+- When modifying user dotfiles, mention whether the corresponding dotfiles repository should be synced; the sync itself (branch, commit, push, PR) still requires explicit instruction.
 
 End.
