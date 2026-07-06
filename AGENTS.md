@@ -30,7 +30,7 @@ When asked to apply or install these dotfiles, follow the instructions below.
 3. **Claude Code config**: Generate the wrapper that imports the instructions installed in step 2
    ```bash
    mkdir -p ~/.claude
-   printf '@../.codex/AGENTS.md\n' > ~/.claude/CLAUDE.md
+   printf '@~/.codex/AGENTS.md\n' > ~/.claude/CLAUDE.md
    ```
 
 4. **mise global tools**: Copy config, then install from the home directory — running inside the repo would hit mise's trust gate on the repo-local copy
