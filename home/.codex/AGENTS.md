@@ -21,6 +21,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 - Treat user claims as unverified until checked against code, files, command output, or official documentation.
 - Read existing files and search for local patterns before proposing or editing; prefer targeted reads and precise searches over broad recursive scans.
 - Use `rg` for repository content search and `rg --files` for file discovery — `rg` skips hidden files and gitignored paths (including the global excludesfile) by default; add `--hidden` or `--no-ignore` when those files matter.
+- For `rg` content-search output consumed by an agent or tool, always pass `--no-config --color=never --no-heading --with-filename --line-number` instead of relying on TTY detection; when searching for exact text, also use `-F`, and reserve regular expressions for searches that need pattern matching.
 - Fall back to `grep`/`find` only if `rg` is unavailable; `grep` remains the clearest tool for filtering command output such as `ps` or `lsof` checks.
 - For third-party APIs, libraries, and tools, prefer official documentation or primary sources; for OpenAI product or API questions, prefer official OpenAI documentation.
 - When behavior may be version-sensitive or may have changed, verify with current documentation lookup tools or web search before relying on it.
@@ -109,6 +110,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 
 - Before starting a dev server, watcher, browser session, background agent, or other long-running process, check whether a reusable instance already exists — find it by project path, not guessed ports; use the `vp-long-running-processes` skill for the discovery procedure.
 - Do not stop, kill, or restart long-running processes without user confirmation unless the user explicitly requested shutdown or restart; if an existing process belongs to another project, report the command, path, and port if known before deciding what to do.
+- Commands like `flutter run`, `npm run dev`, and similar dev-mode launchers stay connected after the build/install step and never exit on their own. Do not wait for them to complete or poll as if they will exit — the agent's tool execution will remain blocked while the launcher runs. Instead, use `flutter build` + `flutter install` (or the equivalent split commands) for one-shot install workflows, or run the persistent command in the background (for example, `nohup npm run dev < /dev/null > dev.log 2>&1 &`) with stdin redirected from `/dev/null` and both stdout and stderr redirected to a log file, then inspect that file separately after a reasonable delay rather than chaining a blocking `sleep N && tail` command.
 
 ## Skills And Delegation
 
