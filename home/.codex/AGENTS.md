@@ -21,7 +21,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 - Treat user claims as unverified until checked against code, files, command output, or official documentation.
 - Read existing files and search for local patterns before proposing or editing; prefer targeted reads and precise searches over broad recursive scans.
 - Use `rg` for repository content search and `rg --files` for file discovery — `rg` skips hidden files and gitignored paths (including the global excludesfile) by default; add `--hidden` or `--no-ignore` when those files matter.
-- For `rg` output consumed by an agent or tool, always pass `--color=never` instead of relying on automatic color detection; when searching for exact text, also use `-F`, and reserve regular expressions for searches that need pattern matching.
+- For `rg` content-search output consumed by an agent or tool, always pass `--color=never --no-heading --with-filename` instead of relying on TTY detection; when searching for exact text, also use `-F`, and reserve regular expressions for searches that need pattern matching.
 - Fall back to `grep`/`find` only if `rg` is unavailable; `grep` remains the clearest tool for filtering command output such as `ps` or `lsof` checks.
 - For third-party APIs, libraries, and tools, prefer official documentation or primary sources; for OpenAI product or API questions, prefer official OpenAI documentation.
 - When behavior may be version-sensitive or may have changed, verify with current documentation lookup tools or web search before relying on it.
