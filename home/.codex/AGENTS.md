@@ -122,7 +122,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 
 ### Light Delegation
 
-- Prefer the personal `light_worker` agent in Codex or `light-worker` agent in Claude Code for bounded, independent, low-risk work with a clear expected result, such as targeted code search, documentation lookup, log or test-output analysis, formatting, extraction, and mechanical edits.
+- Prefer the personal `light-worker` agent in Codex and Claude Code for bounded, independent, low-risk work with a clear expected result, such as targeted code search, documentation lookup, log or test-output analysis, formatting, extraction, and mechanical edits.
 - Do not delegate trivial work that the main agent can complete immediately, work that depends heavily on the current conversation context, or work that requires ongoing user interaction.
 - Start with one light agent. Use two or three only when the task has genuinely independent lanes that can run in parallel; do not create agents merely to satisfy delegation.
 - The main agent owns task decomposition, integration, risk assessment, final verification, and the final response.

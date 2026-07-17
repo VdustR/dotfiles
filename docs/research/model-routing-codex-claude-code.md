@@ -176,6 +176,6 @@ This gives a cost-conscious default while preserving a deliberate escalation pat
 The personal dotfiles use one permissive light-work role per product rather than a multi-tier router:
 
 - Shared instructions prefer the light agent for bounded, independent, low-risk work, start with one agent, and allow two or three only for genuinely independent lanes.
-- Codex uses `light_worker` with `gpt-5.6-luna` at `max` reasoning effort.
+- Codex uses `light-worker` with `gpt-5.6-luna` at `max` reasoning effort.
 - Claude Code uses `light-worker` with the rolling `haiku` alias and no effort override because the current Haiku model does not support the effort parameter.
 - The main agent remains responsible for decomposition, integration, risk assessment, and final verification.
