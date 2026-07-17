@@ -10,7 +10,9 @@ When asked to apply or install these dotfiles, follow the instructions below.
 |--------|--------|-------------|
 | `home/.gitignore` | `~/.gitignore` | Global gitignore (macOS, local files) |
 | `home/.codex/AGENTS.md` | `~/.codex/AGENTS.md` | Shared personal agent instructions for Codex and Claude Code |
+| `home/.codex/agents/light-worker.toml` | `~/.codex/agents/light-worker.toml` | Personal Codex light-work subagent using Luna |
 | (generated at install) | `~/.claude/CLAUDE.md` | Claude Code wrapper that imports `~/.codex/AGENTS.md` |
+| `home/.claude/agents/light-worker.md` | `~/.claude/agents/light-worker.md` | Personal Claude Code light-work subagent using Haiku |
 | `home/.config/mise/config.toml` | `~/.config/mise/config.toml` | mise global tool configuration |
 
 ## Installation Steps
@@ -21,16 +23,18 @@ When asked to apply or install these dotfiles, follow the instructions below.
    git config --global core.excludesfile ~/.gitignore
    ```
 
-2. **Codex config**: Copy the shared instructions to user's Codex config
+2. **Codex config**: Copy the shared instructions and personal agents to user's Codex config
    ```bash
-   mkdir -p ~/.codex
+   mkdir -p ~/.codex/agents
    cp home/.codex/AGENTS.md ~/.codex/AGENTS.md
+   cp home/.codex/agents/light-worker.toml ~/.codex/agents/light-worker.toml
    ```
 
-3. **Claude Code config**: Generate the wrapper that imports the instructions installed in step 2
+3. **Claude Code config**: Generate the wrapper and copy personal agents
    ```bash
-   mkdir -p ~/.claude
+   mkdir -p ~/.claude/agents
    printf '@~/.codex/AGENTS.md\n' > ~/.claude/CLAUDE.md
+   cp home/.claude/agents/light-worker.md ~/.claude/agents/light-worker.md
    ```
 
 4. **mise global tools**: Copy config, then install from the home directory — running near the in-repo copy would hit mise's trust gate
@@ -69,4 +73,4 @@ When user requests adding a new CLI tool:
 
 - If a target file already exists with different content, show the diff and ask before overwriting; if it is identical, skip it and report no change
 - Installable dotfiles live under `home/`, mirroring their `~` targets. Files tracked at repo-root mirror paths get auto-loaded as live config by tools running inside this repo — a tracked `.claude/CLAUDE.md` once duplicated the personal instructions in every Claude Code session, and a root-level mise config trips mise's trust gate — so keep the repo root for repo documentation and repo-only files
-- The Claude Code wrapper is generated at install instead of being shipped as a file: it is a single import line, see step 3
+- The Claude Code wrapper is generated at install instead of being shipped as a file: it is a single import line, see step 3. Claude Code agent definitions under `home/.claude/agents/` are normal installable dotfiles.

@@ -33,6 +33,8 @@ Then ask:
 | `.gitignore` | Repo-only ignores (worktrees, runtime artifacts) |
 | `home/.gitignore` | Global gitignore (macOS, local files) |
 | `home/.codex/AGENTS.md` | Shared personal agent instructions for Codex and Claude Code |
+| `home/.codex/agents/light-worker.toml` | Personal Codex light-work subagent using Luna |
+| `home/.claude/agents/light-worker.md` | Personal Claude Code light-work subagent using Haiku |
 | `home/.config/mise/config.toml` | mise global tool configuration |
 
 ## Manual Installation
