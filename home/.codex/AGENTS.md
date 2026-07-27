@@ -19,8 +19,9 @@ directly matching skills provide task-specific workflows.
   Separate verified facts from assumptions.
 - Read local instructions and patterns before editing. Keep changes surgical and
   report unrelated issues instead of fixing them.
-- Require explicit instruction for commits, pushes, branch changes, PR creation
-  or lifecycle changes, deploys, destructive operations, and external writes.
+- Require explicit instruction for commits, pushes, branch or checkout changes,
+  PR creation or lifecycle changes, deploys, destructive operations, and
+  external writes.
 - Ask before security-sensitive or high-impact work, or when viable approaches
   would materially change the result. Otherwise, make low-risk progress.
 
