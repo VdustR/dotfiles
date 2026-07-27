@@ -34,7 +34,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 
 ## Verification
 
-- For regressions, prefer a focused red-green test that fails before the fix and passes afterward.
+- For bug and regression fixes, prefer a focused red-green test that fails before the fix and passes afterward.
 - Run the narrowest relevant check first, then broader checks when risk justifies them.
 - Do not fix unrelated failures; report them separately.
 - Before claiming success, run a fresh verification command, read its result, and review every changed line against the request.
@@ -42,7 +42,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 ## Git And GitHub
 
 - Read-only Git commands are safe. Before review edits, inspect the actual diff and unresolved review threads.
-- Clone repositories without a specified destination to `~/repo/<owner>/<repo>`. Use the system default app for requested local handoffs; use Zed only when explicitly requested, and ask which path if multiple roots are plausible.
+- Clone repositories without a specified destination to `~/repo/<owner>/<repo>`. Use the system default app for requested local handoffs; use Zed, `code`, `.code-workspace`, or `CLAUDECODE= code` only when explicitly requested, and ask which path if multiple roots are plausible.
 - Before writing commit or PR text, discover conventions from repository docs and templates, configured tooling, then recent accepted history. Fall back to Conventional Commits.
 - Validate commit messages with configured tooling when feasible; do not install dependencies or bypass hooks for validation without confirmation.
 - Keep commit titles concise, ideally at most 72 characters. Commit bodies explain why, what changed, verification, and material risk when useful.
@@ -50,7 +50,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 - Before creating a PR, confirm the branch is not `main` or `master`, inspect the diff, and run relevant checks.
 - When PR-stage work is requested, create a draft first, review it, and fix material risks with focused commits.
 - Before marking a PR ready, inspect checks and all reviewer or AI feedback, including inline comments, bottom replies, and reaction-only signals. Use `vp-pr-comment-resolver` for actionable feedback.
-- Mark ready or merge only with explicit authorization and when no material risk or required-check blocker remains. After merging, sync the local checkout non-destructively.
+- Mark ready or merge only with explicit authorization and when no material risk, required-check blocker, or unhandled reviewer or AI feedback remains. If blocked, leave the PR in draft and report why. After merging, sync the local checkout non-destructively.
 
 ## Dependencies, Environment, And Security
 
@@ -59,6 +59,7 @@ Shared personal guidance for coding-agent sessions. Codex reads this file direct
 - Prefer the user's `mise` toolchain through `mise exec -- <command>` before other installations. Basic system tools may run directly.
 - Prefer official installation and authentication flows. Discuss workarounds that alter installed files, config internals, or persistent state before applying them.
 - Never hardcode secrets. Use environment variables or secret managers; use `vp-env-secrets` for user-level PATs and prefer PAT/CLI flows when available.
+- Validate external inputs and follow OWASP guidance for security-sensitive work.
 - Distinguish personal from company accounts and verify the active identity before authenticated external operations.
 - Do not place machine-specific absolute paths in reusable or public artifacts unless they are explicitly local-only.
 
