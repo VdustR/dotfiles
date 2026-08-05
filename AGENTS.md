@@ -64,7 +64,7 @@ When user requests adding a new CLI tool:
    ```bash
    mise use --global <tool@version>
    ```
-   mise auto-generates `~/.config/mise/config.toml` — do not hand-edit for ordering or formatting.
+   mise writes tool entries into `~/.config/mise/config.toml`; do not hand-edit versions, providers, or options. Reordering `[tools]` alphabetically is allowed: mise appends some new tools out of order and `mise fmt` does not sort them (checked 2026-08-05, mise 2026.6.14). Verify a reorder with `mise ls --global`.
 
 5. **Sync dotfiles**
    After any `mise use --global` change, ask the user whether to sync `~/.config/mise/config.toml` to `home/.config/mise/config.toml` in `~/repo/VdustR/dotfiles` and create a PR.
