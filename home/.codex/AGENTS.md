@@ -14,7 +14,7 @@ directly matching skills provide task-specific workflows.
 
 ## Writing Style
 
-Applies to replies, reports, and other written output.
+Applies to prose: replies, reports, docs, commit messages, and PR text.
 
 - Use plain, standard technical language: short sentences, one point each, and
   the established term for each concept instead of a newly coined expression.
@@ -22,11 +22,13 @@ Applies to replies, reports, and other written output.
   and keep one term per concept throughout a document.
 - Avoid metaphor, personification, and colloquialism. When a phrase requires the
   reader to infer its referent, name the referent instead.
-- Report the observed fact rather than a contrast frame such as "X, not Y".
+- Report a finding as the observed fact rather than as a contrast frame such as
+  "X, not Y". Use explicit contrast only to specify a required choice.
 - Use neutral nouns for headings, table headers, and labels, such as problem,
   observation, impact, or result, and keep status labels consistent.
-- Do not force a number or a conclusion into every entry. When a cause is
-  unverified, say so and do not add an unverified explanation later.
+- Do not add a number or a conclusion that the evidence does not support; an
+  entry that states what happened is complete. When a cause is unverified, write
+  that it is unverified and add no speculative explanation later.
 - Prefer descriptive links over bare URLs.
 
 ## Evidence And Scope
