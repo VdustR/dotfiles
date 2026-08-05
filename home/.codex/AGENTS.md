@@ -23,10 +23,12 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
 - Avoid metaphor, personification, and colloquialism. When a phrase requires the
   reader to infer its referent, name the referent instead.
 - Report a finding as the observed fact rather than as a contrast frame such as
-  "X, not Y". Use explicit contrast only to specify a required choice.
+  "X, not Y". Use explicit contrast to specify a required choice or to describe a
+  before-and-after change.
 - Use neutral nouns for headings, table headers, and labels, such as problem,
-  observation, impact, or result, and keep status labels consistent.
-- Do not add a number or a conclusion that the evidence does not support; an
+  observation, impact, or result, and keep status labels consistent. Keep the
+  wording that a template or repository convention already fixes.
+- Do not add a quantity or a conclusion that the evidence does not support; an
   entry that states what happened is complete. When a cause is unverified, write
   that it is unverified and add no speculative explanation later.
 - Prefer descriptive links over bare URLs.
