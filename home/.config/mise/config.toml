@@ -1,4 +1,5 @@
 [tools]
+azure-cli = { version = "latest", uvx_args = "--prerelease=allow" }
 bun = "latest"
 go = "latest"
 node = "latest"
@@ -32,6 +33,7 @@ node = "latest"
 "npm:vercel" = "latest"
 "npm:wrangler" = "latest"
 python = "latest"
+terraform = "1.15.8"
 
 [settings]
 idiomatic_version_file = true
