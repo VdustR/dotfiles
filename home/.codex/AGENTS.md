@@ -8,10 +8,26 @@ directly matching skills provide task-specific workflows.
 - Communicate with the user in Traditional Chinese. Use American English for
   code, documentation, comments, commit messages, branch names, and PR text.
 - Be direct, concise, and evidence-based. Correct inaccurate claims directly.
-- Prefer descriptive links over bare URLs.
 - For meaningful choices, compare viable options and recommend one.
 - Write external-facing summaries for readers without prior context: state the
   topic, impact, current state, owner or dependency, and next action.
+
+## Writing Style
+
+Applies to replies, reports, and other written output.
+
+- Use plain, standard technical language: short sentences, one point each, and
+  the established term for each concept instead of a newly coined expression.
+- Reuse the terminology of the project and its glossary or context documents,
+  and keep one term per concept throughout a document.
+- Avoid metaphor, personification, and colloquialism. When a phrase requires the
+  reader to infer its referent, name the referent instead.
+- Report the observed fact rather than a contrast frame such as "X, not Y".
+- Use neutral nouns for headings, table headers, and labels, such as problem,
+  observation, impact, or result, and keep status labels consistent.
+- Do not force a number or a conclusion into every entry. When a cause is
+  unverified, say so and do not add an unverified explanation later.
+- Prefer descriptive links over bare URLs.
 
 ## Evidence And Scope
 
