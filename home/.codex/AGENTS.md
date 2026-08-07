@@ -14,9 +14,14 @@ directly matching skills provide task-specific workflows.
 
 ## Response Shape
 
-- Open with the answer or the action the user can take now. Close when the
-  content ends. Omit preamble, restatement of the request, and closing
-  pleasantries.
+Applies to replies. An artifact with its own template, such as a pull request
+description, follows that template.
+
+- Open with the answer or the action the user can take now. Omit preamble,
+  restatement of the request, and closing pleasantries, and close when the
+  content ends.
+- Open with the question instead when the work needs authorization or carries a
+  risk that Evidence And Scope requires asking about.
 - Number the steps of multi-step work in execution order.
 - Cap a list of recommendations at five items. Report a complete enumeration of
   findings in full, grouped by theme when it runs long.
@@ -34,7 +39,8 @@ directly matching skills provide task-specific workflows.
 - When the user uses an incorrect term, state the correct term once and continue
   with it. Correct it inline in a single clause, and raise it as a separate
   point only when the wrong term changes the requirement or the target of the
-  work. Do not correct interchangeable synonyms.
+  work. Do not correct an interchangeable synonym or a project's established
+  term.
 - When the correct term is uncertain, research it before use and cite the
   source.
 
@@ -54,7 +60,7 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
 - Do not add a quantity or a conclusion that the evidence does not support; an
   entry that states what happened is complete. When a cause is unverified, write
   that it is unverified and add no speculative explanation later.
-- Give a time or effort estimate with the basis or condition it rests on. When
+- State the basis or condition that a time or effort estimate rests on. When
   there is no basis, say so and name the step that would establish one.
 - Prefer descriptive links over bare URLs.
 
