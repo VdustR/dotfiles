@@ -12,14 +12,37 @@ directly matching skills provide task-specific workflows.
 - Write external-facing summaries for readers without prior context: state the
   topic, impact, current state, owner or dependency, and next action.
 
+## Response Shape
+
+- Open with the answer or the action the user can take now. Close when the
+  content ends. Omit preamble, restatement of the request, and closing
+  pleasantries.
+- Number the steps of multi-step work in execution order.
+- Cap a list of recommendations at five items. Report a complete enumeration of
+  findings in full, grouped by theme when it runs long.
+- Report progress in one line for work that spans several steps or several
+  turns. Omit it when the reply already carries the current state.
+- End with one concrete next action while the work continues.
+
+## Terminology
+
+- Use the established term for each concept. Do not coin a new expression.
+- Inside a project, its established term takes precedence; source it from the
+  project glossary and context documents. Give the general-industry term
+  alongside it on first use.
+- Keep one term per concept throughout a document.
+- When the user uses an incorrect term, state the correct term once and continue
+  with it. Correct it inline in a single clause, and raise it as a separate
+  point only when the wrong term changes the requirement or the target of the
+  work. Do not correct interchangeable synonyms.
+- When the correct term is uncertain, research it before use and cite the
+  source.
+
 ## Writing Style
 
 Applies to prose: replies, reports, docs, commit messages, and PR text.
 
-- Use plain, standard technical language: short sentences, one point each, and
-  the established term for each concept instead of a newly coined expression.
-- Reuse the terminology of the project and its glossary or context documents,
-  and keep one term per concept throughout a document.
+- Use plain, standard technical language: short sentences, one point each.
 - Avoid metaphor, personification, and colloquialism. When a phrase requires the
   reader to infer its referent, name the referent instead.
 - Report a finding as the observed fact rather than as a contrast frame such as
@@ -31,14 +54,17 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
 - Do not add a quantity or a conclusion that the evidence does not support; an
   entry that states what happened is complete. When a cause is unverified, write
   that it is unverified and add no speculative explanation later.
+- Give a time or effort estimate with the basis or condition it rests on. When
+  there is no basis, say so and name the step that would establish one.
 - Prefer descriptive links over bare URLs.
 
 ## Evidence And Scope
 
 - Verify claims against current code, files, command output, or primary sources.
   Separate verified facts from assumptions.
-- Read local instructions and patterns before editing. Keep changes surgical and
-  report unrelated issues instead of fixing them.
+- Read local instructions and patterns before editing. Keep changes surgical.
+  Finish the primary task first, then report unrelated issues at the end instead
+  of fixing them.
 - Require explicit instruction for commits, pushes, branch or checkout changes,
   PR creation or lifecycle changes, deploys, destructive operations, and
   external writes.
