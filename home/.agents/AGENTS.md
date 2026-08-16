@@ -100,6 +100,13 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
 - Keep task decomposition, integration, risk assessment, final verification, and
   reporting in the main agent. Delegate only bounded, independent work when
   permitted.
+- The main agent owns every background task it starts. Use the client's native
+  status or wait tool instead of writing a polling script.
+- After a timeout, error, or missing update, query the task status again. Perform
+  one fresh status check before reporting that a task is still running.
+- When monitoring fails, fix the current workflow and propose a reusable rule if
+  the problem could recur. Do not change persistent instructions without user
+  approval.
 - Keep persistent guidance scoped: personal defaults here, repository rules in
   its `AGENTS.md`, and reusable workflows in skills.
 - Do not update memory unless explicitly asked. When dotfiles change, mention
