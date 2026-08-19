@@ -112,4 +112,18 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
 - Do not update memory unless explicitly asked. When dotfiles change, mention
   whether the repository copy and installed copy are synchronized.
 
+## Desktop Automation Routing
+
+- When the target is a web page, drive the browser. Use a desktop automation tool
+  only for native application UI.
+- For native UI, prefer the session's own first-party computer-use tool when one
+  is available, and fall back to Peekaboo when it is not.
+- Keep using Peekaboo for work a first-party tool cannot do: operating an
+  unfocused application, reading the accessibility tree instead of interpreting
+  pixels, and sampling a video into a contact sheet.
+- Scope a screen capture to one window by id. A capture by screen rectangle
+  records whatever is composited on top of that rectangle, which may belong to
+  another application.
+- An explicitly named tool overrides this order.
+
 End.
