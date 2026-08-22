@@ -112,18 +112,28 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
 - Do not update memory unless explicitly asked. When dotfiles change, mention
   whether the repository copy and installed copy are synchronized.
 
-## Desktop Automation Routing
+## Interaction Routing
 
-- When the target is a web page, drive the browser. Use a desktop automation tool
-  only for native application UI.
-- For native UI, prefer the session's own first-party computer-use tool when one
-  is available, and fall back to Peekaboo when it is not.
-- Keep using Peekaboo for work a first-party tool cannot do: operating an
-  unfocused application, reading the accessibility tree instead of interpreting
-  pixels, and sampling a video into a contact sheet.
-- Scope a screen capture to one window by id. A capture by screen rectangle
-  records whatever is composited on top of that rectangle, which may belong to
-  another application.
-- An explicitly named tool overrides this order.
+- Before interacting with an application or service, prefer a purpose-built
+  connector, API, or repository CLI that fully supports the operation and
+  required authentication context.
+- For web content, use DOM-aware browser tooling. Use the connected Chrome
+  plugin when the task requires the user's current tabs, login state, or
+  extensions. Use agent-browser for isolated, repeatable, concurrent, or
+  managed-profile sessions; never attach it to the user's daily Chrome profile.
+- For native UI, prefer the session's first-party computer-use tool. When it is
+  unavailable or materially insufficient, use an installed Codex Computer Use
+  MCP bridge. Use Peekaboo for macOS windows, menus, dialogs, Spaces, unfocused
+  applications, deep accessibility inspection, capture, and troubleshooting.
+- Use screenshot-coordinate interaction only when semantic, DOM, and
+  accessibility interfaces cannot complete the operation. After switching
+  interfaces, refresh state and do not reuse selectors or element identifiers.
+- Preserve authorization and verification requirements across every interface.
+  Prefer correctness and reliable readback over token or latency savings.
+- Scope a screen capture to one window by id. A screen-rectangle capture records
+  whatever is composited above that rectangle, which may be another application.
+- Use the directly matching `vp-interaction-routing` skill when the correct
+  surface, authentication boundary, profile persistence, or fallback is
+  unclear. An explicitly named tool remains a user constraint.
 
 End.
