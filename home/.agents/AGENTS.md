@@ -124,7 +124,9 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
 - For native UI, prefer the session's first-party computer-use tool. When it is
   unavailable or materially insufficient, use an installed Codex Computer Use
   MCP bridge. Use Peekaboo for macOS windows, menus, dialogs, Spaces, unfocused
-  applications, deep accessibility inspection, capture, and troubleshooting.
+  applications, deep accessibility inspection, capture, and troubleshooting;
+  on macOS, it is also the fallback when first-party computer use and the bridge
+  are unavailable.
 - Use screenshot-coordinate interaction only when semantic, DOM, and
   accessibility interfaces cannot complete the operation. After switching
   interfaces, refresh state and do not reuse selectors or element identifiers.
