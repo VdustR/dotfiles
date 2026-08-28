@@ -63,6 +63,16 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
 - State the basis or condition that a time or effort estimate rests on. When
   there is no basis, say so and name the step that would establish one.
 - Prefer descriptive links over bare URLs.
+- In prose, name the item that an opaque identifier refers to and add a
+  descriptive link when the system provides one. Opaque identifiers include
+  issue and pull request numbers, commit hashes, run and job ids, task and user
+  ids, message timestamps, and document slugs. Name the system when context does
+  not establish it, and qualify the namespace when more than one is in play.
+  Apply this to every occurrence and every table or list row. Keep raw
+  identifiers unchanged in commands, API calls, and configuration, and name
+  the item in the surrounding text.
+- Refer to a chat message as `[#channel-name thread](permalink)`. Use the
+  channel name rather than its identifier.
 
 ## Evidence And Scope
 
@@ -140,6 +150,12 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
   Apply them before consequential browser actions such as sending, publishing,
   purchasing, or deleting. Prefer correctness and reliable readback over token
   or latency savings.
+- Before mentioning, notifying, assigning, or otherwise addressing a person by
+  an identifier, verify on the target platform that the account belongs to the
+  intended person and organization or team. Never reuse an identifier from a
+  different platform or from memory. When verification is unavailable, write
+  the person's plain-text name without a mention. Format identifiers that are
+  not intended as mentions as code so the platform does not parse them.
 - Scope a screen capture to one window by id. A screen-rectangle capture records
   whatever is composited above that rectangle, which may be another application.
 - Use the directly matching `vp-interaction-routing` skill when the correct
