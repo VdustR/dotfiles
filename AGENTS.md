@@ -85,7 +85,7 @@ When user requests adding a new CLI tool:
 
 ## Notes
 
-- If a target file already exists with different content, show the diff and ask before overwriting; if it is identical, skip it and report no change
+- If a target file already exists with different content, inspect and show the diff before overwriting. Proceed when the user already authorized applying those changes and the target has no unrelated edits; otherwise ask. If it is identical, skip it and report no change.
 - Installable dotfiles live under `home/`, mirroring their `~` targets. Files tracked at repo-root mirror paths get auto-loaded as live config by tools running inside this repo — a tracked `.claude/CLAUDE.md` once duplicated the personal instructions in every Claude Code session, and a root-level mise config trips mise's trust gate — so keep the repo root for repo documentation and repo-only files
 - The Claude Code wrapper is generated at install instead of being shipped as a file: it is a single import line, see step 4. Claude Code agent definitions under `home/.claude/agents/` are normal installable dotfiles.
 - The step 2 client paths are symlinks rather than copies because none of those files has content of its own; each one is an alias for `~/.agents/AGENTS.md`, so one edit reaches every client without a re-install. Every other installable dotfile is a distinct file and stays a copy.
