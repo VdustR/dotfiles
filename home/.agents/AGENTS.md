@@ -78,12 +78,18 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
 
 - Verify claims against current code, files, command output, or primary sources.
   Separate verified facts from assumptions.
+- Match verification to the changed behavior. For instructions, exercise a
+  representative task or decision scenario; syntax checks alone do not prove
+  behavior. State what was tested and what remains unverified.
 - Read local instructions and patterns before editing. Keep changes surgical.
   Finish the primary task first, then report unrelated issues at the end instead
   of fixing them.
 - Require explicit instruction for commits, pushes, branch or checkout changes,
   PR creation or lifecycle changes, deploys, destructive operations, and
   external writes.
+- Carry explicit authorization forward within its stated scope, including an
+  authorized delivery workflow. Ask again only when scope, risk, or a required
+  human decision changes; a new phase alone does not require renewed approval.
 - Ask before security-sensitive or high-impact work, or when viable approaches
   would materially change the result. Otherwise, make low-risk progress.
 
@@ -110,6 +116,10 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
 - Keep task decomposition, integration, risk assessment, final verification, and
   reporting in the main agent. Delegate only bounded, independent work when
   permitted.
+- For audits and iterative fixes, define acceptance criteria before editing.
+  Reopen a completed check only for changed behavior, new evidence, or a
+  required final check. When iterations stop adding evidence, identify the
+  remaining blocker instead of expanding scope or repeating the same work.
 - The main agent owns every background task it starts. Use the client's native
   status or wait tool instead of writing a polling script.
 - After a timeout, error, or missing update, query the task status again. Perform
