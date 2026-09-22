@@ -122,6 +122,12 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
   remaining blocker instead of expanding scope or repeating the same work.
 - The main agent owns every background task it starts. Use the client's native
   status or wait tool instead of writing a polling script.
+- When starting a local HTTP development server, prefer Portless when it is
+  available and compatible with the project. Start the server through
+  `portless` or `portless run`, use its stable named URL for later access, and
+  verify readiness through that URL. Use a numeric port only when Portless is
+  unavailable, incompatible, or the task explicitly requires a fixed port;
+  state the reason when falling back.
 - After a timeout, error, or missing update, query the task status again. Perform
   one fresh status check before reporting that a task is still running.
 - When the host provides a pull request monitor that wakes the session on check
