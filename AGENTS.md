@@ -17,6 +17,8 @@ When asked to apply or install these dotfiles, follow the instructions below.
 | (generated at install) | `~/.claude/CLAUDE.md` | Claude Code wrapper that imports `~/.agents/AGENTS.md` |
 | `home/.codex/agents/light-worker.toml` | `~/.codex/agents/light-worker.toml` | Personal Codex light-work subagent using Luna |
 | `home/.claude/agents/light-worker.md` | `~/.claude/agents/light-worker.md` | Personal Claude Code light-work subagent using Sonnet |
+| `home/.claude/agents/convention-warden.md` | `~/.claude/agents/convention-warden.md` | Personal Claude Code read-only verifier for repository conventions and evidence discipline |
+| `home/.claude/agents/slop-warden.md` | `~/.claude/agents/slop-warden.md` | Personal Claude Code read-only verifier for prose against the writing standard |
 | `home/.config/mise/config.toml` | `~/.config/mise/config.toml` | mise global tool configuration |
 
 ## Installation Steps
@@ -48,7 +50,7 @@ When asked to apply or install these dotfiles, follow the instructions below.
    ```bash
    mkdir -p ~/.claude/agents
    printf '@~/.agents/AGENTS.md\n' > ~/.claude/CLAUDE.md
-   cp home/.claude/agents/light-worker.md ~/.claude/agents/light-worker.md
+   cp home/.claude/agents/light-worker.md home/.claude/agents/convention-warden.md home/.claude/agents/slop-warden.md ~/.claude/agents/
    ```
 
 5. **mise global tools**: Copy config, then install from the home directory — running near the in-repo copy would hit mise's trust gate
@@ -88,6 +90,7 @@ When user requests adding a new CLI tool:
 - If a target file already exists with different content, inspect and show the diff before overwriting. Proceed when the user already authorized applying those changes and the target has no unrelated edits; otherwise ask. If it is identical, skip it and report no change.
 - Installable dotfiles live under `home/`, mirroring their `~` targets. Files tracked at repo-root mirror paths get auto-loaded as live config by tools running inside this repo — a tracked `.claude/CLAUDE.md` once duplicated the personal instructions in every Claude Code session, and a root-level mise config trips mise's trust gate — so keep the repo root for repo documentation and repo-only files
 - The Claude Code wrapper is generated at install instead of being shipped as a file: it is a single import line, see step 4. Claude Code agent definitions under `home/.claude/agents/` are normal installable dotfiles.
+- `convention-warden.md` and `slop-warden.md` cite `home/.agents/AGENTS.md` sections by heading name. When a cited heading is renamed or removed, update both agent rubrics in the same change. `slop-warden.md` also loads the `no-ai-slop` skill ([petergyang/no-ai-slop](https://github.com/petergyang/no-ai-slop)), which this repository does not install.
 - The step 2 client paths are symlinks rather than copies because none of those files has content of its own; each one is an alias for `~/.agents/AGENTS.md`, so one edit reaches every client without a re-install. Every other installable dotfile is a distinct file and stays a copy.
 - A client that writes to its own memory file writes through those symlinks into `~/.agents/AGENTS.md`. Gemini CLI can edit a memory file to persist an instruction, and its Auto Memory feature drafts patches for review, though that feature is off by default. Read an unexpected `diff home/.agents/AGENTS.md ~/.agents/AGENTS.md` as such a write, then either move the addition into this repository or revert it.
 - Clients deliberately left out of step 2, rechecked when one of them is installed: MiMo Code (Xiaomi) documents only JSONC config under `~/.config/mimocode/` and an AGENTS.md at project level, with no global markdown instruction file; the MiniMax CLI `mmx-cli` generates media rather than acting as a coding agent, so it reads no instruction file; DeepSeek publishes no first-party coding CLI with a documented global instruction path.
