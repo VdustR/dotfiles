@@ -16,7 +16,7 @@ When asked to apply or install these dotfiles, follow the instructions below.
 | (symlink created at install) | `~/.kimi-code/AGENTS.md` | Kimi Code CLI global instructions, linked to `~/.agents/AGENTS.md` |
 | (generated at install) | `~/.claude/CLAUDE.md` | Claude Code wrapper that imports `~/.agents/AGENTS.md` |
 | `home/.codex/agents/light-worker.toml` | `~/.codex/agents/light-worker.toml` | Personal Codex light-work subagent using Luna |
-| `home/.claude/agents/light-worker.md` | `~/.claude/agents/light-worker.md` | Personal Claude Code light-work subagent using Haiku |
+| `home/.claude/agents/light-worker.md` | `~/.claude/agents/light-worker.md` | Personal Claude Code light-work subagent using Sonnet |
 | `home/.config/mise/config.toml` | `~/.config/mise/config.toml` | mise global tool configuration |
 
 ## Installation Steps

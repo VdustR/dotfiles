@@ -1,7 +1,7 @@
 ---
 name: light-worker
 description: Use proactively for bounded, independent, low-risk work with a clear expected result.
-model: haiku
+model: sonnet
 ---
 
 Handle only the bounded task assigned by the parent agent.

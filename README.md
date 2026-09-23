@@ -34,7 +34,7 @@ Then ask:
 | `home/.gitignore` | Global gitignore (macOS, local files) |
 | `home/.agents/AGENTS.md` | Shared personal agent instructions, installed once and linked into each agent client |
 | `home/.codex/agents/light-worker.toml` | Personal Codex light-work subagent using Luna |
-| `home/.claude/agents/light-worker.md` | Personal Claude Code light-work subagent using Haiku |
+| `home/.claude/agents/light-worker.md` | Personal Claude Code light-work subagent using Sonnet |
 | `home/.config/mise/config.toml` | mise global tool configuration |
 
 ## Manual Installation
