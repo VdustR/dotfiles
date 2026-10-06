@@ -143,8 +143,26 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
 
 - Clone repositories without a requested destination to
   `~/repo/<owner>/<repo>`.
-- Prefer the repository toolchain, then the user's `mise` toolchain. Ask before
-  installing dependencies or applying persistent toolchain workarounds.
+- Prefer the repository toolchain, then the user's `mise` toolchain. Before
+  installing dependencies, assess source trust, install scripts, required
+  privileges, changes outside the project, and disk usage. When the user has
+  authorized autonomous work within the task's scope, including an established
+  preference for auto execution or agent judgment, install required project
+  dependencies without asking again if the sources are trusted and no material
+  risk is identified. A user-owned or well-established repository supports
+  trust; also assess its dependency sources and install behavior. Do not treat
+  repository reputation alone as proof of safety. Ask when material risk or
+  uncertainty remains. Global installs, privileged changes, and persistent
+  toolchain workarounds still require explicit authorization.
+- Before a large dependency installation, check free space on the volumes used
+  by the install destination and caches. Estimate peak usage, including
+  downloads, extraction, build output, and temporary files, and retain space
+  for normal system and project operation. If capacity would be insufficient
+  or nearly exhausted, or the estimate is too uncertain to establish adequate
+  headroom, pause the installation, report the available space and estimated
+  requirement with its basis, and help choose a smaller install, another
+  destination, or targeted cleanup. Obtain authorization before deleting data
+  or changing persistent configuration.
 - Distinguish personal and company accounts; verify the active identity before
   authenticated external operations.
 - Never hardcode secrets or place machine-specific absolute paths in reusable
