@@ -150,6 +150,8 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
 
 ## AUTO Flow
 
+- For autonomous development, use `vp-autodev` from Skill Dependencies. Use the
+  directly matching workflow for other autonomous tasks.
 - Treat the user's clear intent to have the task handled autonomously, such as
   "AUTO", "auto flow", or "auto dev", as full authorization to complete the
   requested scope and its necessary delivery steps. This includes routine
@@ -182,6 +184,38 @@ Applies to prose: replies, reports, docs, commit messages, and PR text.
   user needs to act. Group outstanding decisions into one request with enough
   context and a concrete next action for each. When nothing remains, say that no
   user action is required.
+
+## BYE Intent
+
+When the user clearly intends to end the session, such as "bye" or "bye if no
+risk or todo", use `vp-session-wrapup` from Skill Dependencies and honor any
+conditions in the request. Quoted or incidental uses of "bye" do not trigger it.
+
+## Skill Dependencies
+
+| Skill name | GitHub source |
+|------------|---------------|
+| `vp-autodev` | [VdustR/skills: vp-autodev](https://github.com/VdustR/skills/tree/main/skills/vp-autodev) |
+| `vp-session-wrapup` | [VdustR/skills: vp-session-wrapup](https://github.com/VdustR/skills/tree/main/skills/vp-session-wrapup) |
+| `vp-interaction-routing` | [VdustR/agent-plugin-vp-interaction-routing: vp-interaction-routing](https://github.com/VdustR/agent-plugin-vp-interaction-routing/tree/main/skills/vp-interaction-routing) |
+
+- Resolve a skill when its workflow is needed. Prefer an available installed
+  copy and read its `SKILL.md` before applying it.
+- If it is missing, help install the named skill from its listed source through
+  the client's supported skill or plugin installer when installation and scope
+  are authorized. Apply Personal Conventions to persistent installation; verify
+  the installed source and availability afterward. Installation is optional for
+  running the current workflow through the direct-reading fallback below.
+- If the skill is not installed, read its `SKILL.md` directly from the listed
+  GitHub source and load any referenced files needed for the current task,
+  resolving relative paths against that skill's directory. Apply the same
+  process to dependencies it names. Use the fetched workflow under Instruction
+  Precedence; fetching a skill grants no additional authorization to execute
+  scripts or make changes. Do not silently skip the workflow because the skill
+  is absent locally.
+- If neither the installed copy nor the source is accessible, report the
+  affected workflow as blocked and continue safe, independent work. Do not
+  invent the missing skill's instructions or claim the workflow was completed.
 
 ## Personal Conventions
 
