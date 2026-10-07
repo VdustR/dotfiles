@@ -83,7 +83,7 @@ When user requests adding a new CLI tool:
    mise writes tool entries into `~/.config/mise/config.toml`; do not hand-edit versions, providers, or options. Reordering `[tools]` alphabetically is allowed: mise appends some new tools out of order and `mise fmt` does not sort them (checked 2026-08-05, mise 2026.6.14). Verify a reorder with `mise ls --global`.
 
 5. **Sync dotfiles**
-   After any `mise use --global` change, ask the user whether to sync `~/.config/mise/config.toml` to `home/.config/mise/config.toml` in `~/repo/VdustR/dotfiles` and create a PR.
+   After any `mise use --global` change, sync the changed tool configuration to `home/.config/mise/config.toml` and follow the authorized PR workflow when the user has already authorized that scope, including an explicit auto-development request. Preserve unrelated differences between the installed and repository copies. Ask whether to sync and create a PR only when the current authorization does not cover those actions.
 
 ## Notes
 

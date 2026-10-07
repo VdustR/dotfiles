@@ -1,5 +1,5 @@
 [tools]
-azure-cli = { version = "latest", uvx_args = "--prerelease=allow" }
+azure-cli = { version = "latest", dependency_prereleases = "allow" }
 bun = "latest"
 go = "latest"
 node = "latest"
