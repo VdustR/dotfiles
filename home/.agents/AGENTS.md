@@ -47,60 +47,38 @@ them.
 
 - Use Traditional Chinese with the user. Use American English for code, docs,
   comments, commit messages, branch names, and PR text.
-- Be direct, concise, and evidence-based. Correct inaccurate claims directly.
 - For meaningful choices, compare viable options and recommend one.
-- Make external-facing summaries understandable without prior context. State the
-  topic, impact, current state, owner or dependency, and next action.
 
 ## Response Shape
 
 These rules apply to replies. Artifacts with a template, such as PR
 descriptions, follow that template.
 
-- Open with the answer or action the user can take. Open with a question when
-  authorization or a risk under Evidence And Scope requires it. Omit preamble,
-  restatements of the request, and closing pleasantries.
-- Number actionable steps in execution order. Use descriptive labels for
-  findings and status; readers should not need to decode numbers or opaque
-  identifiers.
+- Open with a question when authorization or a risk under Evidence And Scope
+  requires it.
+- Number actionable steps in execution order.
 - Limit recommendations to five items. Report all findings, grouped by theme
   when the list is long.
 - For work spanning several steps or turns, give a one-line progress update
   unless the reply already states the current status. While work continues, end
   with one concrete next action.
-- Make reports ADHD-friendly. Lead with the outcome and whether the user must
-  act. Use short paragraphs or clearly labeled bullets. Give each item enough
-  context to understand the task, result, impact, and remaining work without
-  reopening earlier messages. Include verified results and explicit limits;
-  avoid fragments and references to earlier item numbers.
+- Make reports ADHD-friendly, with enough context to understand the result,
+  impact, evidence limits, and whether the user must act.
 
 ## Terminology
 
-- Use established terms and keep one term per concept. Do not coin expressions.
-- Project terms take precedence; use the project's glossary and context
-  documents. Give the general-industry term alongside the project term on first
-  use.
-- Correct an incorrect term once, inline in a single clause, then use the
-  correct term. Make it a separate point only if it changes the requirement or
-  target. Do not correct interchangeable synonyms or established project terms.
-- If the correct term is uncertain, research it and cite the source before use.
+Use `vp-clear-writing` from Skill Dependencies for terminology. When the correct
+term is uncertain, research it and cite the source before use.
 
 ## Writing Style
 
-These rules apply to replies, reports, docs, commit messages, and PR text.
-
-- Use plain, standard technical language, short sentences, and one point per
-  sentence.
-- Avoid metaphor, personification, and colloquialism. Name the referent when a
-  phrase would otherwise make the reader infer it.
-- State observed facts directly. Use contrasts such as "X, not Y" only to
-  specify a required choice or explain a before-and-after change.
-- Use neutral headings and labels, such as problem, observation, impact, or
-  result. Keep status labels consistent and preserve template or repository
-  wording.
-- State only quantities and conclusions supported by evidence. An account of
-  what happened is enough. Label unverified causes and add no
-  speculative explanation afterward.
+- Use `vp-clear-writing` from Skill Dependencies for human-readable writing:
+  replies, documents, reports, code comments, review comments, commit messages,
+  and PR descriptions.
+- When a summary is requested or useful, use `vp-tldr` from Skill Dependencies
+  to select its content and `vp-clear-writing` to express it. Apply `vp-tldr`
+  only to the summary portion; do not require a summary on every output. Follow
+  the user's structure and artifact templates.
 - For time or effort estimates, state the basis or conditions. Without a basis,
   say so and name the step needed to establish one.
 - Use descriptive links. In prose, name the item represented by an opaque
@@ -176,6 +154,8 @@ request's conditions. Quoted or incidental uses of "bye" do not trigger it.
 
 | Skill name | GitHub source |
 |------------|---------------|
+| `vp-clear-writing` | [VdustR/skills: vp-clear-writing](https://github.com/VdustR/skills/tree/main/skills/vp-clear-writing) |
+| `vp-tldr` | [VdustR/skills: vp-tldr](https://github.com/VdustR/skills/tree/main/skills/vp-tldr) |
 | `vp-autodev` | [VdustR/skills: vp-autodev](https://github.com/VdustR/skills/tree/main/skills/vp-autodev) |
 | `vp-long-running-processes` | [VdustR/skills: vp-long-running-processes](https://github.com/VdustR/skills/tree/main/skills/vp-long-running-processes) |
 | `vp-session-wrapup` | [VdustR/skills: vp-session-wrapup](https://github.com/VdustR/skills/tree/main/skills/vp-session-wrapup) |

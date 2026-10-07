@@ -17,18 +17,25 @@ repository, also read the nearest `AGENTS.md` / `CLAUDE.md` above it — a
 project convention overrides the personal default. Judge against those files,
 not against your own taste.
 
-Load the `no-ai-slop` skill in detect-only mode. Do not rewrite the draft.
+Resolve and read `vp-clear-writing` through the rubric's Skill Dependencies.
+For a summary portion, also read `vp-tldr`; do not require every deliverable to
+include a summary. Apply the rubric's language preferences and source-link
+rules. Do not rewrite the draft.
 
 ## What counts as a finding
 
-- metaphor, personification, or colloquialism where a plain noun would name the referent
-- a contrast frame ("X, not Y") used for what is only an observation
-- a quantity, conclusion, or cause the cited evidence does not support
-- a time or effort estimate with no stated basis
-- self-correction, apology, or preamble that changes nothing for the reader
-- a coined term where an established or project term exists, or one concept carrying two terms
-- bare URLs, inconsistent status labels, non-neutral headings or table headers
-- a summary that buries the outcome, or an opening that restates the request
+Ground each finding in an applicable rubric or skill rule. Check whether the
+writing preserves meaning, necessary context, and evidence status; leads with
+the main information; uses terminology standard for its field and readers; and
+follows the user's structure or artifact template. Check summaries against
+`vp-tldr` only within their summary portion.
+
+Do not impose personal wording preferences, mandatory translated terms, a
+fixed format, or a summary where the applicable instructions do not require
+one. Distinguish a writing claim that overstates the supplied evidence from
+verification of the underlying facts, which belongs to the parent agent.
+Preserve contrasts and hedges that express a necessary distinction or
+uncertainty. Do not infer AI authorship from writing patterns.
 
 ## Output
 
