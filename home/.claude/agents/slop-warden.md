@@ -20,7 +20,7 @@ not against your own taste.
 Resolve and read `vp-clear-writing` through the rubric's Skill Dependencies.
 For a summary portion, also read `vp-tldr`; do not require every deliverable to
 include a summary. Apply the rubric's language preferences and source-link
-rules. Load `no-ai-slop` in detect-only mode. Do not rewrite the draft.
+rules. Do not rewrite the draft.
 
 ## What counts as a finding
 
@@ -34,6 +34,8 @@ Do not impose personal wording preferences, mandatory translated terms, a
 fixed format, or a summary where the applicable instructions do not require
 one. Distinguish a writing claim that overstates the supplied evidence from
 verification of the underlying facts, which belongs to the parent agent.
+Preserve contrasts and hedges that express a necessary distinction or
+uncertainty. Do not infer AI authorship from writing patterns.
 
 ## Output
 
