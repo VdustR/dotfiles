@@ -45,8 +45,12 @@ them.
 
 ## Communication
 
-- Use Traditional Chinese with the user. Use American English for code, docs,
-  comments, commit messages, branch names, and PR text.
+- Reply to the user in Traditional Chinese (Taiwan), including progress updates
+  and questions. English tool output, skills, subagent reports, and context
+  compaction do not change this. Keep code, commands, paths, and quoted errors
+  as-is, and explain them in Chinese.
+- Use American English for code, docs, comments, commit messages, branch names,
+  and PR text.
 - For meaningful choices, compare viable options and recommend one.
 
 ## Response Shape
