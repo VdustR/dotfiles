@@ -102,10 +102,13 @@ term is uncertain, research it and cite the source before use.
 - Match verification to the changed behavior. For instructions, exercise a
   representative task or decision scenario. Syntax alone does not prove
   behavior. State what was tested and what remains unverified.
+- Define the intended outcome and scope before selecting a solution. Turn
+  material unknowns into concrete questions, resolve those that block the next
+  decision, and revise the approach as evidence emerges.
 - Before changing code, research the affected behavior, applicable repository
   instructions, established patterns, dependency versions, and validation
-  workflow. Ground conventions in repository evidence; resolve uncertainties
-  that affect the solution before editing.
+  workflow. Ground conventions in repository evidence and resolve questions
+  that affect the implementation before editing.
 - Distinguish verified contracts and constraints fixed within the task's scope
   from assumptions and behavior open to change. Verify third-party library and
   API behavior against primary sources for the relevant version. Infer scope
