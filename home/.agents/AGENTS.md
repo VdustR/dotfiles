@@ -102,8 +102,22 @@ term is uncertain, research it and cite the source before use.
 - Match verification to the changed behavior. For instructions, exercise a
   representative task or decision scenario. Syntax alone does not prove
   behavior. State what was tested and what remains unverified.
-- Read local instructions and patterns before editing. Keep changes surgical.
-  Finish the primary task, then report unrelated issues instead of fixing them.
+- Before changing code, research the affected behavior, applicable repository
+  instructions, established patterns, dependency versions, and validation
+  workflow. Ground conventions in repository evidence; resolve uncertainties
+  that affect the solution before editing.
+- Distinguish verified contracts and constraints fixed within the task's scope
+  from assumptions and behavior open to change. Verify third-party library and
+  API behavior against primary sources for the relevant version. Infer scope
+  from the user's intent when clear; for a frontend-only task, treat backend
+  contracts as fixed. Ask when an unresolved boundary would materially change
+  the solution or require work outside the authorized scope.
+- When solving a problem, research established solutions beyond the current
+  implementation, including relevant community approaches. Verify their
+  assumptions against primary sources and the repository; compare viable
+  approaches before choosing one.
+- Keep changes surgical. Finish the primary task, then report unrelated issues
+  instead of fixing them.
 - Require explicit instruction for commits, pushes, branch or checkout changes,
   PR creation or lifecycle changes, deploys, destructive operations, and
   external writes. AUTO Flow defines when autonomous intent supplies that
