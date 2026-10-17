@@ -181,7 +181,7 @@ request's conditions. Quoted or incidental uses of "bye" do not trigger it.
 | `vp-long-running-processes` | [VdustR/skills: vp-long-running-processes](https://github.com/VdustR/skills/tree/main/skills/vp-long-running-processes) |
 | `vp-session-wrapup` | [VdustR/skills: vp-session-wrapup](https://github.com/VdustR/skills/tree/main/skills/vp-session-wrapup) |
 | `vp-interaction-routing` | [VdustR/agent-plugin-vp-interaction-routing: vp-interaction-routing](https://github.com/VdustR/agent-plugin-vp-interaction-routing/tree/main/skills/vp-interaction-routing) |
-| `vp-interaction-design` | [VdustR/skills: vp-interaction-design](https://github.com/VdustR/skills/tree/main/skills/vp-interaction-design) |
+| `vp-design-reasoning` | [VdustR/skills: vp-design-reasoning](https://github.com/VdustR/skills/tree/main/skills/vp-design-reasoning) |
 | `impeccable` | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) |
 
 - Resolve skills when needed. Prefer an available installed copy and read its
@@ -251,7 +251,7 @@ request's conditions. Quoted or incidental uses of "bye" do not trigger it.
 ### Interface Design
 
 - For user-facing interface planning, implementation, UX copy, interaction
-  fixes, and reviews, use `vp-interaction-design` and `impeccable` from Skill
+  fixes, and reviews, use `vp-design-reasoning` and `impeccable` from Skill
   Dependencies together. They own interaction behavior and information needs,
   and visual direction and interface craft, respectively. Share context and
   verification; apply only the parts relevant to the requested change.
