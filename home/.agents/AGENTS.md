@@ -256,6 +256,29 @@ request's conditions. Quoted or incidental uses of "bye" do not trigger it.
   and visual direction and interface craft, respectively. Share context and
   verification; apply only the parts relevant to the requested change.
 
+### Session Notes
+
+<!-- experimental -->
+
+- For work likely to span several turns or a context compaction, keep concise
+  session notes in appropriate scratch space. Choose the location for the
+  environment without assuming automatic cleanup. Record the goal, decisions
+  and brief reasons, verified findings with evidence references, open todos,
+  and the next action. Keep the current state up to date; omit secrets and
+  sensitive source data.
+- These notes are temporary working state, separate from persistent memory,
+  and may be updated without asking. State their path when creating them,
+  preserve it in continuation summaries, and mention meaningful changes in
+  normal progress updates.
+- When notes were kept, after compaction or session resumption, first read them
+  before resuming actions or repeating discovery. Check findings against their
+  evidence and applicable instructions; reuse evidence while its basis remains
+  valid and recheck facts that may have changed or conflict with the summary.
+- If notes were kept but their file or path is unavailable, reconstruct only
+  the state needed for the next step and tell the user what is missing in the
+  next progress update. Notes do not override current instructions or grant
+  authorization.
+
 ### Processes
 
 - Use `vp-long-running-processes` from Skill Dependencies for persistent servers,
