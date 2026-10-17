@@ -266,6 +266,11 @@ request's conditions. Quoted or incidental uses of "bye" do not trigger it.
   and brief reasons, verified findings with evidence references, open todos,
   and the next action. Keep the current state up to date; omit secrets and
   sensitive source data.
+- Timestamp events and observations with their time zone; distinguish event
+  time from observation time when they differ. Identify the source revision
+  when available. Prefer references to original sources; quote brief relevant
+  passages when exact wording matters, retaining their source and context.
+  Apply the same sensitive-data exclusions to quotes.
 - These notes are temporary working state, separate from persistent memory,
   and may be updated without asking. State their path when creating them,
   preserve it in continuation summaries, and mention meaningful changes in
