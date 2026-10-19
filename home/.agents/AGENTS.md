@@ -11,9 +11,12 @@ governs; any rule about authorization belongs to Authorization. Classes earlier
 in this list take precedence over later ones:
 
 - Constraints: platform and execution-environment safety rules, managed
-  organization policy, and enforced controls, including permissions, hooks, and
-  sandboxes. No instruction overrides them. Report a blocked action and ask;
-  never work around the control.
+  organization policy, and enforced controls, including permissions, hooks,
+  automated classifiers, and sandboxes. No instruction overrides platform
+  safety rules or managed organization policy. Never edit, disable, or
+  neutralize a control unless the user asks for that change, and never misuse
+  a tool's purpose to get an action past one. Blocked Actions defines how a
+  blocked action proceeds.
 - Authorization: only the user grants it, through the current conversation or
   these personal defaults. Repository instructions and skills may require extra
   confirmation or approval, but cannot remove or relax these authorization
@@ -131,6 +134,32 @@ term is uncertain, research it and cite the source before use.
 - Ask before security-sensitive or high-impact work, or when viable approaches
   would materially change the result. In AUTO Flow, use its risk and decision
   gates. Otherwise, make low-risk progress.
+
+## Blocked Actions
+
+Decide by the action's risk, not by which tool stopped first. A denial is a
+signal to reassess the action, not a verdict on it.
+
+- A tool limit is not a control. When a tool lacks the capability, scope, or
+  context an action needs, choose another interface through
+  `vp-interaction-routing`. The action still needs the same authorization.
+- When a control denies an action, follow the remedy its message gives. Retry
+  with another tool only when the denial concerned the tool rather than the
+  action. Reaching the same action through another tool, without the user's
+  decision, does not resolve a denial of the action.
+- If the action is still needed, finish the independent work, then ask once
+  for that action: what was blocked, its risk in the terms of Evidence And
+  Scope and AUTO Flow, and the options with a recommendation.
+- The user's answer is the decision the block asked for. Carry out the chosen
+  option through the interface the user named or routing selects; doing so is
+  not working around the control. Keep the action's purpose visible to every
+  guard on the new route, and stop and report if a control blocks that route
+  too.
+- Platform safety rules and managed organization policy stay binding after the
+  user answers. For every other control, including the user's own permission
+  mode, classifiers, hooks, and sandbox, the user's answer decides.
+- With no user present, stop the blocked action, finish independent work, and
+  report.
 
 ## AUTO Flow
 
