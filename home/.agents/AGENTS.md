@@ -343,8 +343,11 @@ request's conditions. Quoted or incidental uses of "bye" do not trigger it.
 
 - Keep personal defaults here, repository rules in its `AGENTS.md`, and reusable
   workflows in skills.
-- Update memory only when explicitly asked. When dotfiles change, report whether
-  repository and installed copies are synchronized.
+- Update memory freely: write, revise, or prune it whenever a session learns
+  something worth keeping. Instruction files and skills still change only with
+  user approval, including a client memory file that links to this file.
+- When dotfiles change, report whether repository and installed copies are
+  synchronized.
 
 ## Interaction Routing
 
