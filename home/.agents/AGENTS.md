@@ -122,6 +122,26 @@ term is uncertain, research it and cite the source before use.
   implementation, including relevant community approaches. Verify their
   assumptions against primary sources and the repository; compare viable
   approaches before choosing one.
+- When designing a pattern, first identify the invariant and prefer a data
+  model, API, or ownership boundary that makes violations impossible within
+  that boundary. Types that model valid states belong to this design step.
+  Where prevention is impractical, prefer a formatter or safe automatic fix,
+  then automated rejection through linting, type checking, or validation.
+  Use reminders and manual review only for the remaining judgment. Apply this
+  preference among mechanisms that enforce the same requirement; do not
+  weaken correctness or add disproportionate complexity to gain automation.
+  Verify input and mutation boundaries: a keyed collection can overwrite a
+  duplicate rather than reject it, and static types do not validate runtime
+  input. Automate a correction only when the intended result is unambiguous.
+- When fixing a problem, examine the surrounding flow and test plausible
+  causes before choosing a patch. Distinguish an observed symptom, a supported
+  cause, and a temporary mitigation. Check effects on other callers, state,
+  cleanup, retries, and observability where relevant. Handle an expected error
+  at the narrowest boundary that can establish its origin and meaning; an
+  error name alone does not justify global suppression. Verify both the
+  intended handled case and a nearby failure that must still propagate or
+  remain observable. Urgent mitigation may precede full diagnosis; preserve
+  the unresolved cause and follow-up rather than claiming a complete repair.
 - Keep changes surgical. Finish the primary task, then report unrelated issues
   instead of fixing them.
 - Require explicit instruction for commits, pushes, branch or checkout changes,
@@ -209,6 +229,7 @@ request's conditions. Quoted or incidental uses of "bye" do not trigger it.
 | `vp-autodev` | [VdustR/skills: vp-autodev](https://github.com/VdustR/skills/tree/main/skills/vp-autodev) |
 | `vp-long-running-processes` | [VdustR/skills: vp-long-running-processes](https://github.com/VdustR/skills/tree/main/skills/vp-long-running-processes) |
 | `vp-session-wrapup` | [VdustR/skills: vp-session-wrapup](https://github.com/VdustR/skills/tree/main/skills/vp-session-wrapup) |
+| `vp-session-organization` | [VdustR/skills: vp-session-organization](https://github.com/VdustR/skills/tree/main/skills/vp-session-organization) |
 | `vp-interaction-routing` | [VdustR/agent-plugin-vp-interaction-routing: vp-interaction-routing](https://github.com/VdustR/agent-plugin-vp-interaction-routing/tree/main/skills/vp-interaction-routing) |
 | `vp-design-reasoning` | [VdustR/skills: vp-design-reasoning](https://github.com/VdustR/skills/tree/main/skills/vp-design-reasoning) |
 | `impeccable` | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) |
@@ -269,6 +290,8 @@ request's conditions. Quoted or incidental uses of "bye" do not trigger it.
 - Use directly matching skills for Git and GitHub, dependencies, secrets,
   long-running processes, spelling, frontend design, and other specialized
   workflows.
+- For material pattern, data-model, API, or invariant design decisions, use
+  `vp-design-reasoning`; use the domain workflow for implementation.
 - Keep decomposition, integration, risk assessment, final verification, and
   reporting in the main agent. Delegate only permitted, bounded, independent
   work.
@@ -284,6 +307,30 @@ request's conditions. Quoted or incidental uses of "bye" do not trigger it.
   Dependencies together. They own interaction behavior and information needs,
   and visual direction and interface craft, respectively. Share context and
   verification; apply only the parts relevant to the requested change.
+
+### Session Organization
+
+- Use `vp-session-organization` when selecting or updating session names or
+  groups. The rules below provide the standing default and authorization.
+- Once the current session's durable objective is clear, automatically give it
+  a concise, descriptive name through the harness's supported interface.
+  Revisit the name when the objective materially changes, not after each
+  command or temporary subtask. Name the context and goal without implying
+  completion that has not been verified. Preserve an explicit user-chosen name
+  unless the user authorizes changing it.
+- When supported, group related sessions whose shared objective or verified
+  parent-child relationship makes them easier to find. Use the group name for
+  shared context and session names for distinct goals; keep enough context in
+  each name to understand it outside the group. Reuse a suitable group and
+  preserve the user's organization. Similar words alone do not establish a
+  relationship. Limit automatic organization to the current work and sessions
+  known to belong to it.
+- This is standing authorization for routine session naming and grouping.
+  It does not authorize creating, messaging, archiving, deleting, interrupting,
+  or moving sessions between execution environments or access boundaries.
+  Discover actual harness capabilities, use supported metadata operations,
+  and read back the result. If unavailable, keep working without inventing a
+  group feature or editing internal session storage.
 
 ### Session Notes
 
