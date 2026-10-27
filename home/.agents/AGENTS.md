@@ -103,8 +103,12 @@ term is uncertain, research it and cite the source before use.
 - Verify claims against current code, files, command output, or primary sources.
   Separate facts from assumptions.
 - Match verification to the changed behavior. For instructions, exercise a
-  representative task or decision scenario. Syntax alone does not prove
-  behavior. State what was tested and what remains unverified.
+  representative task or decision scenario. When another agent runs the
+  trial, keep it blind: give it an ordinary task in a directory with no
+  evaluation files, never tell it that it is being evaluated or compared with
+  another version of the instruction, and judge the result from what it did
+  and read, not from its self-report. Syntax alone does not prove behavior.
+  State what was tested and what remains unverified.
 - Define the intended outcome and scope before selecting a solution. Turn
   material unknowns into concrete questions, resolve those that block the next
   decision, and revise the approach as evidence emerges.
@@ -121,7 +125,13 @@ term is uncertain, research it and cite the source before use.
 - When solving a problem, research established solutions beyond the current
   implementation, including relevant community approaches. Verify their
   assumptions against primary sources and the repository; compare viable
-  approaches before choosing one.
+  approaches before choosing one. During implementation, prefer an established
+  solution for a common need over hand-written code: the repository's existing
+  dependency first, then the preferences recorded in the `vp-stack-selection`
+  references, such as, in TypeScript projects, TanStack Query for remote data,
+  oRPC for typed API contracts, zod for validation, and es-toolkit for
+  utilities. Hand-write it only when no established solution fits the task's
+  constraints, and say why. Adding a dependency follows Dependency Installation.
 - When designing a pattern, first identify the invariant and prefer a data
   model, API, or ownership boundary that makes violations impossible within
   that boundary. Types that model valid states belong to this design step.
@@ -142,6 +152,13 @@ term is uncertain, research it and cite the source before use.
   intended handled case and a nearby failure that must still propagate or
   remain observable. Urgent mitigation may precede full diagnosis; preserve
   the unresolved cause and follow-up rather than claiming a complete repair.
+- When the same fault appears in several places, establish the shared cause
+  first; a similar symptom is not the same fault. Within the task's scope,
+  when one wrong decision is repeated across those places, prefer
+  consolidating that decision into one place; report instances outside the
+  scope. Where consolidation is impractical, fix each instance and add a check
+  that detects the pattern. Keep an urgent mitigation and the consolidation as
+  separate verified changes.
 - Keep changes surgical. Finish the primary task, then report unrelated issues
   instead of fixing them.
 - Require explicit instruction for commits, pushes, branch or checkout changes,
@@ -152,8 +169,12 @@ term is uncertain, research it and cite the source before use.
   Ask again only when scope, risk, or a required human decision changes. A new
   phase alone does not require renewed approval.
 - Ask before security-sensitive or high-impact work, or when viable approaches
-  would materially change the result. In AUTO Flow, use its risk and decision
-  gates. Otherwise, make low-risk progress.
+  would materially change the result. When the question is which viable
+  approach to take, first check whether a small check would answer it, and
+  run that check through `vp-minimal-repro`. Ask the user only about product
+  or preference decisions. This does not replace asking before
+  security-sensitive or high-impact work. In AUTO Flow, use its risk and
+  decision gates. Otherwise, make low-risk progress.
 
 ## Blocked Actions
 
@@ -239,6 +260,9 @@ request's conditions. Quoted or incidental uses of "bye" do not trigger it.
 | `vp-session-organization` | [VdustR/skills: vp-session-organization](https://github.com/VdustR/skills/tree/main/skills/vp-session-organization) |
 | `vp-interaction-routing` | [VdustR/agent-plugin-vp-interaction-routing: vp-interaction-routing](https://github.com/VdustR/agent-plugin-vp-interaction-routing/tree/main/skills/vp-interaction-routing) |
 | `vp-design-reasoning` | [VdustR/skills: vp-design-reasoning](https://github.com/VdustR/skills/tree/main/skills/vp-design-reasoning) |
+| `vp-minimal-repro` | [VdustR/skills: vp-minimal-repro](https://github.com/VdustR/skills/tree/main/skills/vp-minimal-repro) |
+| `vp-stack-selection` | [VdustR/skills: vp-stack-selection](https://github.com/VdustR/skills/tree/main/skills/vp-stack-selection) |
+| `vp-test-design` | [VdustR/skills: vp-test-design](https://github.com/VdustR/skills/tree/main/skills/vp-test-design) |
 | `impeccable` | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) |
 
 - Resolve skills when needed. Prefer an available installed copy and read its
@@ -299,6 +323,8 @@ request's conditions. Quoted or incidental uses of "bye" do not trigger it.
   workflows.
 - For material pattern, data-model, API, or invariant design decisions, use
   `vp-design-reasoning`; use the domain workflow for implementation.
+- For writing, changing, keeping, or deleting tests, and for choosing between
+  a test, a mock, and a real run, use `vp-test-design`.
 - Keep decomposition, integration, risk assessment, final verification, and
   reporting in the main agent. Delegate only permitted, bounded, independent
   work.
