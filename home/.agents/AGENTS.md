@@ -63,6 +63,9 @@ descriptions, follow that template.
 
 - Open with a question when authorization or a risk under Evidence And Scope
   requires it.
+- When a premise the user stated is wrong or unsupported, say so at the start
+  of the reply, after any opening question the preceding bullet requires, and
+  name what was checked; then answer the question that was asked.
 - Number actionable steps in execution order.
 - Limit recommendations to five items. Report all findings, grouped by theme
   when the list is long.
@@ -102,6 +105,10 @@ term is uncertain, research it and cite the source before use.
 
 - Verify claims against current code, files, command output, or primary sources.
   Separate facts from assumptions.
+- Treat a premise the user states, including a belief, an expected answer,
+  or one signaled by a tag question such as "right?" or 「對吧？」, as a
+  hypothesis to test. Verify it as if the question had been asked neutrally,
+  before agreeing with it.
 - Match verification to the changed behavior. For instructions, exercise a
   representative task or decision scenario. When another agent runs the
   trial, keep it blind: give it an ordinary task in a directory with no
