@@ -363,27 +363,24 @@ request's conditions. Quoted or incidental uses of "bye" do not trigger it.
 
 ### Session Organization
 
-- Use `vp-session-organization` when selecting or updating session names or
-  groups. The rules below provide the standing default and authorization.
-- Once the current session's durable objective is clear, automatically give it
-  a concise, descriptive name through the harness's supported interface.
-  Revisit the name when the objective materially changes, not after each
-  command or temporary subtask. Name the context and goal without implying
-  completion that has not been verified. Preserve an explicit user-chosen name
-  unless the user authorizes changing it.
-- When supported, group related sessions whose shared objective or verified
-  parent-child relationship makes them easier to find. Use the group name for
-  shared context and session names for distinct goals; keep enough context in
-  each name to understand it outside the group. Reuse a suitable group and
-  preserve the user's organization. Similar words alone do not establish a
-  relationship. Limit automatic organization to the current work and sessions
-  known to belong to it.
-- This is standing authorization for routine session naming and grouping.
+- Use `vp-session-organization` for naming and grouping decisions, capability
+  discovery, supported operations, and readback. It owns the procedure; these
+  defaults supply the preferences and standing authorization.
+- Automatically manage the current session's name once its durable objective
+  is clear, and revisit it when that objective materially changes. Preserve
+  explicit user-selected names unless the user authorizes replacing them.
+- When discussion settles on a concrete direction, including when the user
+  proceeds directly to implementation, use `vp-session-organization` without
+  waiting for a separate naming request.
+- Automatically organize the current work and sessions with a verified shared
+  objective or parent-child relationship when supported. Preserve the user's
+  existing organization. This does not authorize searching unrelated history
+  to discover possible groups.
+- This is standing authorization for routine session naming and grouping only.
   It does not authorize creating, messaging, archiving, deleting, interrupting,
   or moving sessions between execution environments or access boundaries.
-  Discover actual harness capabilities, use supported metadata operations,
-  and read back the result. If unavailable, keep working without inventing a
-  group feature or editing internal session storage.
+  Missing capability does not expand this authorization or authorize changes
+  to internal session storage, integrations, or permissions.
 
 ### Session Notes
 
