@@ -1,0 +1,26 @@
+name: Validate Claude Session Naming
+on:
+  pull_request:
+    paths:
+      - home/.claude/session-naming/**
+      - .github/workflows/session-naming.yml
+  push:
+    branches: [main]
+    paths:
+      - home/.claude/session-naming/**
+      - .github/workflows/session-naming.yml
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: home/.claude/session-naming
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: home/.claude/session-naming/package-lock.json
+      - run: npm ci --ignore-scripts --omit=optional
+      - run: npm run check

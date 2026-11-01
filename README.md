@@ -37,6 +37,7 @@ Then ask:
 | `home/.claude/agents/light-worker.md` | Personal Claude Code light-work subagent using Sonnet |
 | `home/.claude/agents/convention-warden.md` | Personal Claude Code read-only verifier for repository conventions and evidence discipline |
 | `home/.claude/agents/slop-warden.md` | Personal Claude Code read-only verifier for prose against the writing standard |
+| `home/.claude/session-naming/` | Native Claude Code lifecycle integration for automatic session naming |
 | `home/.config/mise/config.toml` | mise global tool configuration |
 
 ## Manual Installation

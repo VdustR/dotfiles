@@ -19,6 +19,7 @@ When asked to apply or install these dotfiles, follow the instructions below.
 | `home/.claude/agents/light-worker.md` | `~/.claude/agents/light-worker.md` | Personal Claude Code light-work subagent using Sonnet |
 | `home/.claude/agents/convention-warden.md` | `~/.claude/agents/convention-warden.md` | Personal Claude Code read-only verifier for repository conventions and evidence discipline |
 | `home/.claude/agents/slop-warden.md` | `~/.claude/agents/slop-warden.md` | Personal Claude Code read-only verifier for prose against the writing standard |
+| `home/.claude/session-naming/` | `~/.claude/session-naming/` | Native session-naming hooks and a scoped official-SDK command |
 | `home/.config/mise/config.toml` | `~/.config/mise/config.toml` | mise global tool configuration |
 
 ## Installation Steps
@@ -59,6 +60,12 @@ When asked to apply or install these dotfiles, follow the instructions below.
    cp home/.config/mise/config.toml ~/.config/mise/config.toml
    (cd ~ && mise install)
    ```
+
+6. **Claude session naming**: Follow
+   [the integration guide](home/.claude/session-naming/README.md). Install the
+   merged source and locked dependencies before registering its two native
+   hooks. The installer preserves existing settings, permission rules, and
+   unrelated hooks. Do not copy an entire personal settings file from elsewhere.
 
 ## mise Tool Maintenance
 
