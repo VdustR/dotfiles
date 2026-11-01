@@ -1,0 +1,110 @@
+{
+  "observedAt": "2026-11-01T16:50:27+08:00",
+  "normalization": "Local paths and session IDs omitted; generated document contents and thinking omitted.",
+  "cases": [
+    {
+      "case": "adapter-discussion",
+      "events": [],
+      "claudeVersion": "2.1.212",
+      "resultSubtype": "success"
+    },
+    {
+      "case": "adapter-implementation",
+      "events": [
+        {
+          "tool": "Bash",
+          "command": "node '<adapter>/session-name.ts' set 'Checkout retry policy design'"
+        },
+        {
+          "readback": {
+            "status": "verified",
+            "title": "Checkout retry policy design"
+          }
+        },
+        {
+          "tool": "Write",
+          "file": "retry-policy.md"
+        }
+      ],
+      "claudeVersion": "2.1.212",
+      "resultSubtype": "success"
+    },
+    {
+      "case": "adapter-protected",
+      "events": [
+        {
+          "tool": "Write",
+          "file": "retry-policy.md"
+        }
+      ],
+      "claudeVersion": "2.1.212",
+      "resultSubtype": "success"
+    },
+    {
+      "case": "adapter-title-only",
+      "events": [],
+      "claudeVersion": "2.1.212",
+      "response": "Checkout Timeout Investigation",
+      "resultSubtype": "success"
+    },
+    {
+      "case": "current-baseline-discussion",
+      "events": [],
+      "claudeVersion": "2.1.316",
+      "resultSubtype": "success"
+    },
+    {
+      "case": "current-baseline-implementation",
+      "events": [
+        {
+          "tool": "Write",
+          "file": "retry-policy.md"
+        }
+      ],
+      "claudeVersion": "2.1.316",
+      "resultSubtype": "success"
+    },
+    {
+      "case": "current-fixed-discussion",
+      "events": [
+        {
+          "tool": "Bash",
+          "command": "node '<adapter>/session-name.ts' set 'Checkout API retry strategy'"
+        },
+        {
+          "readback": {
+            "status": "verified",
+            "title": "Checkout API retry strategy"
+          }
+        }
+      ],
+      "claudeVersion": "2.1.316",
+      "resultSubtype": "success"
+    },
+    {
+      "case": "current-fixed-implementation",
+      "events": [
+        {
+          "tool": "Write",
+          "file": "retry-policy.md"
+        }
+      ],
+      "claudeVersion": "2.1.316",
+      "resultSubtype": "success"
+    }
+  ],
+  "sdkReadbacks": [
+    {
+      "case": "current-baseline",
+      "customTitle": null
+    },
+    {
+      "case": "current-fixed",
+      "customTitle": "Checkout API retry strategy"
+    },
+    {
+      "case": "interactive",
+      "customTitle": "Checkout retry policy"
+    }
+  ]
+}
