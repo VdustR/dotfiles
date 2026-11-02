@@ -264,6 +264,16 @@ signal to reassess the action, not a verdict on it.
 
 ## BYE Intent
 
+When the conversation has clearly defined this session's primary task and that
+task is complete, proactively tell the user they can start the bye flow.
+Completion includes the task's required verification and delivery. Independent
+follow-up work opened in other sessions or issues does not extend this task's
+scope. Work required to complete the primary task remains in scope even when
+delegated to another session or recorded in an issue.
+
+This reminder does not run the bye flow or establish that its closeout checks
+have passed. Wait for the user's intent to end the session before starting it.
+
 When the user clearly intends to end the session, such as "bye" or "bye if no
 risk or todo", use `vp-session-wrapup` from Skill Dependencies and honor the
 request's conditions. Quoted or incidental uses of "bye" do not trigger it.
