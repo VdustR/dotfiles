@@ -123,6 +123,21 @@ Its tool description states that the app asks before replacing a user-set title,
 except in bypass permissions mode; that exception was not exercised. The integration now routes desktop renames to
 that tool; see [the integration guide](../../home/.claude/session-naming/README.md#claude-desktop-app-sessions).
 
+After installation, the same day, two fresh desktop sessions each received one
+ordinary read-only request, with no mention of naming. Both receipts recorded
+`surface: "desktop"` and no protection, and neither session ran
+`session-name.ts set`.
+
+| Session start title | Agent tool calls | Result |
+|---|---|---|
+| Accurate (`Inventory mise global tools and version pins`) | `ToolSearch`, `get_session self` | Kept, as the workflow requires |
+| Vague (`Quick question`) | `ToolSearch`, `get_session self`, `set_session_title self` | App record became `Explain light-worker subagent` with source `tool`; no second `get_session` |
+
+Timing of the app's generated title: in three earlier desktop transcripts its
+first `custom-title` record was line 13, written before the first assistant
+record and first `tool_use` (lines 33 to 35), about three seconds after the
+prompt. A rename during the first prompt therefore lands after the app title.
+
 ## Primary sources
 
 - [Official native hook contract](https://code.claude.com/docs/en/hooks)
