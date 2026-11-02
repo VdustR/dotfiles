@@ -1,9 +1,11 @@
 # Claude Session Naming
 
 This integration binds the current local Claude Code session, loads the installed
-`vp-session-organization` workflow on each user prompt, and exposes a scoped
-official-SDK rename with readback. The existing conversation model chooses the
-name; there is no extra model request or nested Claude process.
+`vp-session-organization` workflow on each user prompt, and tells the agent how
+to rename this session with readback: a scoped official-SDK command in the CLI,
+or the app's own session tool in the Claude desktop app. The existing
+conversation model chooses the name; there is no extra model request or nested
+Claude process.
 
 ## Install
 
@@ -34,9 +36,15 @@ session so its session binding is exported to subsequent Bash calls.
   back before recording success. It does not start or resume another conversation
   or implement its own transcript writer.
 - Explicit native names are protected. The main agent can also run
-  `session-name.ts protect` when the user asks to retain a name previously managed
-  by this integration. Names, target bindings, and ownership receipts live under
-  `state/`; raw prompts and conversation content are not stored there.
+  `session-name.ts protect` when the user chooses a name or asks to retain the
+  current one. Receipts record why a name is protected: `request` for that
+  command, which is never re-derived, and `observed` for a surface signal. The
+  CLI hook keeps `observed`; the desktop hook recomputes it on each prompt.
+  Names, target bindings, and ownership
+  receipts live under `state/`; raw prompts and conversation content are not
+  stored there. Receipts from before the desktop change migrate on read: a
+  protected name with no managed title becomes `observed`, any other protected
+  name becomes `request`.
 - The SDK's `customTitle` field can contain an AI-generated title. To preserve
   manual edits without mistaking that background update for a user action, the
   adapter reads only `custom-title` provenance records from the exact transcript
@@ -52,9 +60,42 @@ session so its session binding is exported to subsequent Bash calls.
 
 SDK readback proves persisted metadata. Native hook output refreshes a previously
 managed title on the next prompt or resume. Verify the active CLI separately;
-desktop-sidebar and Remote Control propagation are not established by this
-integration. Existing upstream reports describe different propagation behavior
-on those surfaces; do not substitute a terminal title for a session title.
+Remote Control propagation is not established by this integration. Existing
+upstream reports describe different propagation behavior on those surfaces; do
+not substitute a terminal title for a session title.
+
+## Claude desktop app sessions
+
+The desktop app launches Claude Code with `CLAUDE_CODE_ENTRYPOINT=claude-desktop`
+in the process environment, which the hooks inherit. In that surface:
+
+- The app writes every title, including the one it generates from the opening
+  prompt, as a `custom-title` transcript record. That record therefore says
+  nothing about who chose the name, and the hook no longer treats it as a user
+  rename.
+- The hook reads the title source from the app's own session record under
+  `~/Library/Application Support/Claude/claude-code-sessions/`, located by the
+  account, organization, and host session IDs in the environment and matched to
+  the hook's session ID. `auto` (app-generated) and `tool` (set by an agent) are
+  replaceable. `user`, or any title without one of those sources, is protected.
+  This record is not a documented interface, and only its macOS location was
+  observed. A record that cannot be read or recognized is reported as
+  `unavailable`, and the transcript title, if any, is then protected.
+- The injected text tells the agent to load the app's session tools, read the
+  title with `mcp__ccd_session_mgmt__get_session` and keep it if it changed
+  since the prompt began, rename with `mcp__ccd_session_mgmt__set_session_title`
+  and `session_id: "self"`, then read the title back. The tool's own description
+  (app 4.4212.0) says it asks before replacing a user-set title except in bypass
+  permissions mode, so the text also forbids replacing a title the user chose.
+  A title set by an agent at the user's request is `tool`, not `user`; the agent
+  records that choice with `session-name.ts protect`.
+- `session-name.ts set` refuses desktop sessions: an SDK rename does not update
+  the app's title. `session-name.ts protect` still records a keep request.
+- The hook emits no native `sessionTitle`; the app owns its title.
+
+Unit tests cover the decision logic only. Whether a fresh desktop session
+renames itself, and whether the app's generated title can overwrite a rename
+made during the first prompt, require a real desktop trial.
 
 ## Validate and remove
 
@@ -68,8 +109,9 @@ node --test home/.claude/session-naming/tests/*.test.ts
 ```
 
 Tests cover native-name protection, intervening changes, verified/no-op mutation,
-unconfirmed readback, isolated locks, hook failure, literal command quoting, and
-idempotent settings merging. They use the SDK's observed metadata contract for
+unconfirmed readback, isolated locks, hook failure, literal command quoting,
+idempotent settings merging, legacy receipt migration, desktop title-source
+protection, and the desktop app record reader. They use the SDK's observed metadata contract for
 fakes; a real CLI trial is still required to claim automatic naming behavior.
 See [the diagnosis and real-interface evidence](https://github.com/VdustR/dotfiles/blob/main/docs/research/claude-session-naming.md)
 in the source repository; that research file is not required at runtime.

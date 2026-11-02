@@ -10,7 +10,7 @@ import { z } from "zod";
 
 export const sessionId = z.uuid();
 export const titleSchema = z.string().trim().min(1).max(120).regex(/^[^\p{Cc}\p{Cf}]+$/u);
-export const stateSchema = z.strictObject({
+const receiptFields = {
   sessionId,
   cwd: z.string().min(1),
   observedTitle: z.string().nullable(),
@@ -18,9 +18,26 @@ export const stateSchema = z.strictObject({
   observedCustomTitle: z.string().nullable(),
   observedNativeTitle: z.string().nullable(),
   managedTitle: z.string().nullable(),
-  protected: z.boolean(),
+};
+// "request" records an explicit keep request and is never re-derived. "observed"
+// comes from a surface signal: the CLI hook keeps it, the desktop hook
+// recomputes it on each prompt from the app's title source.
+const currentSchema = z.strictObject({
+  ...receiptFields,
+  surface: z.enum(["cli", "desktop"]),
+  protectedBy: z.enum(["request", "observed"]).nullable(),
 });
-export type SessionState = z.infer<typeof stateSchema>;
+// Earlier receipts could not tell a keep request from an observed change. The
+// protect command was documented only for managed names, so an unmanaged name is
+// taken as observed, which desktop app titles triggered falsely. That command
+// shipped on November 1, 2026, and no call was found on the installed device.
+const legacySchema = z.strictObject({ ...receiptFields, protected: z.boolean() }).transform(({ protected: isProtected, ...rest }) => ({
+  ...rest,
+  surface: "cli" as const,
+  protectedBy: !isProtected ? null : rest.managedTitle === null ? "observed" as const : "request" as const,
+}));
+export const stateSchema = z.union([currentSchema, legacySchema]);
+export type SessionState = z.output<typeof currentSchema>;
 export type SessionStore = {
   read: (id: string, cwd: string) => Promise<{ customTitle?: string } | undefined>;
   rename: (id: string, title: string, cwd: string) => Promise<void>;
@@ -111,13 +128,14 @@ export async function applyTitle(directory: string, id: string, input: string, s
   const title = titleSchema.parse(input);
   return withSession(directory, id, async () => {
     const state = await readState(directory, id);
-    if (!state || state.protected) throw new Error("The current session name is protected or has no native hook binding.");
+    if (state?.surface === "desktop") throw new Error("This is a Claude desktop app session; rename it with mcp__ccd_session_mgmt__set_session_title instead.");
+    if (!state || state.protectedBy) throw new Error("The current session name is protected or has no native hook binding.");
     const current = await store.read(id, state.cwd);
     if (!current) throw new Error("The bound session was not found.");
     const actual = current.customTitle ?? null;
     const custom = await readCustomTitle(state.transcriptPath, id);
     if (custom !== state.observedCustomTitle && custom !== state.managedTitle) {
-      await saveState(directory, { ...state, protected: true });
+      await saveState(directory, { ...state, protectedBy: "observed" });
       throw new Error("The name changed after the hook ran; preserving that change.");
     }
     if (actual !== title) await store.rename(id, title, state.cwd);
@@ -132,6 +150,6 @@ export async function protectName(directory: string, id: string): Promise<void> 
   await withSession(directory, id, async () => {
     const state = await readState(directory, id);
     if (!state) throw new Error("No native hook binding exists for this session.");
-    await saveState(directory, { ...state, protected: true });
+    await saveState(directory, { ...state, protectedBy: "request" });
   });
 }
