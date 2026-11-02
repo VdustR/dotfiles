@@ -173,9 +173,12 @@ This gives a cost-conscious default while preserving a deliberate escalation pat
 
 ## Selected dotfiles configuration
 
+Checked against the repository on 2026-11-02. The research above still reflects 2026-07-17.
+
 The personal dotfiles use one permissive light-work role per product rather than a multi-tier router:
 
-- Shared instructions prefer the light agent for bounded, independent, low-risk work, start with one agent, and allow two or three only for genuinely independent lanes.
 - Codex uses `light-worker` with `gpt-5.6-luna` at `max` reasoning effort.
-- Claude Code uses `light-worker` with the rolling `haiku` alias and no effort override because the current Haiku model does not support the effort parameter.
-- The main agent remains responsible for decomposition, integration, risk assessment, and final verification.
+- Claude Code uses `light-worker` with the rolling `sonnet` alias and no `effort` override. It used `haiku` until [the switch to Sonnet](https://github.com/VdustR/dotfiles/pull/92).
+- The Claude Code definition sets no `tools`, so the agent inherits every parent tool, including `Agent`. The general advice above to omit `Agent` is not applied.
+- The shared instructions in `home/.agents/AGENTS.md` no longer name `light-worker` or suggest an agent count; [slimming the personal agent instructions](https://github.com/VdustR/dotfiles/pull/76) removed that guidance. They delegate only permitted, bounded, independent work, so routing to `light-worker` now rests on its `description`.
+- The main agent remains responsible for decomposition, integration, risk assessment, final verification, and reporting.
