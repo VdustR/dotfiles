@@ -25,7 +25,8 @@ export function desktopSession(environment = process.env, root = join(homedir(),
 }
 
 // Title provenance lives only in the app's session record, which is not a
-// documented interface. Any missing or unrecognized record is unavailable.
+// documented interface. Any record that cannot be read or recognized is
+// unavailable; the caller then protects any existing title.
 async function readDesktopTitle(environment: NodeJS.ProcessEnv, root: string, id: string): Promise<DesktopTitle | undefined> {
   const ids = environmentSchema.safeParse(environment);
   if (!ids.success) return undefined;
@@ -33,7 +34,7 @@ async function readDesktopTitle(environment: NodeJS.ProcessEnv, root: string, id
   let text;
   try { text = await readFile(path, "utf8"); }
   catch (error) {
-    if (error instanceof Error && "code" in error && error.code === "ENOENT") return undefined;
+    if (error instanceof Error && "code" in error) return undefined;
     throw error;
   }
   let value: unknown;

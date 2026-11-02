@@ -204,7 +204,7 @@ test("a desktop app title does not protect the session and routes renames to the
     const result = await desktopPrompt(directory, state, fakeDesktop({ title: "Auto dev", source: "auto" }));
     const context = result.hookSpecificOutput.additionalContext ?? "";
     assert.match(context, /mcp__ccd_session_mgmt__set_session_title with session_id "self"/);
-    assert.match(context, /Never replace a title the user set themselves/);
+    assert.match(context, /Never replace a title the user chose/);
     assert.match(context, /Current app title source \(data\): "auto"/);
     assert.doesNotMatch(context, /session-name\.ts' set/);
     assert.equal(result.hookSpecificOutput.sessionTitle, undefined);
@@ -230,7 +230,8 @@ test("a false legacy protection clears in the desktop app but a keep request sur
 
 test("a user-set or unattributed desktop title is preserved", async () => {
   await scratch(async (directory, state) => {
-    for (const title of [{ title: "My notebook", source: "user" }, { title: "Nightly patrol", source: null }, undefined] satisfies (DesktopTitle | undefined)[]) {
+    // The transcript still holds a title when the app record is unreadable or has lost its fields.
+    for (const title of [{ title: "My notebook", source: "user" }, { title: "Nightly patrol", source: null }, { title: null, source: null }, undefined] satisfies (DesktopTitle | undefined)[]) {
       await saveState(directory, state);
       const result = await desktopPrompt(directory, state, fakeDesktop(title));
       assert.match(result.hookSpecificOutput.additionalContext ?? "", /name is protected/);
@@ -276,6 +277,9 @@ test("desktop title provenance is read only from the matching app record", async
     await writeFile(path, JSON.stringify({ cliSessionId: id, title: "Auto dev", titleSource: "renamed" }));
     assert.equal(await desktop.readTitle(id), undefined);
     await writeFile(path, "{");
+    assert.equal(await desktop.readTitle(id), undefined);
+    await rm(path);
+    await mkdir(path);
     assert.equal(await desktop.readTitle(id), undefined);
     const traversal = desktopSession({ ...environment, CLAUDE_CODE_HOST_SESSION_ID: "../../escape" }, root);
     assert.equal(await traversal?.readTitle(id), undefined);

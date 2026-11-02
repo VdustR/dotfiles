@@ -19,16 +19,18 @@ const receiptFields = {
   observedNativeTitle: z.string().nullable(),
   managedTitle: z.string().nullable(),
 };
-// "request" records an explicit keep request and is never re-derived; "observed"
-// comes from a surface signal and the hook recomputes it for that surface.
+// "request" records an explicit keep request and is never re-derived. "observed"
+// comes from a surface signal: the CLI hook keeps it, the desktop hook
+// recomputes it on each prompt from the app's title source.
 const currentSchema = z.strictObject({
   ...receiptFields,
   surface: z.enum(["cli", "desktop"]),
   protectedBy: z.enum(["request", "observed"]).nullable(),
 });
-// Earlier receipts could not tell a keep request from an observed change. Only a
-// managed name could be protected by request; an unmanaged one only by
-// observation, which desktop app titles triggered falsely.
+// Earlier receipts could not tell a keep request from an observed change. The
+// protect command was documented only for managed names, so an unmanaged name is
+// taken as observed, which desktop app titles triggered falsely. That command
+// shipped on November 1, 2026, and no call was found on the installed device.
 const legacySchema = z.strictObject({ ...receiptFields, protected: z.boolean() }).transform(({ protected: isProtected, ...rest }) => ({
   ...rest,
   surface: "cli" as const,

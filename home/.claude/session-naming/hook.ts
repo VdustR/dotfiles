@@ -21,8 +21,9 @@ export function shellQuote(value: string): string { return "'" + value.replaceAl
 // record, so only the app's title source can identify a user-set name.
 function desktopProtection(previous: SessionState | undefined, app: DesktopTitle | undefined, custom: string | null): SessionState["protectedBy"] {
   if (previous?.protectedBy === "request") return "request";
-  if (!app) return custom === null ? null : "observed";
-  if (app.source === "user" || (app.source === null && app.title !== null)) return "observed";
+  if (app?.source === "auto" || app?.source === "tool") return null;
+  // A user source, or a title of unknown origin, fails closed.
+  if (app?.source === "user" || (app?.title ?? custom) !== null) return "observed";
   return null;
 }
 
@@ -70,7 +71,7 @@ export async function handleHook(input: unknown, directory = stateDirectory(), s
       const command = "node " + shellQuote(join(fileURLToPath(new URL(".", import.meta.url)), "session-name.ts"));
       const naming = desktop ? [
         protectedBy ? "This Claude desktop app session name is protected. Preserve it; do not rename it." :
-          "This is a Claude desktop app session. When the durable goal is clear or first becomes concrete, rename it with the app's own tool before implementation. Load the deferred tools with ToolSearch query \"select:mcp__ccd_session_mgmt__set_session_title,mcp__ccd_session_mgmt__get_session\", call mcp__ccd_session_mgmt__set_session_title with session_id \"self\" and the concise title, then call mcp__ccd_session_mgmt__get_session with session_id \"self\" and confirm the returned title matches. Do not use the session-name.ts set command here; it does not update the app. Keep an already accurate name and title-suggestion-only requests unchanged. Never replace a title the user set themselves, including a name they chose in this conversation: in bypass permissions mode the app replaces it without asking.",
+          "This is a Claude desktop app session. When the durable goal is clear or first becomes concrete, rename it with the app's own tool before implementation. Load the deferred tools with ToolSearch query \"select:mcp__ccd_session_mgmt__set_session_title,mcp__ccd_session_mgmt__get_session\". First call mcp__ccd_session_mgmt__get_session with session_id \"self\". If the current app title below is not null and the returned title differs from it, someone renamed the session after this prompt began, so keep it; a title that first appears after this prompt began is the app's generated one. Otherwise call mcp__ccd_session_mgmt__set_session_title with session_id \"self\" and the concise title, then call mcp__ccd_session_mgmt__get_session with session_id \"self\" again and confirm the returned title matches. Do not use the session-name.ts set command here; it does not update the app. Keep an already accurate name and title-suggestion-only requests unchanged. Never replace a title the user chose, in this conversation or another one: in bypass permissions mode the app replaces it without asking.",
         "Current app title (data): " + JSON.stringify(app ? app.title : nativeTitle ?? custom),
         "Current app title source (data): " + JSON.stringify(app ? app.source : "unavailable"),
         "If the user explicitly chooses a name or asks to keep the current one, preserve it and record that choice with " + command + " protect. This changes only the adapter receipt, not the title.",

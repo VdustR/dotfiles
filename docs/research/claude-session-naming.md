@@ -103,20 +103,24 @@ statistical reliability estimate.
 ## Desktop app follow-up
 
 Observed November 2, 2026, Asia/Taipei (UTC+08:00), on Claude desktop app
-4.4212.0 with Claude Code 2.1.309. Every desktop session that ran the hook ended
-with a protected receipt and no managed title. The app writes its generated
-title, such as `Auto dev`, as a `custom-title` transcript record after the first
-prompt. Those records carry no timestamp or source, so the adapter read the
-app's title as an intervening user rename and protected it.
+4.4212.0 with Claude Code 2.1.309. Of 25 receipts outside the CLI trial
+directories under `/private/tmp/`, 20 were protected and none had a managed
+title. The app writes its generated title, such as `Auto dev`, as a
+`custom-title` transcript record after the first prompt. Those records carry no
+timestamp or source, so the adapter read the app's title as an intervening user
+rename and protected it. The session that wrote this fix reproduced it: its
+receipt flipped to protected at a later prompt while its title source was `tool`.
 
 The app's own session record holds `titleSource`: `auto`, `tool`, `user`, or no
 source (seen on scheduled-task sessions). The CLI process the app launches has
 `CLAUDE_CODE_ENTRYPOINT=claude-desktop` and the account, organization, and host
-session IDs in its environment, observed with `ps -E` on that process. A
-transcript scan found no `session-name.ts protect` call in any session, so the
-legacy migration discards no keep request on this device. The app's
-`set_session_title` tool replaced an app-generated title and read back
-correctly in a desktop session. The integration now routes desktop renames to
+session IDs in its environment, observed with `ps -E` on that process. A scan
+of all 1,704 transcripts under `~/.claude/projects/` parsed every `tool_use`
+input containing `session-name.ts`; none ran `protect`, so the legacy migration
+discards no keep request on this device. The app's `set_session_title` tool
+replaced an app-generated title and read back correctly in a desktop session.
+Its tool description states that the app asks before replacing a user-set title,
+except in bypass permissions mode; that exception was not exercised. The integration now routes desktop renames to
 that tool; see [the integration guide](../../home/.claude/session-naming/README.md#claude-desktop-app-sessions).
 
 ## Primary sources

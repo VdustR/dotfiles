@@ -38,8 +38,9 @@ session so its session binding is exported to subsequent Bash calls.
 - Explicit native names are protected. The main agent can also run
   `session-name.ts protect` when the user chooses a name or asks to retain the
   current one. Receipts record why a name is protected: `request` for that
-  command, which is never re-derived, and `observed` for a surface signal, which
-  the hook recomputes on each prompt. Names, target bindings, and ownership
+  command, which is never re-derived, and `observed` for a surface signal. The
+  CLI hook keeps `observed`; the desktop hook recomputes it on each prompt.
+  Names, target bindings, and ownership
   receipts live under `state/`; raw prompts and conversation content are not
   stored there. Receipts from before the desktop change migrate on read: a
   protected name with no managed title becomes `observed`, any other protected
@@ -76,17 +77,25 @@ in the process environment, which the hooks inherit. In that surface:
   `~/Library/Application Support/Claude/claude-code-sessions/`, located by the
   account, organization, and host session IDs in the environment and matched to
   the hook's session ID. `auto` (app-generated) and `tool` (set by an agent) are
-  replaceable. `user`, a title with no source, or an unreadable record with a
-  transcript title is protected. This record is not a documented interface;
-  anything unrecognized fails closed and is reported as `unavailable`.
-- The injected text tells the agent to load and call
-  `mcp__ccd_session_mgmt__set_session_title` with `session_id: "self"`, then read
-  the title back with `mcp__ccd_session_mgmt__get_session`. That tool asks before
-  replacing a user-set title, except in bypass permissions mode, so the text also
-  forbids replacing a title the user set.
+  replaceable. `user`, or any title without one of those sources, is protected.
+  This record is not a documented interface, and only its macOS location was
+  observed. A record that cannot be read or recognized is reported as
+  `unavailable`, and the transcript title, if any, is then protected.
+- The injected text tells the agent to load the app's session tools, read the
+  title with `mcp__ccd_session_mgmt__get_session` and keep it if it changed
+  since the prompt began, rename with `mcp__ccd_session_mgmt__set_session_title`
+  and `session_id: "self"`, then read the title back. The tool's own description
+  (app 4.4212.0) says it asks before replacing a user-set title except in bypass
+  permissions mode, so the text also forbids replacing a title the user chose.
+  A title set by an agent at the user's request is `tool`, not `user`; the agent
+  records that choice with `session-name.ts protect`.
 - `session-name.ts set` refuses desktop sessions: an SDK rename does not update
   the app's title. `session-name.ts protect` still records a keep request.
 - The hook emits no native `sessionTitle`; the app owns its title.
+
+Unit tests cover the decision logic only. Whether a fresh desktop session
+renames itself, and whether the app's generated title can overwrite a rename
+made during the first prompt, require a real desktop trial.
 
 ## Validate and remove
 
