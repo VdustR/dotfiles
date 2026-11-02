@@ -93,9 +93,14 @@ in the process environment, which the hooks inherit. In that surface:
   the app's title. `session-name.ts protect` still records a keep request.
 - The hook emits no native `sessionTitle`; the app owns its title.
 
-Unit tests cover the decision logic only. Whether a fresh desktop session
-renames itself, and whether the app's generated title can overwrite a rename
-made during the first prompt, require a real desktop trial.
+Two fresh desktop sessions started on November 2, 2026 took this route: one
+kept an already accurate title, the other replaced a vague one through
+`set_session_title`. The second skipped the final `get_session` readback and
+relied on the tool's success message, so the injected text now says that
+message is not readback; agent compliance with that wording is not yet
+observed. In three earlier sessions the app wrote its generated title before
+the agent's first reply, so a rename made during the first prompt lands after
+it. See [the research note](https://github.com/VdustR/dotfiles/blob/main/docs/research/claude-session-naming.md#desktop-app-follow-up).
 
 ## Validate and remove
 
