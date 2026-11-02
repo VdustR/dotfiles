@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { randomUUID } from "node:crypto";
@@ -10,11 +10,13 @@ import { applyTitle, protectName, readCustomTitle, readState, saveState, withSes
 import type { SessionState, SessionStore } from "../session-state.ts";
 import { mergeHooks } from "../install.ts";
 import { handleHook, shellQuote } from "../hook.ts";
+import { desktopSession } from "../desktop-session.ts";
+import type { DesktopSession, DesktopTitle } from "../desktop-session.ts";
 
 async function scratch(action: (directory: string, state: SessionState) => Promise<void>) {
   const directory = await realpath(await mkdtemp(join(tmpdir(), "session-naming-")));
   const id = randomUUID();
-  const state = { sessionId: id, cwd: directory, observedTitle: "Checkout options", observedCustomTitle: "Checkout options", observedNativeTitle: "Checkout options", transcriptPath: join(directory, id + ".jsonl"), managedTitle: "Checkout options", protected: false } satisfies SessionState;
+  const state = { sessionId: id, cwd: directory, observedTitle: "Checkout options", observedCustomTitle: "Checkout options", observedNativeTitle: "Checkout options", transcriptPath: join(directory, id + ".jsonl"), managedTitle: "Checkout options", surface: "cli", protectedBy: null } satisfies SessionState;
   await writeFile(state.transcriptPath, JSON.stringify({ type: "custom-title", sessionId: id, customTitle: "Checkout options" }) + "\n");
   await saveState(directory, state);
   try { await action(directory, state); } finally { await rm(directory, { recursive: true, force: true }); }
@@ -34,7 +36,7 @@ test("rename uses exact bound identity and confirms the persisted title", async 
 
 test("a protected name cannot reach the mutation boundary", async () => {
   await scratch(async (directory, state) => {
-    await saveState(directory, { ...state, protected: true });
+    await saveState(directory, { ...state, protectedBy: "observed" });
     const store: SessionStore = { read: async () => { throw new Error("Unexpected access"); }, rename: async () => { throw new Error("Unexpected mutation"); } };
     await assert.rejects(applyTitle(directory, state.sessionId, "Other", store), /protected/);
   });
@@ -43,7 +45,7 @@ test("a protected name cannot reach the mutation boundary", async () => {
 test("an explicit keep request protects a previously managed name without a title write", async () => {
   await scratch(async (directory, state) => {
     await protectName(directory, state.sessionId);
-    assert.equal((await readState(directory, state.sessionId))?.protected, true);
+    assert.equal((await readState(directory, state.sessionId))?.protectedBy, "request");
     assert.equal(await readCustomTitle(state.transcriptPath, state.sessionId), "Checkout options");
   });
 });
@@ -53,7 +55,7 @@ test("intervening user changes remain observable and become protected", async ()
     await writeFile(state.transcriptPath, JSON.stringify({ type: "custom-title", sessionId: state.sessionId, customTitle: "My notebook" }) + "\n");
     const store: SessionStore = { read: async () => ({ customTitle: "My notebook" }), rename: async () => { assert.fail("Must not overwrite user edit"); } };
     await assert.rejects(applyTitle(directory, state.sessionId, "Other", store), /name changed/);
-    assert.equal((await readState(directory, state.sessionId))?.protected, true);
+    assert.equal((await readState(directory, state.sessionId))?.protectedBy, "observed");
   });
 });
 
@@ -127,10 +129,10 @@ test("native explicit names are protected without a metadata write", async () =>
     const id = randomUUID();
     const skill = join(directory, "SKILL.md");
     await writeFile(skill, "# Naming workflow\nPreserve explicit names.");
-    const result = await handleHook({ hook_event_name: "UserPromptSubmit", session_id: id, cwd: directory, transcript_path: join(directory, id + ".jsonl"), session_title: "User notebook" }, directory, skill);
+    const result = await handleHook({ hook_event_name: "UserPromptSubmit", session_id: id, cwd: directory, transcript_path: join(directory, id + ".jsonl"), session_title: "User notebook" }, directory, skill, null);
     assert.equal(result.hookSpecificOutput.sessionTitle, undefined);
     assert.match(result.hookSpecificOutput.additionalContext ?? "", /name is protected/);
-    assert.equal((await readState(directory, id))?.protected, true);
+    assert.equal((await readState(directory, id))?.protectedBy, "observed");
   });
 });
 
@@ -140,9 +142,9 @@ test("a stale native title refreshes an SDK-managed name instead of protecting t
     await writeFile(state.transcriptPath, JSON.stringify({ type: "custom-title", sessionId: state.sessionId, customTitle: "Implement retries" }) + "\n");
     const skill = join(directory, "SKILL.md");
     await writeFile(skill, "# Naming workflow");
-    const result = await handleHook({ hook_event_name: "UserPromptSubmit", session_id: state.sessionId, cwd: directory, transcript_path: state.transcriptPath, session_title: "Checkout options" }, directory, skill);
+    const result = await handleHook({ hook_event_name: "UserPromptSubmit", session_id: state.sessionId, cwd: directory, transcript_path: state.transcriptPath, session_title: "Checkout options" }, directory, skill, null);
     assert.equal(result.hookSpecificOutput.sessionTitle, "Implement retries");
-    assert.equal((await readState(directory, state.sessionId))?.protected, false);
+    assert.equal((await readState(directory, state.sessionId))?.protectedBy, null);
   });
 });
 
@@ -150,9 +152,9 @@ test("a new native user choice stays protected even before its transcript record
   await scratch(async (directory, state) => {
     const skill = join(directory, "SKILL.md");
     await writeFile(skill, "# Naming workflow");
-    const result = await handleHook({ hook_event_name: "UserPromptSubmit", session_id: state.sessionId, cwd: directory, transcript_path: state.transcriptPath, session_title: "User-selected notebook" }, directory, skill);
+    const result = await handleHook({ hook_event_name: "UserPromptSubmit", session_id: state.sessionId, cwd: directory, transcript_path: state.transcriptPath, session_title: "User-selected notebook" }, directory, skill, null);
     assert.equal(result.hookSpecificOutput.sessionTitle, undefined);
-    assert.equal((await readState(directory, state.sessionId))?.protected, true);
+    assert.equal((await readState(directory, state.sessionId))?.protectedBy, "observed");
   });
 });
 
@@ -169,4 +171,113 @@ test("shell quoting preserves literal dollar signs, backticks, and apostrophes",
   const input = "a'b$(touch nope)`value`";
   const run = spawnSync("sh", ["-c", "printf %s " + shellQuote(input)], { encoding: "utf8" });
   assert.equal(run.stdout, input);
+});
+
+function fakeDesktop(title: DesktopTitle | undefined): DesktopSession {
+  return { readTitle: async () => title };
+}
+
+async function desktopPrompt(directory: string, state: SessionState, desktop: DesktopSession) {
+  const skill = join(directory, "SKILL.md");
+  await writeFile(skill, "# Naming workflow");
+  return handleHook({ hook_event_name: "UserPromptSubmit", session_id: state.sessionId, cwd: directory, transcript_path: state.transcriptPath }, directory, skill, desktop);
+}
+
+test("legacy receipts migrate without inventing keep requests", async () => {
+  await scratch(async (directory, state) => {
+    const { surface: _surface, protectedBy: _protectedBy, ...legacy } = state;
+    const path = join(directory, state.sessionId + ".json");
+    await writeFile(path, JSON.stringify({ ...legacy, managedTitle: null, protected: true }));
+    assert.equal((await readState(directory, state.sessionId))?.protectedBy, "observed");
+    await writeFile(path, JSON.stringify({ ...legacy, protected: true }));
+    assert.equal((await readState(directory, state.sessionId))?.protectedBy, "request");
+    await writeFile(path, JSON.stringify({ ...legacy, protected: false }));
+    assert.deepEqual(await readState(directory, state.sessionId), { ...state });
+  });
+});
+
+test("a desktop app title does not protect the session and routes renames to the app tool", async () => {
+  await scratch(async (directory, state) => {
+    // The app writes its generated title as a custom-title record after the first prompt.
+    await saveState(directory, { ...state, managedTitle: null, observedCustomTitle: null, protectedBy: null });
+    await writeFile(state.transcriptPath, JSON.stringify({ type: "custom-title", sessionId: state.sessionId, customTitle: "Auto dev" }) + "\n");
+    const result = await desktopPrompt(directory, state, fakeDesktop({ title: "Auto dev", source: "auto" }));
+    const context = result.hookSpecificOutput.additionalContext ?? "";
+    assert.match(context, /mcp__ccd_session_mgmt__set_session_title with session_id "self"/);
+    assert.match(context, /Never replace a title the user set themselves/);
+    assert.match(context, /Current app title source \(data\): "auto"/);
+    assert.doesNotMatch(context, /session-name\.ts' set/);
+    assert.equal(result.hookSpecificOutput.sessionTitle, undefined);
+    const saved = await readState(directory, state.sessionId);
+    assert.equal(saved?.surface, "desktop");
+    assert.equal(saved?.protectedBy, null);
+  });
+});
+
+test("a false legacy protection clears in the desktop app but a keep request survives", async () => {
+  await scratch(async (directory, state) => {
+    const { surface: _surface, protectedBy: _protectedBy, ...legacy } = state;
+    const path = join(directory, state.sessionId + ".json");
+    await writeFile(path, JSON.stringify({ ...legacy, managedTitle: null, protected: true }));
+    await desktopPrompt(directory, state, fakeDesktop({ title: "Auto dev", source: "auto" }));
+    assert.equal((await readState(directory, state.sessionId))?.protectedBy, null);
+    await protectName(directory, state.sessionId);
+    const result = await desktopPrompt(directory, state, fakeDesktop({ title: "Auto dev", source: "tool" }));
+    assert.match(result.hookSpecificOutput.additionalContext ?? "", /name is protected/);
+    assert.equal((await readState(directory, state.sessionId))?.protectedBy, "request");
+  });
+});
+
+test("a user-set or unattributed desktop title is preserved", async () => {
+  await scratch(async (directory, state) => {
+    for (const title of [{ title: "My notebook", source: "user" }, { title: "Nightly patrol", source: null }, undefined] satisfies (DesktopTitle | undefined)[]) {
+      await saveState(directory, state);
+      const result = await desktopPrompt(directory, state, fakeDesktop(title));
+      assert.match(result.hookSpecificOutput.additionalContext ?? "", /name is protected/);
+      assert.equal((await readState(directory, state.sessionId))?.protectedBy, "observed");
+    }
+  });
+});
+
+test("an untitled desktop session can be named even when the app record is unavailable", async () => {
+  await scratch(async (directory, state) => {
+    await writeFile(state.transcriptPath, "");
+    for (const title of [{ title: null, source: null }, undefined] satisfies (DesktopTitle | undefined)[]) {
+      const result = await desktopPrompt(directory, state, fakeDesktop(title));
+      assert.match(result.hookSpecificOutput.additionalContext ?? "", /set_session_title/);
+      assert.equal((await readState(directory, state.sessionId))?.protectedBy, null);
+    }
+  });
+});
+
+test("the SDK command refuses desktop sessions", async () => {
+  await scratch(async (directory, state) => {
+    await saveState(directory, { ...state, surface: "desktop" });
+    const store: SessionStore = { read: async () => { throw new Error("Unexpected access"); }, rename: async () => { throw new Error("Unexpected mutation"); } };
+    await assert.rejects(applyTitle(directory, state.sessionId, "Other", store), /set_session_title/);
+  });
+});
+
+test("desktop title provenance is read only from the matching app record", async () => {
+  const root = await realpath(await mkdtemp(join(tmpdir(), "session-naming-app-")));
+  try {
+    const id = randomUUID();
+    const environment = { CLAUDE_CODE_ENTRYPOINT: "claude-desktop", CLAUDE_CODE_ACCOUNT_UUID: randomUUID(), CLAUDE_CODE_ORGANIZATION_UUID: randomUUID(), CLAUDE_CODE_HOST_SESSION_ID: "local_" + randomUUID() };
+    const folder = join(root, "claude-code-sessions", environment.CLAUDE_CODE_ACCOUNT_UUID, environment.CLAUDE_CODE_ORGANIZATION_UUID);
+    const path = join(folder, environment.CLAUDE_CODE_HOST_SESSION_ID + ".json");
+    await mkdir(folder, { recursive: true });
+    assert.equal(desktopSession({ ...environment, CLAUDE_CODE_ENTRYPOINT: "cli" }, root), null);
+    const desktop = desktopSession(environment, root);
+    assert.ok(desktop);
+    assert.equal(await desktop.readTitle(id), undefined);
+    await writeFile(path, JSON.stringify({ cliSessionId: id, title: "Auto dev", titleSource: "auto", model: "any" }));
+    assert.deepEqual(await desktop.readTitle(id), { title: "Auto dev", source: "auto" });
+    assert.equal(await desktop.readTitle(randomUUID()), undefined);
+    await writeFile(path, JSON.stringify({ cliSessionId: id, title: "Auto dev", titleSource: "renamed" }));
+    assert.equal(await desktop.readTitle(id), undefined);
+    await writeFile(path, "{");
+    assert.equal(await desktop.readTitle(id), undefined);
+    const traversal = desktopSession({ ...environment, CLAUDE_CODE_HOST_SESSION_ID: "../../escape" }, root);
+    assert.equal(await traversal?.readTitle(id), undefined);
+  } finally { await rm(root, { recursive: true, force: true }); }
 });
