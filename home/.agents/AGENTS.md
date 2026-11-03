@@ -122,12 +122,16 @@ term is uncertain, research it and cite the source before use.
   hypothesis to test. Verify it as if the question had been asked neutrally,
   before agreeing with it.
 - Match verification to the changed behavior. For instructions, exercise a
-  representative task or decision scenario. When another agent runs the
-  trial, keep it blind: give it an ordinary task in a directory with no
-  evaluation files, never tell it that it is being evaluated or compared with
-  another version of the instruction, and judge the result from what it did
-  and read, not from its self-report. Syntax alone does not prove behavior.
-  State what was tested and what remains unverified.
+  representative task or decision scenario, chosen so that the unchanged text
+  plausibly fails it; a scenario both versions pass measures nothing. Run it
+  more than once, and score the mechanism the change relies on separately
+  from the outcome, because the outcome can come out right for another
+  reason. When another agent runs the trial, keep it blind: give it an
+  ordinary task in a directory with no evaluation files, never tell it that
+  it is being evaluated or compared with another version of the instruction,
+  and judge the result from what it did and read, not from its self-report.
+  Syntax alone does not prove behavior. State what was tested, why the
+  unchanged text could have failed it, and what remains unverified.
 - Define the intended outcome and scope before selecting a solution. Turn
   material unknowns into concrete questions, resolve those that block the next
   decision, and revise the approach as evidence emerges.
