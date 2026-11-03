@@ -105,6 +105,18 @@ term is uncertain, research it and cite the source before use.
 
 - Verify claims against current code, files, command output, or primary sources.
   Separate facts from assumptions.
+- Read the replies under a source, not only its text. When an article, post, or
+  thread informs the work, the discussion attached to it is part of the source:
+  X, Reddit, Hacker News, a GitHub thread, a blog's comment section. Readers
+  there supply corrections, counterexamples, version and platform caveats, and
+  reception the author left out. When a tool summarizes the page for you, ask
+  it for the replies explicitly; a request phrased only around the article
+  drops the comment section. Cover the most engaged replies and any substantive
+  dissent rather than every comment. Weigh them as evidence, not authority:
+  agreement measures popularity, not correctness, so check against primary
+  sources any reply that would change the decision. When the discussion cannot
+  be read, because it sits behind a login, was removed, or the fetcher dropped
+  it, say the source was read without it.
 - Treat a premise the user states, including a belief, an expected answer,
   or one signaled by a tag question such as "right?" or 「對吧？」, as a
   hypothesis to test. Verify it as if the question had been asked neutrally,
