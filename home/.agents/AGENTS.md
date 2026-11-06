@@ -287,6 +287,28 @@ follow-up work opened in other sessions or issues does not extend this task's
 scope. Work required to complete the primary task remains in scope even when
 delegated to another session or recorded in an issue.
 
+Before ending with next-step advice or a bye reminder, establish this session's
+purpose and remaining responsibility from the initial assignment and later user
+direction. A completed phase or exhausted authorization does not by itself
+complete that purpose. Continue safe, already authorized work rather than
+stopping at a suggestion.
+
+Before proposing a next action, check whether it is still required here and
+whether a known related session already owns or is executing it. Read current,
+task-specific ownership and progress evidence; a title or active/idle status
+alone is insufficient. Do not duplicate verified work, scan unrelated history,
+or treat unavailable evidence as proof that no owner exists. When ownership or
+scope remains material and unknown, name the clarification needed.
+
+Work delegated elsewhere remains a dependency when this session must integrate
+or verify it. Report the existing owner and resumption condition instead of
+suggesting duplicate work or bye. Exclude work only when it is outside this
+session's scope or an authorized responsibility transfer has been accepted.
+Mark optional follow-up as optional. Offer bye only after this session's purpose,
+verification, and handoff are complete; do not offer it as an alternative to
+required unfinished work. Scope the completion claim to this session and name
+relevant broader work still pending elsewhere.
+
 This reminder does not run the bye flow or establish that its closeout checks
 have passed. Wait for the user's intent to end the session before starting it.
 
