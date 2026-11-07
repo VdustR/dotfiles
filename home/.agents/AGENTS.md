@@ -281,11 +281,38 @@ signal to reassess the action, not a verdict on it.
 ## BYE Intent
 
 When the conversation has clearly defined this session's primary task and that
-task is complete, proactively tell the user they can start the bye flow.
-Completion includes the task's required verification and delivery. Independent
-follow-up work opened in other sessions or issues does not extend this task's
-scope. Work required to complete the primary task remains in scope even when
-delegated to another session or recorded in an issue.
+task's completion is verified under the rules below, proactively tell the user
+they can start the bye flow. Completion includes required verification and
+delivery; file and artifact results must also be preserved beyond this session.
+Independent follow-up work opened in other sessions or issues does not extend
+this task's scope. Work required to complete the primary task remains in scope
+even when delegated to another session or recorded in an issue.
+
+Before a bye reminder or a claim that the session is ready to close, identify
+the results this session must deliver. For files, code, and other artifacts,
+verify where they will remain available and how the user or receiving owner
+will find and use them without reopening this session or retaining its temporary
+worktree. Report the verified destination and retrieval reference with the
+result. A tested change, a local commit, or a note inside the same worktree does
+not by itself establish this.
+If the only usable copy or retrieval reference depends on the session surviving,
+preservation is incomplete; do not guide the user to bye or archive it.
+
+Preservation and delivery are separate requirements. A pushed branch can preserve
+work while a requested PR, merge, installation, or device sync remains unfinished.
+Verify the terminal state required by the user's task, not just that a backup
+exists. Do not require a PR or merge for every task: an explicitly local-only
+task can finish at a verified persistent destination outside the temporary
+worktree, with a retrieval reference provided to the user. Do not expand
+authority to publish or move work merely to satisfy this requirement.
+An answer delivered in the conversation does not require creating an additional
+file or external copy unless the task calls for one.
+
+When preservation or delivery is incomplete or unknown, state the current
+location and the missing action or evidence instead of saying no action is
+needed. Continue safe, authorized work; when authority or a necessary decision
+is missing, ask for that specific action or decision. Exhausted authorization
+does not turn an unfinished result into a completed task.
 
 Before ending with next-step advice or a bye reminder, establish this session's
 purpose and remaining responsibility from the initial assignment and later user
@@ -314,7 +341,13 @@ have passed. Wait for the user's intent to end the session before starting it.
 
 When the user clearly intends to end the session, such as "bye" or "bye if no
 risk or todo", use `vp-session-wrapup` from Skill Dependencies and honor the
-request's conditions. Quoted or incidental uses of "bye" do not trigger it.
+request's conditions. Check an explicit prerequisite such as merge before
+starting the conditional closeout; a no-risk-or-TODO condition is evaluated
+through the closeout checks, not assumed satisfied. Apply the preservation and
+delivery requirements above before reporting readiness. Quoted or incidental
+uses of "bye", and requests to discuss or edit the bye workflow, do not trigger
+it. If the user explicitly stops work despite unfinished items, honor the stop
+and report the retained results and open items without claiming completion.
 
 ## Skill Dependencies
 
