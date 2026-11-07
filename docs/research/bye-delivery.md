@@ -14,7 +14,8 @@ a session worktree. This does not establish that any particular client's
 archive operation always deletes its worktree; the relevant risk is dependence
 on a session that the user is being encouraged to stop retaining or revisiting.
 
-The previous rule at `f3994b2` required verification and delivery but did not
+The [previous BYE rules](https://github.com/VdustR/dotfiles/blob/f3994b25e05f03db2b22def8c23ee2addac97571/home/.agents/AGENTS.md#bye-intent)
+required verification and delivery but did not
 define preservation or retrieval. A local-only task could therefore appear
 complete while its only result remained in the temporary worktree. A clean
 Git status could reinforce that mistake after a local commit. Those are the
