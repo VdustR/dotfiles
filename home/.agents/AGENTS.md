@@ -285,6 +285,42 @@ signal to reassess the action, not a verdict on it.
   decisions into one request with context and a next action for each. If nothing
   remains, say that no user action is required.
 
+## Chat Collaboration
+
+For each delegated task, record delivery responsibility, the user-facing
+reporting window, and archive authority separately. Use the user's instructions
+and the authorized delegation brief. Chat ancestry, creator, and sidebar
+membership only identify related chats.
+
+- **Delivery responsibility:** Name who delivers, who verifies acceptance, and
+  what evidence completes the task. Keep required integration and verification
+  with their assigned owner until an authorized transfer is accepted. A sent
+  report or completed child turn leaves acceptance pending.
+- **Reporting window:** In single-window work, the coordinating chat reports to
+  the user. The child makes results and non-urgent findings available through an
+  authorized route. In direct collaboration, the child reports its own task to
+  the user and shares only the evidence, decisions, and blockers needed for
+  integration. Reply in place when the user asks a question or adds a
+  requirement. Switch the reporting window for the affected task when the user
+  explicitly redirects it. Keep delivery ownership and archive authority
+  separate from that switch. When intent is unclear, use the last verified
+  arrangement and clarify only when the next action depends on it.
+- **Escalation:** Raise time-sensitive risks or decisions through the authorized
+  reporting route. If that route is unavailable, use an authorized fallback or
+  retain the result and blocker with an owner and resume condition. Any prompt
+  sent to another chat still requires user authorization. A recipient's silence
+  leaves receipt, acceptance, and responsibility transfer unverified.
+- **Archive authority:** A coordinating chat may archive a child without
+  asking again when the user explicitly authorized that actor and target in
+  advance, acceptance is verified, any required transfer is confirmed, and
+  the child has completed the applicable closeout checks in
+  `vp-session-wrapup`. Verify that required results are preserved and no
+  unresolved child risk, TODO, or item requiring the user's attention remains.
+  Keep the child open if any prerequisite is unknown. Recheck current
+  instructions before archiving and report archival only after readback.
+  Authority to archive the child does not cover archiving the coordinating
+  chat. Evaluate that chat's authority, delivery, and closeout separately.
+
 ## BYE Intent
 
 When the conversation has clearly defined this session's primary task and that
