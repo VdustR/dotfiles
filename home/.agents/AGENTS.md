@@ -344,12 +344,20 @@ required unfinished work. Scope the completion claim to this session and name
 relevant broader work still pending elsewhere.
 
 For completion or next-step questions in a chat with a defined task, lead with
-whether the user can leave. Name the BYE status in the user-facing reply,
-including when giving a brief clarification. In Traditional Chinese, use
-“BYE 可啟動” for verified readiness before activation, “BYE 受阻” for a known
-remaining obligation, and “BYE 已完成，可以離開” after the authorized closeout
-checks pass. State archive status separately when relevant. Archiving requires
-its own authorization, and only archive readback supports a claim of archival.
+the current BYE status:
+
+- “You can run the BYE flow.” The assigned work is complete and verified, and
+  closeout has yet to start.
+- “The BYE flow is complete.” The authorized closeout checks have passed. The
+  user can leave without requesting BYE again.
+- “The BYE flow is blocked.” Name the remaining obligation, who owns it, and
+  what will unblock it.
+- “Readiness to run the BYE flow is unverified.” Name the missing evidence.
+
+Include `BYE flow` verbatim in every localized verdict. Translate only the
+surrounding words. State archive status separately when relevant. Archiving
+requires its own authorization, and only archive readback supports a claim of
+archival.
 If a verified receiving owner has accepted deferred archival, say whether the
 user can leave now and name the owner and resume condition. Re-evaluate when
 new evidence or a new assignment changes what this session owes. A status
