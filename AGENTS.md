@@ -21,6 +21,7 @@ When asked to apply or install these dotfiles, follow the instructions below.
 | `home/.claude/agents/slop-warden.md` | `~/.claude/agents/slop-warden.md` | Personal Claude Code read-only verifier for prose against the writing standard |
 | `home/.claude/session-naming/` | `~/.claude/session-naming/` | Native session-naming hooks and a scoped official-SDK command |
 | `home/.config/mise/config.toml` | `~/.config/mise/config.toml` | mise global tool configuration |
+| `home/.config/fnox/config.toml` | `~/.config/fnox/config.toml` | fnox global config: the macOS Keychain provider only, no secret entries |
 
 ## Installation Steps
 
@@ -61,7 +62,14 @@ When asked to apply or install these dotfiles, follow the instructions below.
    (cd ~ && mise install)
    ```
 
-6. **Claude session naming**: Follow
+6. **fnox global config**: Create it only when absent
+   ```bash
+   mkdir -p ~/.config/fnox
+   [ -e ~/.config/fnox/config.toml ] || cp home/.config/fnox/config.toml ~/.config/fnox/config.toml
+   ```
+   `fnox set --global` adds each secret's entry to the installed file, so on a machine already in use that file holds a `[secrets]` table this repository never carries. If `~/.config/fnox/config.toml` already exists, compare its `[providers.*]` tables with `home/.config/fnox/config.toml`, update any provider that differs in the installed file, and do not overwrite the file. Entry names can identify accounts and employers, so never copy them back here: this repository is public.
+
+7. **Claude session naming**: Follow
    [the integration guide](home/.claude/session-naming/README.md). Install the
    merged source and locked dependencies before registering its two native
    hooks. The installer preserves existing settings, permission rules, and

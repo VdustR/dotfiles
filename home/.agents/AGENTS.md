@@ -428,6 +428,7 @@ without claiming completion.
 | `vp-stack-selection` | [VdustR/skills: vp-stack-selection](https://github.com/VdustR/skills/tree/main/skills/vp-stack-selection) |
 | `vp-test-design` | [VdustR/skills: vp-test-design](https://github.com/VdustR/skills/tree/main/skills/vp-test-design) |
 | `impeccable` | [pbakaus/impeccable](https://github.com/pbakaus/impeccable) |
+| `fnox` | [jdx/fnox: fnox](https://github.com/jdx/fnox/tree/main/skills/fnox) |
 
 - Resolve skills when needed. Prefer an available installed copy and read its
   `SKILL.md` before use.
@@ -479,6 +480,29 @@ without claiming completion.
   help choose a smaller install, another destination, or targeted cleanup.
   Obtain authorization before deleting data or changing persistent
   configuration.
+
+### Secrets
+
+- Use fnox for credentials, and the `fnox` skill from Skill Dependencies for
+  configuration and diagnosis. Run a command that needs an API key, token, or
+  password as `fnox exec --only <NAME> -- <command>`, naming only the secrets
+  it needs. Store a new secret that the user holds, rather than one a
+  repository manages, in the macOS Keychain with
+  `fnox set --global <NAME> --provider keychain`; the global fnox config
+  defines that provider.
+- Keep values out of dotenv files, shell profiles, command arguments,
+  scripts, and chat. When the user must supply a value, ask them to run
+  `fnox set --global <NAME> --provider keychain` in their own terminal. That
+  command prompts for the value with hidden input. Confirm presence with
+  `fnox check`, or with a command inside `fnox exec --only <NAME>` that uses
+  the secret without printing it; never with `fnox get`, `fnox export`,
+  `fnox env`, or `fnox list --values`.
+- A repository's own mechanism wins for project secrets: an existing
+  `fnox.toml`, a dotenv convention, or a CI secret store. Propose fnox for a
+  repository without one; do not migrate unasked. CI runners and containers
+  have no Keychain, so use their own secret store there.
+- When a task used or stored a credential, name its source in the reply:
+  fnox, or the other source and why fnox did not fit.
 
 ## Workflow Routing
 
