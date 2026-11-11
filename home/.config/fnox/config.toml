@@ -1,7 +1,11 @@
 #:schema https://fnox.jdx.dev/schema.json
 # Global fnox config. The dotfiles repository's copy of this file holds
-# providers only. Each machine adds its own secret entries with
+# settings and providers only. Each machine adds its own secret entries with
 # `fnox set --global`; keep those entries out of the public dotfiles repository.
+
+# Replace secret values with [REDACTED] in the piped or redirected output of
+# `fnox exec`, however fnox is launched. A project fnox.toml can override this.
+redact_exec = true
 
 [providers.keychain]
 type = "keychain"

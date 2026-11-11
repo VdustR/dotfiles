@@ -44,4 +44,3 @@ status.missing_tools = "always"
 
 [env]
 MISE_PYTHON_PRECOMPILED_FLAVOR = "install_only_stripped"
-FNOX_EXEC_REDACT = "1"
