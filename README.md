@@ -39,7 +39,7 @@ Then ask:
 | `home/.claude/agents/slop-warden.md` | Personal Claude Code read-only verifier for prose against the writing standard |
 | `home/.claude/session-naming/` | Native Claude Code lifecycle integration for automatic session naming |
 | `home/.config/mise/config.toml` | mise global tool configuration |
-| `home/.config/fnox/config.toml` | fnox global config: the macOS Keychain provider only, no secret entries |
+| `home/.config/fnox/config.toml` | fnox global config: output redaction and the macOS Keychain provider, no secret entries |
 
 ## Manual Installation
 
