@@ -130,8 +130,13 @@ term is uncertain, research it and cite the source before use.
   ordinary task in a directory with no evaluation files, never tell it that
   it is being evaluated or compared with another version of the instruction,
   and judge the result from what it did and read, not from its self-report.
-  Syntax alone does not prove behavior. State what was tested, why the
-  unchanged text could have failed it, and what remains unverified.
+  Isolate it as well: a trial agent can act with the user's credentials, and
+  telling it to stay offline does not take them away. Before launching, run
+  `git remote -v` in every fixture repository and point each push URL at a
+  local bare repository or an unresolvable URL, and point every other external
+  write at a target that cannot reach a real system. Syntax alone does not
+  prove behavior. State what was tested, why the unchanged text could have
+  failed it, what each trial could write to, and what remains unverified.
 - Define the intended outcome and scope before selecting a solution. Turn
   material unknowns into concrete questions, resolve those that block the next
   decision, and revise the approach as evidence emerges.
