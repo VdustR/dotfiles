@@ -1,16 +1,17 @@
 # Claude Session Naming
 
 This integration binds the current local Claude Code session, loads the installed
-`vp-session-organization` workflow on each user prompt, and tells the agent how
+`vp-session-management` entry point on each user prompt, and tells the agent how
 to rename this session with readback: a scoped official-SDK command in the CLI,
 or the app's own session tool in the Claude desktop app. The existing
 conversation model chooses the name; there is no extra model request or nested
-Claude process.
+Claude process. Read coordination or metadata references only when the next
+decision needs them; the hook does not preload the full workflow background.
 
 ## Install
 
 Requires Node.js 22.18 or later, Claude Code, and the installed
-[`vp-session-organization` skill](https://github.com/VdustR/skills/tree/main/skills/vp-session-organization).
+[`vp-session-management` skill](https://github.com/VdustR/skills/tree/main/skills/vp-session-management).
 From the dotfiles repository root, copy this directory to
 `~/.claude/session-naming/`, excluding `node_modules/` and `state/`. Inspect
 existing destination changes before replacing them. Then run:
