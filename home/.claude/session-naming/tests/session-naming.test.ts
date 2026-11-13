@@ -158,6 +158,32 @@ test("a new native user choice stays protected even before its transcript record
   });
 });
 
+test("native prompts load the installed session-management workflow without the retired skill", async () => {
+  await scratch(async (directory) => {
+    const skillDirectory = join(directory, ".agents/skills/vp-session-management");
+    await mkdir(skillDirectory, { recursive: true });
+    await writeFile(join(skillDirectory, "SKILL.md"), "# Session management\nRetrieve context only for the next decision.");
+    const path = fileURLToPath(new URL("../hook.ts", import.meta.url));
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const id = randomUUID();
+      const run = spawnSync(process.execPath, [path], {
+        input: JSON.stringify({ hook_event_name: "UserPromptSubmit", session_id: id, cwd: directory, transcript_path: join(directory, id + ".jsonl") }),
+        encoding: "utf8",
+        env: { ...process.env, HOME: directory, VP_SESSION_NAMING_STATE_DIR: join(directory, "state"), CLAUDE_CODE_ENTRYPOINT: "cli" },
+      });
+      assert.equal(run.status, 0);
+      const result: unknown = JSON.parse(run.stdout);
+      assert.ok(result && typeof result === "object" && "hookSpecificOutput" in result);
+      const output = result.hookSpecificOutput;
+      assert.ok(output && typeof output === "object" && "additionalContext" in output);
+      assert.equal(typeof output.additionalContext, "string");
+      assert.match(String(output.additionalContext), /Retrieve context only for the next decision/);
+      assert.match(String(output.additionalContext), /vp-session-management/);
+      assert.doesNotMatch(String(output.additionalContext), /vp-session-organization/);
+    }
+  });
+});
+
 test("malformed hook input cannot block the original prompt", () => {
   const path = fileURLToPath(new URL("../hook.ts", import.meta.url));
   const run = spawnSync(process.execPath, [path], { input: "{invalid", encoding: "utf8" });

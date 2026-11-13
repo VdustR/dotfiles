@@ -292,10 +292,22 @@ signal to reassess the action, not a verdict on it.
 
 ## Chat Collaboration
 
+Use `vp-session-management` to infer each assignment's relationship from the
+promised outcome and verified task context. Independent task sessions own their
+completion, acceptance verification, and direct user reporting; their unfinished
+work does not block the originating session. Necessary subtasks remain part of
+the coordinator's delivery, integration, and acceptance responsibility. Shared
+ancestry, repository, or sidebar membership does not establish a dependency.
+
 For each delegated task, record delivery responsibility, the user-facing
 reporting window, and archive authority separately. Use the user's instructions
-and the authorized delegation brief. Chat ancestry, creator, and sidebar
-membership only identify related chats.
+and the authorized delegation brief. Give the receiver only the scope, authority,
+confirmed facts, and next action needed to start, plus precise source locations
+and lookup methods. Explicitly require it to retrieve more context only when the
+next decision needs it: identify the missing fact, read the smallest useful
+section, and expand only for a material gap. Do not front-load the full source
+chat, every link or reference, or repository background. Applicable governing
+instructions and required workflow references still apply.
 
 - **Delivery responsibility:** Name who delivers, who verifies acceptance, and
   what evidence completes the task. Keep required integration and verification
@@ -426,7 +438,7 @@ without claiming completion.
 | `vp-autodev` | [VdustR/skills: vp-autodev](https://github.com/VdustR/skills/tree/main/skills/vp-autodev) |
 | `vp-long-running-processes` | [VdustR/skills: vp-long-running-processes](https://github.com/VdustR/skills/tree/main/skills/vp-long-running-processes) |
 | `vp-session-wrapup` | [VdustR/skills: vp-session-wrapup](https://github.com/VdustR/skills/tree/main/skills/vp-session-wrapup) |
-| `vp-session-organization` | [VdustR/skills: vp-session-organization](https://github.com/VdustR/skills/tree/main/skills/vp-session-organization) |
+| `vp-session-management` | [VdustR/skills: vp-session-management](https://github.com/VdustR/skills/tree/main/skills/vp-session-management) |
 | `vp-interaction-routing` | [VdustR/agent-plugin-vp-interaction-routing: vp-interaction-routing](https://github.com/VdustR/agent-plugin-vp-interaction-routing/tree/main/skills/vp-interaction-routing) |
 | `vp-design-reasoning` | [VdustR/skills: vp-design-reasoning](https://github.com/VdustR/skills/tree/main/skills/vp-design-reasoning) |
 | `vp-minimal-repro` | [VdustR/skills: vp-minimal-repro](https://github.com/VdustR/skills/tree/main/skills/vp-minimal-repro) |
@@ -535,21 +547,32 @@ without claiming completion.
   and visual direction and interface craft, respectively. Share context and
   verification; apply only the parts relevant to the requested change.
 
-### Session Organization
+### Session Management
 
-- Use `vp-session-organization` for naming and grouping decisions, capability
-  discovery, supported operations, and readback. It owns the procedure; these
-  defaults supply the preferences and standing authorization.
+- Use `vp-session-management` for assignment classification, coordination,
+  responsibility transfers, and authorized naming and grouping. Read only the
+  coordination or metadata references needed for the pending decision. It owns
+  the procedure; these defaults supply preferences and standing authorization.
 - Automatically manage the current session's name once its durable objective
   is clear, and revisit it when that objective materially changes. Preserve
   explicit user-selected names unless the user authorizes replacing them.
 - When discussion settles on a concrete direction, including when the user
-  proceeds directly to implementation, use `vp-session-organization` without
+  proceeds directly to implementation, use `vp-session-management` without
   waiting for a separate naming request.
 - Automatically organize the current work and sessions with a verified shared
   objective or parent-child relationship when supported. Preserve the user's
   existing organization. This does not authorize searching unrelated history
   to discover possible groups.
+- Skip an unsupported or failed harness operation, or one with inconclusive
+  readback, and continue safe, authorized task work. Retain the last verified
+  state; use a cheap supported read-only check when it can clarify the result.
+  Do not blindly retry, bypass controls, or turn session bookkeeping into a
+  task blocker, required user action, or BYE TODO. An uncertain dispatch or
+  message does not establish receipt, acceptance, or responsibility transfer;
+  preserve ownership and avoid conflicting duplicate work. Required substantive
+  delivery, verification, preservation, and explicitly assigned archival remain
+  obligations. Report skipped operations when requested or relevant to
+  coordination, without claiming success.
 - This is standing authorization for routine session naming and grouping only.
   It does not authorize creating, messaging, archiving, deleting, interrupting,
   or moving sessions between execution environments or access boundaries.

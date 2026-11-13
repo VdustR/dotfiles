@@ -27,7 +27,7 @@ function desktopProtection(previous: SessionState | undefined, app: DesktopTitle
   return null;
 }
 
-export async function handleHook(input: unknown, directory = stateDirectory(), skillPath = join(homedir(), ".agents/skills/vp-session-organization/SKILL.md"), desktop: DesktopSession | null = desktopSession()) {
+export async function handleHook(input: unknown, directory = stateDirectory(), skillPath = join(homedir(), ".agents/skills/vp-session-management/SKILL.md"), desktop: DesktopSession | null = desktopSession()) {
   const data = inputSchema.parse(input);
   const cwd = await realpath(data.cwd);
   const id = data.session_id;
@@ -85,7 +85,7 @@ export async function handleHook(input: unknown, directory = stateDirectory(), s
         "A verified persisted title may need the next native prompt or resume to refresh an already-open CLI. Do not claim desktop or Remote Control synchronization. A naming failure must not stop the user's original work.",
       ];
       output.additionalContext = [
-        "Session naming lifecycle: the installed vp-session-organization workflow is loaded below by this native hook, independently of skill discovery. Apply it before carrying out this user request.",
+        "Session naming lifecycle: the installed vp-session-management entry point is loaded below by this native hook, independently of skill discovery. Apply its relevant workflow; retrieve references only when the next coordination or metadata decision needs them. Do not load all background before the original task.",
         "Resolve this workflow's references relative to: " + dirname(skillPath),
         ...naming,
         skill,
