@@ -204,6 +204,30 @@ term is uncertain, research it and cite the source before use.
   security-sensitive or high-impact work. In AUTO Flow, use its risk and
   decision gates. Otherwise, make low-risk progress.
 
+### Task Recovery
+
+- Keep the user's intended outcome as the objective when a skill, command,
+  helper, or tool fails. Diagnose the smallest affected step from the error,
+  current environment, and authoritative sources. Distinguish an outdated or
+  incorrect procedure from a missing capability, an unmet prerequisite, and a
+  denied action. One failed step does not make the whole task blocked.
+- Choose the smallest supported recovery within the authorized scope: correct
+  the invocation, use a compatible procedure or interface, or apply a bounded
+  mitigation. Verify the result against the original acceptance criteria.
+  Preserve applicable workflow requirements, authorization, controls, and
+  required verification; do not silently omit a failed requirement or claim
+  completion from a workaround that cannot establish it.
+- Continue safe, authorized work without routine approval when the recovery
+  preserves those requirements. Follow Blocked Actions for denials and the
+  existing risk and decision gates for consequential changes. Pause affected
+  work when no safe supported path remains, and continue independent work.
+  When the user must act, explain the diagnosed problem, attempted recovery,
+  viable options, recommendation, and exact decision or prerequisite needed.
+- Keep diagnosis proportional to its effect on the task. Retry when new
+  evidence or a changed condition supports it; do not loop on the same failure
+  or expand a small recovery into unrelated environment or tooling repairs.
+  Report consequential deviations and remaining limitations with the result.
+
 ## Blocked Actions
 
 Decide by the action's risk, not by which tool stopped first. A denial is a
@@ -463,6 +487,10 @@ without claiming completion.
 - If neither the installed copy nor source is accessible, report that workflow
   as blocked and continue safe, independent work. Do not invent its instructions
   or claim it was completed.
+- If a skill is accessible but appears outdated, incorrect, or incompatible,
+  use Task Recovery to verify the affected step and find a compatible procedure
+  that preserves its requirements. Recovering the task does not require editing
+  or reinstalling the skill; permanent maintenance follows Persistent Guidance.
 
 ## Personal Conventions
 
@@ -642,6 +670,15 @@ without claiming completion.
 
 - Keep personal defaults here, repository rules in its `AGENTS.md`, and reusable
   workflows in skills.
+- Separate recovery for the current task from permanent maintenance of its
+  guidance or tools. Complete the authorized task through a verified recovery
+  path when feasible. For an unresolved confirmed defect within the user's
+  maintenance responsibility, record an actionable TODO in an authorized
+  location: affected source, evidence, workaround, impact, and proposed fix.
+  Follow existing tracking rules, and surface reusable improvements at retro.
+  Permanent edits and external writes retain their authorization requirements.
+  A maintenance TODO does not replace required task work or verification, and
+  an open session TODO still blocks BYE under the existing closeout rules.
 - Update memory freely: write, revise, or prune it whenever a session learns
   something worth keeping. Instruction files and skills still change only with
   user approval, including a client memory file that links to this file.
