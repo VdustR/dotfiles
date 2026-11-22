@@ -21,6 +21,7 @@ node = "latest"
 "npm:corepack" = "latest"
 "npm:firebase-tools" = "latest"
 "npm:http-server" = "latest"
+"npm:hyperframes" = { version = "latest", trust_policy_excludes = "chromium-bidi" }
 "npm:ngrok" = "latest"
 "npm:npm" = "latest"
 "npm:portless" = "latest"
