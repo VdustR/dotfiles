@@ -22,6 +22,7 @@ When asked to apply or install these dotfiles, follow the instructions below.
 | `home/.claude/session-naming/` | `~/.claude/session-naming/` | Native session-naming hooks and a scoped official-SDK command |
 | `home/.config/mise/config.toml` | `~/.config/mise/config.toml` | mise global tool configuration |
 | `home/.config/fnox/config.toml` | `~/.config/fnox/config.toml` | fnox global config: output redaction and the macOS Keychain provider, no secret entries |
+| `home/.gemini/config/skills.json` | `~/.gemini/config/skills.json` | Antigravity global skills config pointing to `~/.agents/skills` |
 
 ## Installation Steps
 
@@ -74,6 +75,13 @@ When asked to apply or install these dotfiles, follow the instructions below.
    merged source and locked dependencies before registering its two native
    hooks. The installer preserves existing settings, permission rules, and
    unrelated hooks. Do not copy an entire personal settings file from elsewhere.
+
+8. **Antigravity global skills**: Copy the skills config so Antigravity scans `~/.agents/skills`
+   ```bash
+   mkdir -p ~/.gemini/config
+   cp home/.gemini/config/skills.json ~/.gemini/config/skills.json
+   ```
+   Antigravity does not expand `~` in manifest paths, and relative `entries` paths in `~/.gemini/config/skills.json` resolve from `~/.gemini/config/`, so the file intentionally uses `../../.agents/skills` instead of `~/.agents/skills` or a machine-specific absolute path.
 
 ## mise Tool Maintenance
 
