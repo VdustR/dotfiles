@@ -3,6 +3,7 @@ azure-cli = { version = "latest", dependency_prereleases = "allow" }
 bun = "latest"
 fnox = { version = "latest", workflow = "release.yml" }
 go = "latest"
+java = "latest"
 node = "latest"
 "npm:@antfu/ni" = "latest"
 "npm:@antfu/nip" = "latest"
